@@ -14,10 +14,24 @@ public class Util {
         }
     }
 
+    /**
+     * @deprecated
+     */
     public static String createString(int[] ints) {
-        StringBuilder str = new StringBuilder(Integer.toString(ints[0]));
-        for (int i = 1; i < ints.length; i++) {
-            str.append(", ").append(ints[i]);
+        return connectArray(castIntArray(ints, new Integer[ints.length]), ", ");
+    }
+
+    public static Integer[] castIntArray(int[] from, Integer[] to) throws ClassCastException {
+        for (int i = 0; i < from.length; i++) {
+            to[i] = from[i];
+        }
+        return to;
+    }
+
+    public static <T> String connectArray(T[] ts, String insert) {
+        StringBuilder str = new StringBuilder(ts[0].toString());
+        for (int i = 1; i < ts.length; i++) {
+            str.append(insert).append(ts[i]);
         }
         return str.toString();
     }
