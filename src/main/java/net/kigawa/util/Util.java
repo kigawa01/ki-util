@@ -9,7 +9,7 @@ import java.util.*;
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
 public class Util {
-    public static <T> void executeProcesses(Collection<T> collection, Process<T> process) {
+    public static <T> void executeIterable(Iterable<T> collection, Process<T> process) {
         for (T t : collection) {
             process.execute(t);
         }
@@ -37,7 +37,7 @@ public class Util {
         return str.toString();
     }
 
-    public static <T> List<T> changeListType(List list, Class<T> type) {
+    public static <T> List<T> changeListType(List list)throws ClassCastException {
         List<T> list1 = new ArrayList<>();
         for (Object o : list) {
             list1.add((T) o);
