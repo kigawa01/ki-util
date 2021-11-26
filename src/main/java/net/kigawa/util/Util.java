@@ -5,10 +5,22 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
+import java.util.function.Consumer;
 
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
 public class Util {
+
+    public static void execArray(Object o, Consumer<String> consumer) {
+        if (o instanceof Object[]) {
+            for (Object o1 : (Object[]) o) {
+                execArray(o1, consumer);
+            }
+            return;
+        }
+        consumer.accept(o.toString());
+    }
+
     public static <T> void executeIterable(Iterable<T> collection, Process<T> process) {
         for (T t : collection) {
             process.execute(t);
@@ -120,14 +132,18 @@ public class Util {
         }
     }
 
-    public static void download(URL url, File file, String name) throws IOException {
-        File file1 = new File(file, name);
+    public static void download(URL url, File file, String name) {
+        try {
+            File file1 = new File(file, name);
 
-        if (file1.exists()) {
-            file1.delete();
+            if (file1.exists()) {
+                file1.delete();
+            }
+
+            Files.copy(url.openStream(), file1.toPath(), REPLACE_EXISTING);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-
-        Files.copy(url.openStream(), file1.toPath(), REPLACE_EXISTING);
     }
 
     public static File getAbsolutFile() {
