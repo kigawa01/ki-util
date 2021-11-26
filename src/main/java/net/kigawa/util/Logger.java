@@ -36,6 +36,7 @@ public class Logger implements InterfaceLogger {
     }
 
     public static File createLogFile(File dir) {
+        dir.mkdirs();
         int num = -1;
         File log;
         do {
