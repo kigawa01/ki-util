@@ -1,5 +1,8 @@
 package net.kigawa.util;
 
+/**
+ * @deprecated
+ */
 public class Checker {
 
     private String str;
