@@ -10,15 +10,14 @@ import java.util.function.Consumer;
 public class Logger implements InterfaceLogger {
     private final boolean isLog;
     private final boolean isDebug;
-    private final Consumer<Object> consumer;
-    private File log;
+    private final Consumer<String> consumer;
     private BufferedWriter bw;
 
     public Logger(boolean log, boolean debug) {
         this(Util.getAbsolutFile(), log, debug, System.out::println);
     }
 
-    public Logger(File dir, boolean log, boolean debug, Consumer<Object> consumer) {
+    public Logger(File dir, boolean log, boolean debug, Consumer<String> consumer) {
         System.out.println("on logger");
         isLog = log;
         isDebug = debug;
@@ -26,10 +25,10 @@ public class Logger implements InterfaceLogger {
 
         if (!log) return;
         System.out.println("if log");
-        this.log = createLogFile(dir);
+        File logFile = createLogFile(dir);
         try {
             System.out.println("get reader...");
-            bw = new BufferedWriter(new FileWriter(this.log));
+            bw = new BufferedWriter(new FileWriter(logFile));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -62,6 +61,7 @@ public class Logger implements InterfaceLogger {
     }
 
     public void debug(Object o) {
+        if (!isDebug)return;
         log(o, Color.BLUE, "[DEBUG] ");
     }
 
@@ -78,7 +78,7 @@ public class Logger implements InterfaceLogger {
     public void log(Object o) {
         StringBuffer sb = new StringBuffer(Util.getTime());
         sb.append(" | ").append(o);
-        System.out.println(sb);
+        consumer.accept(sb.toString());
         if (isLog) writeLine(o);
     }
 

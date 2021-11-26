@@ -37,10 +37,10 @@ public class Util {
         return str.toString();
     }
 
-    public static <T> List<T> changeListType(List list)throws ClassCastException {
+    public static <F, T extends F> List<T> changeListType(List<F> list) throws ClassCastException {
         List<T> list1 = new ArrayList<>();
-        for (Object o : list) {
-            list1.add((T) o);
+        for (F f : list) {
+            list1.add((T) f);
         }
         return list1;
     }
@@ -74,7 +74,7 @@ public class Util {
     }
 
     public static String[] getStringArrangement(List<String> list) {
-        return getArrangement(list, (int i) -> new String[i]);
+        return getArrangement(list, String[]::new);
 
     }
 
@@ -101,21 +101,17 @@ public class Util {
     }
 
     public static void runCommand(String[] command, File dir) {
-        dir.mkdirs();
-        System.out.println("run jar...");
-        String result;
-        java.lang.Process process = null;
-        Runtime runtime = Runtime.getRuntime();
         try {
+            if (dir.mkdirs()) throw new FileNotFoundException();
+            System.out.println("run jar...");
+            String result;
+            java.lang.Process process;
+            Runtime runtime = Runtime.getRuntime();
             process = runtime.exec(command, null, dir);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        System.out.println("out put log...");
-        InputStream inputStream = process.getInputStream();
-        InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-        BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-        try {
+            System.out.println("out put log...");
+            InputStream inputStream = process.getInputStream();
+            InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
             while ((result = bufferedReader.readLine()) != null) {
                 System.out.println(result);
             }
@@ -125,7 +121,6 @@ public class Util {
     }
 
     public static void download(URL url, File file, String name) throws IOException {
-        String path = url.getPath();
         File file1 = new File(file, name);
 
         if (file1.exists()) {
@@ -133,21 +128,6 @@ public class Util {
         }
 
         Files.copy(url.openStream(), file1.toPath(), REPLACE_EXISTING);
-    }
-
-    public interface Process<T> {
-        void execute(T t);
-    }
-
-    public interface NewArrangement<T> {
-        T[] getArrangement(int size);
-    }
-
-    public static class NewStrArrangement implements NewArrangement<String> {
-        @Override
-        public String[] getArrangement(int size) {
-            return new String[size];
-        }
     }
 
     public static File getAbsolutFile() {
@@ -168,5 +148,20 @@ public class Util {
         sb.append("-").append(calendar.get(Calendar.MINUTE));
         sb.append("-").append(calendar.get(Calendar.SECOND));
         return sb.toString();
+    }
+
+    public interface Process<T> {
+        void execute(T t);
+    }
+
+    public interface NewArrangement<T> {
+        T[] getArrangement(int size);
+    }
+
+    public static class NewStrArrangement implements NewArrangement<String> {
+        @Override
+        public String[] getArrangement(int size) {
+            return new String[size];
+        }
     }
 }
