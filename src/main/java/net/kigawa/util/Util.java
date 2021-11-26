@@ -3,6 +3,7 @@ package net.kigawa.util;
 import java.io.*;
 import java.net.URL;
 import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
 
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
@@ -133,5 +134,25 @@ public class Util {
         public String[] getArrangement(int size) {
             return new String[size];
         }
+    }
+
+    public static File getAbsolutFile() {
+        return Paths.get("").toAbsolutePath().toFile();
+    }
+
+    public static String getDate() {
+        Calendar calendar = Calendar.getInstance();
+        StringBuffer sb = new StringBuffer().append(calendar.get(Calendar.YEAR));
+        sb.append("-").append(calendar.get(Calendar.MONTH));
+        sb.append("-").append(calendar.get(Calendar.DAY_OF_MONTH));
+        return sb.toString();
+    }
+
+    public static String getTime() {
+        Calendar calendar = Calendar.getInstance();
+        StringBuffer sb = new StringBuffer().append(calendar.get(Calendar.HOUR_OF_DAY));
+        sb.append("-").append(calendar.get(Calendar.MINUTE));
+        sb.append("-").append(calendar.get(Calendar.SECOND));
+        return sb.toString();
     }
 }
