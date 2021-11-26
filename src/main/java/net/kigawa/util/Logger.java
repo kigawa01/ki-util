@@ -56,21 +56,25 @@ public class Logger implements InterfaceLogger {
         }
     }
 
+    public void title(Object o){
+        log(o,Color.GREEN,"[TITLE] ",Color.GREEN);
+    }
+
     public void warning(Object o){
-        log(o,Color.RED,"[WARNING] ");
+        log(o,Color.RED,"[WARNING] ",Color.RED);
     }
 
     public void debug(Object o) {
         if (!isDebug)return;
-        log(o, Color.BLUE, "[DEBUG] ");
+        log(o, Color.BLUE, "[DEBUG] ",Color.white);
     }
 
     public void info(Object o) {
-        log(o, Color.white, "[INFO] ");
+        log(o, Color.white, "[INFO] ",Color.white);
     }
 
-    public void log(Object o, Color color, String title) {
-        StringBuffer sb = new StringBuffer(color.toString()).append(title).append(Color.white);
+    public void log(Object o, Color color, String title,Color messageColor) {
+        StringBuffer sb = new StringBuffer(color.toString()).append(title).append(messageColor);
         sb.append(o);
         log(sb);
     }
@@ -82,6 +86,9 @@ public class Logger implements InterfaceLogger {
         if (isLog) writeLine(o);
     }
 
+    /**
+     * @deprecated
+     */
     @Override
     public void logger(String message) {
         debug(message);
