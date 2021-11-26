@@ -74,7 +74,7 @@ public class Logger implements InterfaceLogger {
     }
 
     public void logArray(Object o, Color color, String title, Color messageColor) {
-        Util.execArray(o, (String s) -> log(s, color, title, messageColor));
+        Util.execLog(o, (String s) -> log(s, color, title, messageColor));
     }
 
     public void log(Object o, Color color, String title, Color messageColor) {

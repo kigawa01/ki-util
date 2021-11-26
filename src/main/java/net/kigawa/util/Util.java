@@ -11,12 +11,15 @@ import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
 public class Util {
 
-    public static void execArray(Object o, Consumer<String> consumer) {
+    public static void execLog(Object o, Consumer<String> consumer) {
         if (o instanceof Object[]) {
             for (Object o1 : (Object[]) o) {
-                execArray(o1, consumer);
+                execLog(o1, consumer);
             }
             return;
+        }
+        if (o instanceof Throwable) {
+            execLog(((Throwable) o).getStackTrace(), consumer);
         }
         consumer.accept(o.toString());
     }
