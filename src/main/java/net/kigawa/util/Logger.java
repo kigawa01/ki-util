@@ -56,24 +56,28 @@ public class Logger implements InterfaceLogger {
         }
     }
 
-    public void title(Object o){
-        log(o,Color.GREEN,"[TITLE] ",Color.GREEN);
+    public void title(Object o) {
+        logArray(o, Color.GREEN, "[TITLE] ", Color.GREEN);
     }
 
-    public void warning(Object o){
-        log(o,Color.RED,"[WARNING] ",Color.RED);
+    public void warning(Object o) {
+        logArray(o, Color.RED, "[WARNING] ", Color.RED);
     }
 
     public void debug(Object o) {
-        if (!isDebug)return;
-        log(o, Color.BLUE, "[DEBUG] ",Color.white);
+        if (!isDebug) return;
+        logArray(o, Color.BLUE, "[DEBUG] ", Color.white);
     }
 
     public void info(Object o) {
-        log(o, Color.white, "[INFO] ",Color.white);
+        logArray(o, Color.white, "[INFO] ", Color.white);
     }
 
-    public void log(Object o, Color color, String title,Color messageColor) {
+    public void logArray(Object o, Color color, String title, Color messageColor) {
+        Util.execArray(o, (String s) -> log(s, color, title, messageColor));
+    }
+
+    public void log(Object o, Color color, String title, Color messageColor) {
         StringBuffer sb = new StringBuffer(color.toString()).append(title).append(messageColor);
         sb.append(o);
         log(sb);
