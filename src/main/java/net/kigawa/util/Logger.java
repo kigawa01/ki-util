@@ -10,17 +10,19 @@ import java.util.function.Consumer;
 public class Logger implements InterfaceLogger {
     private final boolean isLog;
     private final boolean isDebug;
+    private final boolean timestamp;
     private final Consumer<String> consumer;
     private BufferedWriter bw;
 
     public Logger(boolean log, boolean debug) {
-        this(Util.getAbsolutFile(), log, debug, System.out::println);
+        this(Util.getAbsolutFile(), log, debug, System.out::println, true);
     }
 
-    public Logger(File dir, boolean log, boolean debug, Consumer<String> consumer) {
+    public Logger(File dir, boolean log, boolean debug, Consumer<String> consumer, boolean timestamp) {
         System.out.println("on logger");
         isLog = log;
         isDebug = debug;
+        this.timestamp = timestamp;
         this.consumer = consumer;
 
         if (!log) return;
@@ -84,7 +86,8 @@ public class Logger implements InterfaceLogger {
     }
 
     public void log(Object o) {
-        StringBuffer sb = new StringBuffer(Util.getTime());
+        StringBuffer sb = new StringBuffer();
+        if (timestamp) sb.append(Util.getTime());
         sb.append(" | ").append(o);
         consumer.accept(sb.toString());
         if (isLog) writeLine(o);
