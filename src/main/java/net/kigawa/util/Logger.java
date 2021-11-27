@@ -93,7 +93,6 @@ public class Logger implements InterfaceLogger {
     /**
      * @deprecated
      */
-    @Override
     public void logger(String message) {
         debug(message);
     }
