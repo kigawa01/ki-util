@@ -52,7 +52,7 @@ public class Util {
         return str.toString();
     }
 
-    public static <F, T extends F> List<T> changeListType(List<F> list) throws ClassCastException {
+    public static <F, T extends F> List<T> changeListType(List<F> list,Class<T> to) throws ClassCastException {
         List<T> list1 = new ArrayList<>();
         for (F f : list) {
             list1.add((T) f);
