@@ -5,11 +5,16 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
+import java.util.function.BiPredicate;
 import java.util.function.Consumer;
 
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
 public class Util {
+
+    public static <L,T> void removeFromArray(List<L> list, T object, BiPredicate<L,T> biPredicate){
+        list.removeIf(l -> biPredicate.test(l, object));
+    }
 
     public static void execLog(Object o, Consumer<String> consumer) {
         if (o instanceof Object[]) {
