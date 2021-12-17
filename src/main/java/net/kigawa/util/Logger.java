@@ -1,9 +1,12 @@
 package net.kigawa.util;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Calendar;
+import java.util.logging.FileHandler;
 import java.util.logging.Handler;
 import java.util.logging.Level;
+import java.util.logging.SimpleFormatter;
 
 public class Logger {
     private static Logger logger;
@@ -25,6 +28,13 @@ public class Logger {
             int i = 0;
             while (logFile.exists())
                 logFile = new File(Extension.log.addExtension(logName.append("-").append(i)).toString());
+            try {
+                Handler handler = new FileHandler(logFile.getAbsolutePath());
+                javaLogger.addHandler(handler);
+                handler.setFormatter(new SimpleFormatter());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
         }
 
