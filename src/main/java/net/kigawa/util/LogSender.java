@@ -1,51 +1,48 @@
 package net.kigawa.util;
 
-public abstract class LogSender implements InterfaceLogger {
-    public InterfaceLogger logger;
+public abstract class LogSender {
+    private final Logger logger = Logger.getInstance();
 
-    public LogSender(InterfaceLogger logger) {
-        this.logger = logger;
+    public void fine(Object o) {
+        logger.fine(o);
     }
 
-    public void setLogger(InterfaceLogger logger) {
-        this.logger = logger;
-    }
-
-    @Override
-    public void info(Object o) {
-        if (isNull(o)) return;
-        logger.info(o);
-    }
-
-    @Override
     public void warning(Object o) {
-        if (isNull(o)) return;
         logger.warning(o);
     }
 
-    @Override
-    public void debug(Object o) {
-        if (isNull(o)) return;
-        logger.debug(o);
+    public void severe(Object o) {
+        logger.severe(o);
     }
 
-    @Override
-    public void title(Object o) {
-        if (isNull(o)) return;
-        logger.title(o);
+    public void info(Object o) {
+        logger.info(o);
     }
 
-    public boolean isNull(Object o) {
-        if (logger != null) return false;
-        System.out.println(o);
-        return true;
+    public void config(Object o) {
+        logger.config(o);
+    }
+
+    public void all(Object o) {
+        logger.all(o);
+    }
+
+    public void finer(Object o) {
+        logger.finer(o);
+    }
+
+    public void finest(Object o) {
+        logger.finest(o);
+    }
+
+    public void off(Object o) {
+        logger.off(o);
     }
 
     /**
      * @deprecated
      */
-    @Override
     public void logger(String message) {
-        debug(message);
+        fine(message);
     }
 }

@@ -1,40 +1,45 @@
 package net.kigawa.util;
 
-import java.awt.*;
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.function.Consumer;
+import java.util.Calendar;
+import java.util.logging.Handler;
+import java.util.logging.Level;
 
-public class Logger implements InterfaceLogger {
-    private final boolean isLog;
-    private final boolean isDebug;
-    private final boolean timestamp;
-    private final Consumer<String> consumer;
-    private BufferedWriter bw;
+public class Logger {
+    private static Logger logger;
+    private final java.util.logging.Logger javaLogger;
+    private final String Name;
 
-    public Logger(boolean log, boolean debug) {
-        this(Util.getAbsolutFile(), log, debug, System.out::println, true);
+    private Logger(String name, java.util.logging.Logger parentLogger, Level logLevel, File logDir, Handler... handlers) {
+        Name = name;
+
+        if (parentLogger != null) name = parentLogger.getName() + "." + name;
+        javaLogger = java.util.logging.Logger.getLogger(name);
+
+        javaLogger.setLevel(logLevel);
+
+        if (logDir != null) {
+            Calendar calendar = Calendar.getInstance();
+            StringBuffer logName = Util.addYearToDate(new StringBuffer(Name));
+            File logFile = new File(logDir, Extension.log.addExtension(logName).toString());
+            int i = 0;
+            while (logFile.exists())
+                logFile = new File(Extension.log.addExtension(logName.append("-").append(i)).toString());
+
+        }
+
+        for (Handler handler : handlers) {
+            javaLogger.addHandler(handler);
+        }
     }
 
-    public Logger(File dir, boolean log, boolean debug, Consumer<String> consumer, boolean timestamp) {
-        System.out.println("on logger");
-        isLog = log;
-        isDebug = debug;
-        this.timestamp = timestamp;
-        this.consumer = consumer;
-        java.util.logging.Logger javaLogger= java.util.logging.Logger.
+    public static void enable(String name, java.util.logging.Logger parentLogger, Level logLevel, File lodDir, Handler... handlers) {
+        logger = new Logger(name, parentLogger, logLevel, lodDir, handlers);
+    }
 
-        if (!log) return;
-        System.out.println("if log");
-        File logFile = createLogFile(dir);
-        try {
-            System.out.println("get reader...");
-            bw = new BufferedWriter(new FileWriter(logFile));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public static Logger getInstance() {
+        if (logger == null) logger = new Logger("logger", null, null, null);
+        return logger;
     }
 
     public static File createLogFile(File dir) {
@@ -50,54 +55,59 @@ public class Logger implements InterfaceLogger {
         return log;
     }
 
-    public void writeLine(Object o) {
-        try {
-            bw.write(o.toString());
-            bw.newLine();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void title(Object o) {
-        logArray(o, Color.GREEN, "[TITLE] ", Color.GREEN);
+    public void fine(Object o) {
+        log(o, Level.FINE);
     }
 
     public void warning(Object o) {
-        logArray(o, Color.RED, "[WARNING] ", Color.RED);
+        log(o, Level.WARNING);
     }
 
-    public void debug(Object o) {
-        if (!isDebug) return;
-        logArray(o, Color.BLUE, "[DEBUG] ", Color.white);
+    public void severe(Object o) {
+        log(o, Level.SEVERE);
     }
 
     public void info(Object o) {
-        logArray(o, Color.white, "[INFO] ", Color.white);
+        log(o, Level.INFO);
     }
 
-    public void logArray(Object o, Color color, String title, Color messageColor) {
-        Util.execLog(o, (String s) -> log(s, color, title, messageColor));
+    public void config(Object o) {
+        log(o, Level.CONFIG);
     }
 
-    public void log(Object o, Color color, String title, Color messageColor) {
-        StringBuffer sb = new StringBuffer(color.toString()).append(title).append(messageColor);
-        sb.append(o);
-        log(sb);
+    public void all(Object o) {
+        log(o, Level.ALL);
     }
 
-    public void log(Object o) {
-        StringBuffer sb = new StringBuffer();
-        if (timestamp) sb.append(Util.getTime());
-        sb.append(" | ").append(o);
-        consumer.accept(sb.toString());
-        if (isLog) writeLine(o);
+    public void finer(Object o) {
+        log(o, Level.FINER);
+    }
+
+    public void finest(Object o) {
+        log(o, Level.FINEST);
+    }
+
+    public void off(Object o) {
+        log(o, Level.OFF);
+    }
+
+    public void log(Object o, Level level) {
+        if (o instanceof Object[]) {
+            for (Object o1 : (Object[]) o) {
+                log(o1, level);
+            }
+            return;
+        }
+        if (o instanceof Throwable) {
+            log(((Throwable) o).getStackTrace(), level);
+        }
+        javaLogger.log(level, o.toString());
     }
 
     /**
      * @deprecated
      */
     public void logger(String message) {
-        debug(message);
+        fine(message);
     }
 }

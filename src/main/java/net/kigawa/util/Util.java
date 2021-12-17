@@ -12,22 +12,21 @@ import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
 public class Util {
 
-    public static <L,T> void removeFromArray(List<L> list, T object, BiPredicate<L,T> biPredicate){
+    public static StringBuffer addYearToDate(StringBuffer stringBuffer) {
+        return addYearToDate(stringBuffer, "-");
+    }
+
+    public static StringBuffer addYearToDate(StringBuffer stringBuffer, String interval) {
+        Calendar calendar = Calendar.getInstance();
+        return stringBuffer.append(interval).append(calendar.get(Calendar.YEAR)).append(interval)
+                .append(calendar.get(Calendar.MONTH)).append(interval).append(calendar.get(Calendar.DAY_OF_MONTH))
+                .append(interval).append(calendar.get(Calendar.HOUR_OF_DAY));
+    }
+
+    public static <L, T> void removeFromArray(List<L> list, T object, BiPredicate<L, T> biPredicate) {
         list.removeIf(l -> biPredicate.test(l, object));
     }
 
-    public static void execLog(Object o, Consumer<String> consumer) {
-        if (o instanceof Object[]) {
-            for (Object o1 : (Object[]) o) {
-                execLog(o1, consumer);
-            }
-            return;
-        }
-        if (o instanceof Throwable) {
-            execLog(((Throwable) o).getStackTrace(), consumer);
-        }
-        consumer.accept(o.toString());
-    }
 
     public static <T> void executeIterable(Iterable<T> collection, Process<T> process) {
         for (T t : collection) {
