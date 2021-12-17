@@ -24,6 +24,7 @@ public class Logger implements InterfaceLogger {
         isDebug = debug;
         this.timestamp = timestamp;
         this.consumer = consumer;
+        java.util.logging.Logger javaLogger= java.util.logging.Logger.
 
         if (!log) return;
         System.out.println("if log");
