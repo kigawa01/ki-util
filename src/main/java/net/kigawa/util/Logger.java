@@ -1,5 +1,6 @@
 package net.kigawa.util;
 
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -23,6 +24,9 @@ public class Logger {
         javaLogger.setLevel(logLevel);
 
         if (logDirPath != null) {
+            if (!logDirPath.toFile().mkdirs()) {
+                System.out.println(Color.RED + "can't create log file!");
+            }
             Calendar calendar = Calendar.getInstance();
             StringBuffer logName = Util.addYearToDate(new StringBuffer(Name));
             File logFile = new File(logDirPath.toFile(), Extension.log.addExtension(logName).toString());
@@ -42,6 +46,10 @@ public class Logger {
         for (Handler handler : handlers) {
             javaLogger.addHandler(handler);
         }
+    }
+
+    public static void enable(String name, java.util.logging.Logger parentLogger, Level logLevel, File logDir, Handler... handlers) {
+        enable(name, parentLogger, logLevel, logDir.toPath(), handlers);
     }
 
     public static void enable(String name, java.util.logging.Logger parentLogger, Level logLevel, Path lodDirPath, Handler... handlers) {
