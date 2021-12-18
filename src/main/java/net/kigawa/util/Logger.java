@@ -2,6 +2,7 @@ package net.kigawa.util;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.Calendar;
 import java.util.logging.FileHandler;
 import java.util.logging.Handler;
@@ -13,7 +14,7 @@ public class Logger {
     private final java.util.logging.Logger javaLogger;
     private final String Name;
 
-    private Logger(String name, java.util.logging.Logger parentLogger, Level logLevel, File logDir, Handler... handlers) {
+    private Logger(String name, java.util.logging.Logger parentLogger, Level logLevel, Path logDirPath, Handler... handlers) {
         Name = name;
 
         if (parentLogger != null) name = parentLogger.getName() + "." + name;
@@ -21,10 +22,10 @@ public class Logger {
 
         javaLogger.setLevel(logLevel);
 
-        if (logDir != null) {
+        if (logDirPath != null) {
             Calendar calendar = Calendar.getInstance();
             StringBuffer logName = Util.addYearToDate(new StringBuffer(Name));
-            File logFile = new File(logDir, Extension.log.addExtension(logName).toString());
+            File logFile = new File(logDirPath.toFile(), Extension.log.addExtension(logName).toString());
             int i = 0;
             while (logFile.exists())
                 logFile = new File(Extension.log.addExtension(logName.append("-").append(i)).toString());
@@ -43,8 +44,8 @@ public class Logger {
         }
     }
 
-    public static void enable(String name, java.util.logging.Logger parentLogger, Level logLevel, File lodDir, Handler... handlers) {
-        logger = new Logger(name, parentLogger, logLevel, lodDir, handlers);
+    public static void enable(String name, java.util.logging.Logger parentLogger, Level logLevel, Path lodDirPath, Handler... handlers) {
+        logger = new Logger(name, parentLogger, logLevel, lodDirPath, handlers);
     }
 
     public static Logger getInstance() {
