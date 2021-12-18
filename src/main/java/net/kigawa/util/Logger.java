@@ -1,6 +1,5 @@
 package net.kigawa.util;
 
-import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -24,15 +23,16 @@ public class Logger {
         javaLogger.setLevel(logLevel);
 
         if (logDirPath != null) {
-            if (!logDirPath.toFile().mkdirs()) {
-                System.out.println(Color.RED + "can't create log file!");
-            }
+            logDirPath.toFile().mkdirs();
             Calendar calendar = Calendar.getInstance();
             StringBuffer logName = Util.addYearToDate(new StringBuffer(Name));
-            File logFile = new File(logDirPath.toFile(), Extension.log.addExtension(logName).toString());
+            File logFile = new File(logDirPath.toFile(), Extension.log.addExtension(logName.toString()));
             int i = 0;
-            while (logFile.exists())
-                logFile = new File(Extension.log.addExtension(logName.append("-").append(i)).toString());
+            while (logFile.exists()) {
+                logFile = new File(logDirPath.toFile(), Extension.log.addExtension(logName + "-" + i));
+                i++;
+            }
+
             try {
                 logFile.createNewFile();
                 Handler handler = new FileHandler(logFile.getAbsolutePath());
@@ -60,19 +60,6 @@ public class Logger {
     public static Logger getInstance() {
         if (logger == null) logger = new Logger("logger", null, null, null);
         return logger;
-    }
-
-    public static File createLogFile(File dir) {
-        dir.mkdirs();
-        int num = -1;
-        File log;
-        do {
-            StringBuffer name = new StringBuffer(Util.getDate());
-            if (num >= 0) name.append("-").append(num);
-            log = new File(dir, name.toString());
-            num++;
-        } while (log.exists());
-        return log;
     }
 
     public void fine(Object o) {
@@ -122,6 +109,10 @@ public class Logger {
             log(((Throwable) o).getStackTrace(), level);
         }
         javaLogger.log(level, o.toString());
+    }
+
+    public java.util.logging.Logger getJavaLogger() {
+        return javaLogger;
     }
 
     /**
