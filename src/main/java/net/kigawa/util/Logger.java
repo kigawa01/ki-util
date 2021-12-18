@@ -34,11 +34,12 @@ public class Logger {
             while (logFile.exists())
                 logFile = new File(Extension.log.addExtension(logName.append("-").append(i)).toString());
             try {
+                logFile.createNewFile();
                 Handler handler = new FileHandler(logFile.getAbsolutePath());
                 javaLogger.addHandler(handler);
                 handler.setFormatter(new SimpleFormatter());
             } catch (IOException e) {
-                e.printStackTrace();
+                Logger.getInstance().warning(e);
             }
 
         }
