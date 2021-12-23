@@ -7,6 +7,7 @@ import java.nio.file.Paths;
 import java.util.*;
 import java.util.function.BiPredicate;
 import java.util.function.Consumer;
+import java.util.function.Function;
 
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
@@ -115,14 +116,13 @@ public class Util {
         return list;
     }
 
-    public static void runCommand(String[] command, File dir) {
+    private static void runCommand(Function<Runtime, java.lang.Process> function) {
         try {
-            if (dir.mkdirs()) throw new FileNotFoundException();
             System.out.println("run jar...");
             String result;
             java.lang.Process process;
             Runtime runtime = Runtime.getRuntime();
-            process = runtime.exec(command, null, dir);
+            process = function.apply(runtime);
             System.out.println("out put log...");
             InputStream inputStream = process.getInputStream();
             InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
@@ -133,6 +133,27 @@ public class Util {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    public static void runCommand(String[] command,File dir) {
+        runCommand(runtime-> {
+            try {
+                return runtime.exec(command, null, dir);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        });
+    }
+
+    public static void runCommand(String command,File dir) {
+        runCommand(runtime-> {
+            try {
+                return runtime.exec(command, null, dir);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        });
     }
 
     public static void download(URL url, File file, String name) {
