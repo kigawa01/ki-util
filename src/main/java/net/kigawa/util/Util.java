@@ -12,10 +12,6 @@ import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
 public class Util {
 
-    public static StringBuffer addYearToDate(StringBuffer stringBuffer) {
-        return addYearToDate(stringBuffer, "-");
-    }
-
     public static StringBuffer addYearToDate(StringBuffer stringBuffer, String interval) {
         Calendar calendar = Calendar.getInstance();
         return stringBuffer.append(interval).append(calendar.get(Calendar.YEAR)).append(interval)
