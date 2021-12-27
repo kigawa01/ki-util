@@ -7,7 +7,6 @@ import java.util.Calendar;
 import java.util.logging.FileHandler;
 import java.util.logging.Handler;
 import java.util.logging.Level;
-import java.util.logging.SimpleFormatter;
 
 public class Logger {
     private static Logger logger;
@@ -37,7 +36,7 @@ public class Logger {
                 logFile.createNewFile();
                 Handler handler = new FileHandler(logFile.getAbsolutePath());
                 javaLogger.addHandler(handler);
-                handler.setFormatter(new SimpleFormatter());
+                handler.setFormatter(new Formatter());
             } catch (IOException e) {
                 Logger.getInstance().warning(e);
             }
