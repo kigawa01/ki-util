@@ -2,6 +2,7 @@ package net.kigawa.util;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.nio.file.Path;
 import java.util.Calendar;
 import java.util.logging.FileHandler;
@@ -24,7 +25,7 @@ public class Logger {
         if (logDirPath != null) {
             logDirPath.toFile().mkdirs();
             Calendar calendar = Calendar.getInstance();
-            StringBuffer logName = Util.addYearToDate(new StringBuffer(Name),"-");
+            StringBuffer logName = Util.addYearToDate(new StringBuffer(Name), "-");
             File logFile = new File(logDirPath.toFile(), Extension.log.addExtension(logName.toString()));
             int i = 0;
             while (logFile.exists()) {
@@ -97,7 +98,7 @@ public class Logger {
         log(o, Level.OFF);
     }
 
-    public void log(Object o, Level level) {
+    public synchronized void log(Object o, Level level) {
         if (o instanceof Object[]) {
             for (Object o1 : (Object[]) o) {
                 log(o1, level);
@@ -105,7 +106,15 @@ public class Logger {
             return;
         }
         if (o instanceof Throwable) {
-            log(((Throwable) o).getStackTrace(), level);
+            Throwable throwable = (Throwable) o;
+            log(throwable.toString(), level);
+            log(throwable.getStackTrace(), level);
+            log(throwable.getSuppressed(), level);
+            return;
+        }
+        if (o instanceof StackTraceElement) {
+            StackTraceElement element = (StackTraceElement) o;
+            log("\tat " + element, level);
         }
         javaLogger.log(level, o.toString());
     }
@@ -119,5 +128,14 @@ public class Logger {
      */
     public void logger(String message) {
         fine(message);
+    }
+
+    public OutputStream getOutStream() {
+        return new OutputStream() {
+            @Override
+            public void write(int b) throws IOException {
+
+            }
+        };
     }
 }
