@@ -2,7 +2,6 @@ package net.kigawa.util;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.nio.file.Path;
 import java.util.Calendar;
 import java.util.logging.FileHandler;
@@ -14,7 +13,7 @@ public class Logger {
     private final java.util.logging.Logger javaLogger;
     private final String Name;
 
-    private Logger(String name, java.util.logging.Logger parentLogger, Level logLevel, Path logDirPath, Handler... handlers) {
+    protected Logger(String name, java.util.logging.Logger parentLogger, Level logLevel, Path logDirPath, Handler... handlers) {
         Name = name;
 
         if (parentLogger != null) name = parentLogger.getName() + "." + name;
@@ -50,11 +49,7 @@ public class Logger {
     }
 
     public static void enable(String name, java.util.logging.Logger parentLogger, Level logLevel, File logDir, Handler... handlers) {
-        enable(name, parentLogger, logLevel, logDir.toPath(), handlers);
-    }
-
-    public static void enable(String name, java.util.logging.Logger parentLogger, Level logLevel, Path lodDirPath, Handler... handlers) {
-        logger = new Logger(name, parentLogger, logLevel, lodDirPath, handlers);
+        logger = new Logger(name, parentLogger, logLevel, logDir.toPath(), handlers);
     }
 
     public static Logger getInstance() {
@@ -128,14 +123,5 @@ public class Logger {
      */
     public void logger(String message) {
         fine(message);
-    }
-
-    public OutputStream getOutStream() {
-        return new OutputStream() {
-            @Override
-            public void write(int b) throws IOException {
-
-            }
-        };
     }
 }
