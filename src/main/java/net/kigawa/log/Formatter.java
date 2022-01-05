@@ -1,11 +1,10 @@
-package net.kigawa.util;
+package net.kigawa.log;
 
 import java.util.Calendar;
 import java.util.logging.LogRecord;
 
 public class Formatter extends java.util.logging.Formatter {
-    private Calendar calendar = Calendar.getInstance();
-
+    private final Calendar calendar = Calendar.getInstance();
     @Override
     public String format(LogRecord record) {
         StringBuffer sb = new StringBuffer();

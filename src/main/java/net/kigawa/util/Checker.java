@@ -1,12 +1,14 @@
 package net.kigawa.util;
 
+import net.kigawa.interfaces.HasContain;
+
 /**
  * @deprecated
  */
 public class Checker {
 
-    private String str;
-    private Type type;
+    private final String str;
+    private final Type type;
 
     public Checker(String str, Type type) {
         this.str = str;
@@ -14,7 +16,9 @@ public class Checker {
     }
 
     public boolean equals(Object o) {
-        return ((HasContain) o).contain(this);
+        if (o instanceof HasContain)
+            return ((HasContain) o).contain(this);
+        return super.equals(o);
     }
 
     public Type getType(){

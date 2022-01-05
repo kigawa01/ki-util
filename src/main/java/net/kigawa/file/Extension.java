@@ -1,4 +1,4 @@
-package net.kigawa.util;
+package net.kigawa.file;
 
 public enum Extension {
     log;
