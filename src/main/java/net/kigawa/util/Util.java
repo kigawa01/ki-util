@@ -1,12 +1,12 @@
 package net.kigawa.util;
 
+import net.kigawa.file.FileUtil;
+
 import java.io.*;
 import java.net.URL;
 import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.*;
 import java.util.function.BiPredicate;
-import java.util.function.Consumer;
 import java.util.function.Function;
 
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
@@ -54,11 +54,7 @@ public class Util {
     }
 
     public static <T, F extends T> List<T> changeListType(List<F> list, Class<T> to) throws ClassCastException {
-        List<T> list1 = new ArrayList<>();
-        for (F f : list) {
-            list1.add((T) f);
-        }
-        return list1;
+        return new ArrayList<>(list);
     }
 
     public static int[] getIntegerArrangement(List<Integer> list) {
@@ -170,8 +166,11 @@ public class Util {
         }
     }
 
+    /**
+     * @deprecated
+     */
     public static File getAbsolutFile() {
-        return Paths.get("").toAbsolutePath().toFile();
+        return FileUtil.getAbsolutFile();
     }
 
     public static String getDate() {

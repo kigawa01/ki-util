@@ -1,6 +1,7 @@
 package net.kigawa.util;
 
 import net.kigawa.function.ThrowRunnable;
+import net.kigawa.log.Logger;
 
 public class TaskStocker extends Stocker<ThrowRunnable> {
     private final Thread thread;

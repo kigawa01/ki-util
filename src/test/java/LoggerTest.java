@@ -1,5 +1,5 @@
-import net.kigawa.util.Formatter;
-import net.kigawa.util.Logger;
+import net.kigawa.log.Formatter;
+import net.kigawa.log.Logger;
 
 import java.io.File;
 import java.nio.file.Paths;
