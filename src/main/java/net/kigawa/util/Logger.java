@@ -11,11 +11,9 @@ import java.util.logging.Level;
 public class Logger {
     private static Logger logger;
     private final java.util.logging.Logger javaLogger;
-    private final String Name;
+    private final TaskStocker stocker = new TaskStocker();
 
     protected Logger(String name, java.util.logging.Logger parentLogger, Level logLevel, Path logDirPath, Handler... handlers) {
-        Name = name;
-
         if (parentLogger != null) name = parentLogger.getName() + "." + name;
         javaLogger = java.util.logging.Logger.getLogger(name);
 
@@ -24,7 +22,7 @@ public class Logger {
         if (logDirPath != null) {
             logDirPath.toFile().mkdirs();
             Calendar calendar = Calendar.getInstance();
-            StringBuffer logName = Util.addYearToDate(new StringBuffer(Name), "-");
+            StringBuffer logName = Util.addYearToDate(new StringBuffer(name), "-");
             File logFile = new File(logDirPath.toFile(), Extension.log.addExtension(logName.toString()));
             int i = 0;
             while (logFile.exists()) {
@@ -58,39 +56,43 @@ public class Logger {
     }
 
     public void fine(Object o) {
-        log(o, Level.FINE);
+        anSyncLog(o, Level.FINE);
     }
 
     public void warning(Object o) {
-        log(o, Level.WARNING);
+        anSyncLog(o, Level.WARNING);
     }
 
     public void severe(Object o) {
-        log(o, Level.SEVERE);
+        anSyncLog(o, Level.SEVERE);
     }
 
     public void info(Object o) {
-        log(o, Level.INFO);
+        anSyncLog(o, Level.INFO);
     }
 
     public void config(Object o) {
-        log(o, Level.CONFIG);
+        anSyncLog(o, Level.CONFIG);
     }
 
     public void all(Object o) {
-        log(o, Level.ALL);
+        anSyncLog(o, Level.ALL);
     }
 
     public void finer(Object o) {
-        log(o, Level.FINER);
+        anSyncLog(o, Level.FINER);
     }
 
     public void finest(Object o) {
-        log(o, Level.FINEST);
+        anSyncLog(o, Level.FINEST);
     }
 
     public void off(Object o) {
-        log(o, Level.OFF);
+        anSyncLog(o, Level.OFF);
+    }
+
+    public synchronized void anSyncLog(Object o, Level level) {
+        stocker.add(() -> log(o, level));
     }
 
     public synchronized void log(Object o, Level level) {
