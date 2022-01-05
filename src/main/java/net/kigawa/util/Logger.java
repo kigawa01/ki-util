@@ -94,7 +94,8 @@ public class Logger {
     }
 
     public synchronized void log(Object o, Level level) {
-        if (o instanceof Object[]) {
+        if (o.getClass().isArray()) {
+            log(o.toString(), level);
             for (Object o1 : (Object[]) o) {
                 log(o1, level);
             }
