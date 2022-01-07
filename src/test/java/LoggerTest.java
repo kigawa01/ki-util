@@ -11,7 +11,7 @@ public class LoggerTest {
         java.util.logging.Logger.getLogger("").getHandlers()[0].setFormatter(new Formatter());
         Logger.enable("test", null, Level.INFO, new File(Paths.get("").toAbsolutePath().toFile(), "log"));
         Logger.getInstance().info("aaa");
-        Logger.enable("test1", Logger.getInstance().getJavaLogger(), Level.INFO, new File(Paths.get("").toAbsolutePath().toFile(), "log1"));
+        Logger.enable("test1", Logger.getInstance(), Level.INFO, new File(Paths.get("").toAbsolutePath().toFile(), "log1"));
         Logger.getInstance().info("iii");
         Logger.getInstance().info("uuu");
         Logger.getInstance().info(new String[]{
