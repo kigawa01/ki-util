@@ -12,16 +12,17 @@ import java.util.logging.FileHandler;
 import java.util.logging.Handler;
 import java.util.logging.Level;
 
-public class Logger {
+public class Logger extends java.util.logging.Logger {
     private static Logger logger;
-    private final java.util.logging.Logger javaLogger;
     private final TaskStocker stocker = new TaskStocker();
+    private FileHandler fileHandler;
 
     protected Logger(String name, java.util.logging.Logger parentLogger, Level logLevel, Path logDirPath, Handler... handlers) {
-        if (parentLogger != null) name = parentLogger.getName() + "." + name;
-        javaLogger = java.util.logging.Logger.getLogger(name);
+        super(name, null);
+        if (parentLogger == null) setParent(Logger.getLogger(""));
+        else setParent(parentLogger);
 
-        javaLogger.setLevel(logLevel);
+        setLevel(logLevel);
 
         if (logDirPath != null) {
             logDirPath.toFile().mkdirs();
@@ -37,8 +38,9 @@ public class Logger {
             try {
                 logFile.createNewFile();
                 FileHandler handler = new FileHandler(logFile.getAbsolutePath());
-                javaLogger.addHandler(handler);
+                addHandler(handler);
                 handler.setFormatter(new Formatter());
+                fileHandler = handler;
             } catch (IOException e) {
                 Logger.getInstance().warning(e);
             }
@@ -46,17 +48,24 @@ public class Logger {
         }
 
         for (Handler handler : handlers) {
-            javaLogger.addHandler(handler);
+            addHandler(handler);
         }
     }
 
     public static void enable(String name, java.util.logging.Logger parentLogger, Level logLevel, File logDir, Handler... handlers) {
-        logger = new Logger(name, parentLogger, logLevel, logDir.toPath(), handlers);
+        String loggerName = name;
+        if (parentLogger != null) loggerName = parentLogger.getName() + "." + name;
+        logger = new Logger(loggerName, parentLogger, logLevel, logDir.toPath(), handlers);
     }
 
     public static Logger getInstance() {
         if (logger == null) logger = new Logger("logger", null, null, null);
         return logger;
+    }
+
+    public void removeFileHandler() {
+        removeHandler(fileHandler);
+        fileHandler = null;
     }
 
     public void fine(Object o) {
@@ -117,12 +126,9 @@ public class Logger {
         if (o instanceof StackTraceElement) {
             StackTraceElement element = (StackTraceElement) o;
             log("\tat " + element, level);
+            return;
         }
-        javaLogger.log(level, o.toString());
-    }
-
-    public java.util.logging.Logger getJavaLogger() {
-        return javaLogger;
+        super.log(level, o.toString());
     }
 
     /**
