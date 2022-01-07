@@ -3,6 +3,7 @@ import net.kigawa.log.Logger;
 
 import java.io.File;
 import java.nio.file.Paths;
+import java.util.Scanner;
 import java.util.logging.Level;
 
 public class LoggerTest {
@@ -14,8 +15,12 @@ public class LoggerTest {
         Logger.getInstance().info("iii");
         Logger.getInstance().info("uuu");
         Logger.getInstance().info(new String[]{
-                "a","b"
+                "a", "b"
         });
         Logger.getInstance().info("");
+        Scanner scanner = new Scanner(System.in);
+        while (scanner.hasNext()) {
+            Logger.getInstance().info(scanner.next());
+        }
     }
 }

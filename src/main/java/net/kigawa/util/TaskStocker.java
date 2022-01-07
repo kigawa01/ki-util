@@ -4,20 +4,20 @@ import net.kigawa.function.ThrowRunnable;
 import net.kigawa.log.Logger;
 
 public class TaskStocker extends Stocker<ThrowRunnable> {
-    private final Thread thread;
     private boolean run = true;
+    private boolean wait = true;
 
     public TaskStocker() {
-        this.thread = new Thread(new Runnable() {
+        Thread thread = new Thread(new Runnable() {
             @Override
             public synchronized void run() {
                 while (run) {
+                    if (wait) {
+                        waitHere();
+                        continue;
+                    }
                     if (!hasNext()) {
-                        try {
-                            wait();
-                        } catch (InterruptedException e) {
-                            Logger.getInstance().warning(e);
-                        }
+                        wait = true;
                         continue;
                     }
                     try {
@@ -32,14 +32,23 @@ public class TaskStocker extends Stocker<ThrowRunnable> {
     }
 
     public synchronized void add(ThrowRunnable runnable) {
-        boolean started = hasNext();
         super.add(runnable);
-        if (started) return;
-        thread.notifyAll();
+        if (wait) {
+            wait = false;
+            notifyAll();
+        }
     }
 
     public synchronized void end() {
         run = false;
         notifyAll();
+    }
+
+    private synchronized void waitHere() {
+        try {
+            wait();
+        } catch (InterruptedException e) {
+            Logger.getInstance().warning(e);
+        }
     }
 }

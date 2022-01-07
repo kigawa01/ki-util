@@ -26,7 +26,7 @@ public class Logger {
         if (logDirPath != null) {
             logDirPath.toFile().mkdirs();
             Calendar calendar = Calendar.getInstance();
-            StringBuffer logName = Util.addYearToDate(new StringBuffer(name), "-");
+            StringBuffer logName = Util.addYearToDate(new StringBuffer("log"), "-");
             File logFile = new File(logDirPath.toFile(), Extension.log.addExtension(logName.toString()));
             int i = 0;
             while (logFile.exists()) {
@@ -36,7 +36,7 @@ public class Logger {
 
             try {
                 logFile.createNewFile();
-                Handler handler = new FileHandler(logFile.getAbsolutePath());
+                FileHandler handler = new FileHandler(logFile.getAbsolutePath());
                 javaLogger.addHandler(handler);
                 handler.setFormatter(new Formatter());
             } catch (IOException e) {

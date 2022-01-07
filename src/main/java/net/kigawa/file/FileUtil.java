@@ -12,7 +12,7 @@ public class FileUtil {
     public static File getFile(File parent, String... path) {
         File file = parent;
         for (String name : path) {
-            parent = new File(parent, name);
+            file = new File(file, name);
         }
         return file;
     }
