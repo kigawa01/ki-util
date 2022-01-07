@@ -2,15 +2,17 @@ package net.kigawa.util;
 
 import java.util.Iterator;
 
-public class Stocker<T> implements Iterator<T> {
+public class Stocker<T> extends Syncer implements Iterator<T> {
     private Container<T> start;
     private Container<T> end;
 
-    public synchronized void add(T obj) {
-        Container<T> container = new Container<T>(obj);
+    public void add(T obj) {
+        startSync();
+        Container<T> container = new Container<>(obj);
         if (end != null) end.setContainer(container);
         else start = container;
         end = container;
+        endSync();
     }
 
     @Override
@@ -20,8 +22,10 @@ public class Stocker<T> implements Iterator<T> {
 
     @Override
     public synchronized T next() {
+        startSync();
         Container<T> container = start;
         start = start.getContainer();
+        endSync();
         return container.getTask();
     }
 }
