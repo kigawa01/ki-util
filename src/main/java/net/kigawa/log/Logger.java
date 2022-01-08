@@ -1,6 +1,7 @@
 package net.kigawa.log;
 
 import net.kigawa.file.Extension;
+import net.kigawa.string.StringUtil;
 import net.kigawa.util.TaskStocker;
 import net.kigawa.util.Util;
 
@@ -27,7 +28,7 @@ public class Logger extends java.util.logging.Logger {
         if (logDirPath != null) {
             logDirPath.toFile().mkdirs();
             Calendar calendar = Calendar.getInstance();
-            StringBuffer logName = Util.addYearToDate(new StringBuffer("log"), "-");
+            StringBuffer logName = StringUtil.addYearToDate(new StringBuffer("log"), "-");
             File logFile = new File(logDirPath.toFile(), Extension.log.addExtension(logName.toString()));
             int i = 0;
             while (logFile.exists()) {

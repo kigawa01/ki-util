@@ -1,6 +1,7 @@
 package net.kigawa.util;
 
 import net.kigawa.file.FileUtil;
+import net.kigawa.string.StringUtil;
 
 import java.io.*;
 import java.net.URL;
@@ -12,13 +13,6 @@ import java.util.function.Function;
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
 public class Util {
-
-    public static StringBuffer addYearToDate(StringBuffer stringBuffer, String interval) {
-        Calendar calendar = Calendar.getInstance();
-        return stringBuffer.append(interval).append(calendar.get(Calendar.YEAR)).append(interval)
-                .append(calendar.get(Calendar.MONTH)).append(interval).append(calendar.get(Calendar.DAY_OF_MONTH))
-                .append(interval).append(calendar.get(Calendar.HOUR_OF_DAY));
-    }
 
     public static <L, T> void removeFromArray(List<L> list, T object, BiPredicate<L, T> biPredicate) {
         list.removeIf(l -> biPredicate.test(l, object));
@@ -35,7 +29,7 @@ public class Util {
      * @deprecated
      */
     public static String createString(int[] ints) {
-        return connectArray(castIntArray(ints, new Integer[ints.length]), ", ");
+        return StringUtil.connectArray(castIntArray(ints, new Integer[ints.length]), ", ");
     }
 
     public static Integer[] castIntArray(int[] from, Integer[] to) throws ClassCastException {
@@ -43,14 +37,6 @@ public class Util {
             to[i] = from[i];
         }
         return to;
-    }
-
-    public static <T> String connectArray(T[] ts, String insert) {
-        StringBuilder str = new StringBuilder(ts[0].toString());
-        for (int i = 1; i < ts.length; i++) {
-            str.append(insert).append(ts[i]);
-        }
-        return str.toString();
     }
 
     public static <T, F extends T> List<T> changeListType(List<F> list, Class<T> to) throws ClassCastException {
