@@ -19,10 +19,6 @@ public interface LogSender {
         logger.info(o);
     }
 
-    default void config(Object o) {
-        logger.config(o);
-    }
-
     default void all(Object o) {
         logger.all(o);
     }
