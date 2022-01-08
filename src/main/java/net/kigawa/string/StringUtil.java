@@ -1,6 +1,8 @@
 package net.kigawa.string;
 
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Iterator;
 
 public class StringUtil {
 
@@ -15,11 +17,30 @@ public class StringUtil {
                 .append(interval).append(calendar.get(Calendar.HOUR_OF_DAY));
     }
 
+    /**
+     * @deprecated
+     */
     public static <T> String connectArray(T[] ts, String insert) {
-        StringBuffer str = new StringBuffer(ts[0].toString());
-        for (int i = 1; i < ts.length; i++) {
-            str.append(insert).append(ts[i]);
+        return insertSymbol(insert, Arrays.asList((String[]) ts));
+    }
+
+    public static StringBuffer insertSymbol(StringBuffer sb, String symbol, String[] strings) {
+        return insertSymbol(sb, symbol, Arrays.stream(strings).iterator());
+    }
+
+    public static StringBuffer insertSymbol(StringBuffer sb, String symbol, Iterable<String> stringList) {
+        return insertSymbol(sb, symbol, stringList.iterator());
+    }
+
+    public static StringBuffer insertSymbol(StringBuffer sb, String symbol, Iterator<String> stringIterator) {
+        while (stringIterator.hasNext()) {
+            sb.append(stringIterator.next());
+            if (stringIterator.hasNext()) sb.append(symbol);
         }
-        return str.toString();
+        return sb;
+    }
+
+    public static String insertSymbol(String symbol, Iterable<String> stringList) {
+        return insertSymbol(new StringBuffer(), symbol, stringList.iterator()).toString();
     }
 }
