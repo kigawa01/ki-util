@@ -6,7 +6,7 @@ import java.util.Iterator;
 
 public class StringUtil {
 
-    private static boolean isInt(String str) {
+    public static boolean isInt(String str) {
         return str.matches("[+-]?\\d*(\\.\\d+)?");
     }
 
