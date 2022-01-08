@@ -3,7 +3,6 @@ package net.kigawa.log;
 import net.kigawa.file.Extension;
 import net.kigawa.string.StringUtil;
 import net.kigawa.util.TaskStocker;
-import net.kigawa.util.Util;
 
 import java.io.File;
 import java.io.IOException;
@@ -73,36 +72,76 @@ public class Logger extends java.util.logging.Logger {
         anSyncLog(o, Level.FINE);
     }
 
+    public String finePass(String str) {
+        fine(str);
+        return str;
+    }
+
     public void warning(Object o) {
         anSyncLog(o, Level.WARNING);
+    }
+
+    public String warningPass(String str) {
+        warning(str);
+        return str;
     }
 
     public void severe(Object o) {
         anSyncLog(o, Level.SEVERE);
     }
 
+    public String severPass(String str) {
+        severe(str);
+        return str;
+    }
+
     public void info(Object o) {
         anSyncLog(o, Level.INFO);
     }
 
-    public void config(Object o) {
-        anSyncLog(o, Level.CONFIG);
+    public String infoPass(String str) {
+        info(str);
+        return str;
     }
 
     public void all(Object o) {
         anSyncLog(o, Level.ALL);
     }
 
+    public String allPass(String str) {
+        all(str);
+        return str;
+    }
+
     public void finer(Object o) {
         anSyncLog(o, Level.FINER);
+    }
+
+    public String finerPass(String str) {
+        fine(str);
+        return str;
     }
 
     public void finest(Object o) {
         anSyncLog(o, Level.FINEST);
     }
 
+    public String finestPass(String str) {
+        fine(str);
+        return str;
+    }
+
     public void off(Object o) {
         anSyncLog(o, Level.OFF);
+    }
+
+    public void anSyncLog(Log log, Level level) {
+        stocker.add(() -> log(log, level));
+    }
+
+    @Override
+    public void log(Level level, String str) {
+        log(str, level);
     }
 
     public synchronized void anSyncLog(Object o, Level level) {
@@ -137,5 +176,10 @@ public class Logger extends java.util.logging.Logger {
      */
     public void logger(String message) {
         fine(message);
+    }
+
+    public interface Log {
+        @Override
+        String toString();
     }
 }
