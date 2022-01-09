@@ -141,7 +141,7 @@ public class Logger extends java.util.logging.Logger {
 
     @Override
     public void log(Level level, String str) {
-        log(str, level);
+        anSyncLog(str, level);
     }
 
     public synchronized void anSyncLog(Object o, Level level) {
@@ -176,6 +176,10 @@ public class Logger extends java.util.logging.Logger {
      */
     public void logger(String message) {
         fine(message);
+    }
+
+    public synchronized void disable() {
+        stocker.end();
     }
 
     public interface Log {

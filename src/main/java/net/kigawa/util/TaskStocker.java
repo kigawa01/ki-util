@@ -5,50 +5,39 @@ import net.kigawa.log.Logger;
 
 public class TaskStocker extends Stocker<ThrowRunnable> {
     private boolean run = true;
-    private boolean wait = true;
+    private final Syncer syncer = new Syncer();
+    private boolean wait;
 
     public TaskStocker() {
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public synchronized void run() {
-                while (run) {
-                    if (wait) {
-                        waitHere();
-                        continue;
-                    }
-                    if (!hasNext()) {
-                        wait = true;
-                        continue;
-                    }
-                    try {
-                        next().run();
-                    } catch (Exception e) {
-                        Logger.getInstance().warning(e);
-                    }
-                }
-            }
-        });
+        Thread thread = new Thread(this::loop);
         thread.start();
     }
 
-    public synchronized void add(ThrowRunnable runnable) {
-        super.add(runnable);
-        if (wait) {
-            wait = false;
-            notifyAll();
+    public synchronized void loop() {
+        try {
+            while (true) {
+                System.out.println("while");
+                if (!run) break;
+                if (!hasNext()) wait();
+                try {
+                    next().run();
+                } catch (Exception e) {
+                    Logger.getInstance().warning(e);
+                }
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 
-    public synchronized void end() {
-        run = false;
+    public synchronized void add(ThrowRunnable runnable) {
+        System.out.println("add");
+        super.add(runnable);
+        System.out.println("wait");
         notifyAll();
     }
 
-    private synchronized void waitHere() {
-        try {
-            wait();
-        } catch (InterruptedException e) {
-            Logger.getInstance().warning(e);
-        }
+    public void end() {
+        add(() -> run = false);
     }
 }
