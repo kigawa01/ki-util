@@ -38,6 +38,7 @@ public class Logger extends java.util.logging.Logger implements LogSender {
             try {
                 logFile.createNewFile();
                 FileHandler handler = new FileHandler(logFile.getAbsolutePath());
+                handler.setLevel(logLevel);
                 addHandler(handler);
                 handler.setFormatter(new Formatter());
                 fileHandler = handler;
@@ -55,7 +56,9 @@ public class Logger extends java.util.logging.Logger implements LogSender {
     public static void enable(String name, java.util.logging.Logger parentLogger, Level logLevel, File logDir, Handler... handlers) {
         String loggerName = name;
         if (parentLogger != null) loggerName = parentLogger.getName() + "." + name;
-        logger = new Logger(loggerName, parentLogger, logLevel, logDir.toPath(), handlers);
+        Path path = null;
+        if (logDir != null) path = logDir.toPath();
+        logger = new Logger(loggerName, parentLogger, logLevel, path, handlers);
     }
 
     public static Logger getInstance() {

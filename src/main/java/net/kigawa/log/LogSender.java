@@ -69,15 +69,6 @@ public interface LogSender {
         return str;
     }
 
-    default void off(Object... o) {
-        logger.anSyncLog(o, Level.OFF);
-    }
-
-    default String offPass(String str) {
-        off(str);
-        return str;
-    }
-
     /**
      * @deprecated
      */
