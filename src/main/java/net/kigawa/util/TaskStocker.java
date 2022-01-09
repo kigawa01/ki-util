@@ -15,9 +15,7 @@ public class TaskStocker extends Stocker<ThrowRunnable> {
 
     public synchronized void loop() {
         try {
-            while (true) {
-                System.out.println("while");
-                if (!run) break;
+            while (run) {
                 if (!hasNext()) wait();
                 try {
                     next().run();
@@ -31,9 +29,7 @@ public class TaskStocker extends Stocker<ThrowRunnable> {
     }
 
     public synchronized void add(ThrowRunnable runnable) {
-        System.out.println("add");
         super.add(runnable);
-        System.out.println("wait");
         notifyAll();
     }
 
