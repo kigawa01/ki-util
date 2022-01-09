@@ -6,13 +6,10 @@ public class Stocker<T> extends Syncer implements Iterator<T> {
     private Container<T> start;
     private Container<T> end;
 
-    public void add(T obj) {
-        startSync();
+    public synchronized void add(T obj) {
         Container<T> container = new Container<>(obj);
         if (end != null) end.setContainer(container);
         else start = container;
-        end = container;
-        endSync();
     }
 
     @Override
@@ -22,10 +19,8 @@ public class Stocker<T> extends Syncer implements Iterator<T> {
 
     @Override
     public synchronized T next() {
-        startSync();
         Container<T> container = start;
         start = start.getContainer();
-        endSync();
         return container.getTask();
     }
 }
