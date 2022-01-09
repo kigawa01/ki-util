@@ -1,38 +1,81 @@
 package net.kigawa.log;
 
+import java.util.logging.Level;
+
 public interface LogSender {
     Logger logger = Logger.getInstance();
 
-    default void fine(Object o) {
-        logger.fine(o);
+
+    default void fine(Object... o) {
+        logger.anSyncLog(o, Level.FINE);
     }
 
-    default void warning(Object o) {
-        logger.warning(o);
+    default String finePass(String str) {
+        fine(str);
+        return str;
     }
 
-    default void severe(Object o) {
-        logger.severe(o);
+    default void warning(Object... o) {
+        logger.anSyncLog(o, Level.WARNING);
     }
 
-    default void info(Object o) {
-        logger.info(o);
+    default String warningPass(String str) {
+        warning(str);
+        return str;
     }
 
-    default void all(Object o) {
-        logger.all(o);
+    default void severe(Object... o) {
+        logger.anSyncLog(o, Level.SEVERE);
     }
 
-    default void finer(Object o) {
-        logger.finer(o);
+    default String severPass(String str) {
+        severe(str);
+        return str;
     }
 
-    default void finest(Object o) {
-        logger.finest(o);
+    default void info(Object... o) {
+        logger.anSyncLog(o, Level.INFO);
     }
 
-    default void off(Object o) {
-        logger.off(o);
+    default String infoPass(String str) {
+        info(str);
+        return str;
+    }
+
+    default void all(Object... o) {
+        logger.anSyncLog(o, Level.ALL);
+    }
+
+    default String allPass(String str) {
+        all(str);
+        return str;
+    }
+
+    default void finer(Object... o) {
+        logger.anSyncLog(o, Level.FINER);
+    }
+
+    default String finerPass(String str) {
+        fine(str);
+        return str;
+    }
+
+    default void finest(Object... o) {
+        logger.anSyncLog(o, Level.FINEST);
+    }
+
+    default String finestPass(String str) {
+        fine(str);
+        return str;
+    }
+
+    default void off(Object... o) {
+        logger.anSyncLog(o, Level.OFF);
+    }
+
+    default String offPass(String str) {
+        off(str);
+        return str;
     }
 
     /**

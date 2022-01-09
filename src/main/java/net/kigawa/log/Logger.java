@@ -12,7 +12,7 @@ import java.util.logging.FileHandler;
 import java.util.logging.Handler;
 import java.util.logging.Level;
 
-public class Logger extends java.util.logging.Logger {
+public class Logger extends java.util.logging.Logger implements LogSender {
     private static Logger logger;
     private final TaskStocker stocker = new TaskStocker();
     private FileHandler fileHandler;
@@ -68,73 +68,6 @@ public class Logger extends java.util.logging.Logger {
         fileHandler = null;
     }
 
-    public void fine(Object o) {
-        anSyncLog(o, Level.FINE);
-    }
-
-    public String finePass(String str) {
-        fine(str);
-        return str;
-    }
-
-    public void warning(Object o) {
-        anSyncLog(o, Level.WARNING);
-    }
-
-    public String warningPass(String str) {
-        warning(str);
-        return str;
-    }
-
-    public void severe(Object o) {
-        anSyncLog(o, Level.SEVERE);
-    }
-
-    public String severPass(String str) {
-        severe(str);
-        return str;
-    }
-
-    public void info(Object o) {
-        anSyncLog(o, Level.INFO);
-    }
-
-    public String infoPass(String str) {
-        info(str);
-        return str;
-    }
-
-    public void all(Object o) {
-        anSyncLog(o, Level.ALL);
-    }
-
-    public String allPass(String str) {
-        all(str);
-        return str;
-    }
-
-    public void finer(Object o) {
-        anSyncLog(o, Level.FINER);
-    }
-
-    public String finerPass(String str) {
-        fine(str);
-        return str;
-    }
-
-    public void finest(Object o) {
-        anSyncLog(o, Level.FINEST);
-    }
-
-    public String finestPass(String str) {
-        fine(str);
-        return str;
-    }
-
-    public void off(Object o) {
-        anSyncLog(o, Level.OFF);
-    }
-
     public void anSyncLog(Log log, Level level) {
         stocker.add(() -> log(log, level));
     }
@@ -150,7 +83,6 @@ public class Logger extends java.util.logging.Logger {
 
     public synchronized void log(Object o, Level level) {
         if (o.getClass().isArray()) {
-            log(o.toString(), level);
             for (Object o1 : (Object[]) o) {
                 log(o1, level);
             }
@@ -169,13 +101,6 @@ public class Logger extends java.util.logging.Logger {
             return;
         }
         super.log(level, o.toString());
-    }
-
-    /**
-     * @deprecated
-     */
-    public void logger(String message) {
-        fine(message);
     }
 
     public synchronized void disable() {
