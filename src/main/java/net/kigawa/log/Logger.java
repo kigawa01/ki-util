@@ -144,7 +144,7 @@ public class Logger extends java.util.logging.Logger {
         anSyncLog(str, level);
     }
 
-    public synchronized void anSyncLog(Object o, Level level) {
+    public  void anSyncLog(Object o, Level level) {
         stocker.add(() -> log(o, level));
     }
 
