@@ -22,6 +22,8 @@ public class LoggerTest {
         Logger.getInstance().info("");
 
         try {
+            String ab = getNull();
+            ab.equals("a");
             throw new IOException();
         } catch (Exception e) {
             Logger.getInstance().warning(e);
@@ -37,5 +39,9 @@ public class LoggerTest {
 
         logger.disable();
         Logger.getInstance().disable();
+    }
+
+    public static String getNull() {
+        return null;
     }
 }
