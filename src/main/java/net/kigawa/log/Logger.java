@@ -66,6 +66,10 @@ public class Logger extends java.util.logging.Logger implements LogSender {
         return logger;
     }
 
+    public static void setLogger(Logger logger) {
+        Logger.logger = logger;
+    }
+
     public void removeFileHandler() {
         removeHandler(fileHandler);
         fileHandler = null;
