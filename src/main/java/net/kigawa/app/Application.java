@@ -9,8 +9,8 @@ public interface Application extends Module, LogSender {
     LinkedList<Module> moduleList = new LinkedList<>();
 
     default void enableAddModule(Module module) {
+        addModule(module);
         enableModule(module);
-        module.enable();
     }
 
     default void enableModule(Module module) {

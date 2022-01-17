@@ -4,8 +4,7 @@ import jline.console.ConsoleReader;
 import net.kigawa.interfaces.Module;
 import net.kigawa.log.LogSender;
 
-import java.io.BufferedWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.function.Consumer;
@@ -15,14 +14,23 @@ public class Terminal implements LogSender, Module {
     public static String PREFIX = "]";
 
     private final ArrayList<Consumer<String>> consumerList = new ArrayList<>();
-    private ConsoleReader reader;
+    private final boolean jline;
+    private ConsoleReader consoleReader;
+    private BufferedReader reader;
     private BufferedWriter writer;
     private boolean run;
+    private Thread thread;
+
+    public Terminal(boolean jline) {
+        this.jline = jline;
+    }
 
     private synchronized void read() {
         while (run) {
             try {
-                String line = reader.readLine(PREFIX);
+                String line;
+                if (jline) line = consoleReader.readLine(PREFIX);
+                else line = reader.readLine();
                 for (Consumer<String> consumer : consumerList) {
                     consumer.accept(line);
                 }
@@ -37,10 +45,6 @@ public class Terminal implements LogSender, Module {
         Collections.addAll(consumerList, consumer);
     }
 
-    public BufferedWriter getWriter() {
-        return writer;
-    }
-
     @Override
     public void enable() {
         if (terminal != null) {
@@ -49,22 +53,28 @@ public class Terminal implements LogSender, Module {
         }
 
         try {
-            reader = new ConsoleReader();
-            writer = new BufferedWriter(reader.getOutput());
+            if (jline) {
+                consoleReader = new ConsoleReader();
+                writer = new BufferedWriter(consoleReader.getOutput());
+            } else {
+                reader = new BufferedReader(new InputStreamReader(System.in));
+                writer = new BufferedWriter(new OutputStreamWriter(System.out));
+            }
         } catch (IOException e) {
             warning(e);
         }
         terminal = this;
 
         run = true;
-        read();
+        thread = new Thread(this::read);
+        thread.start();
     }
 
     @Override
     public void disable() {
         run = false;
         notifyAll();
-
+        thread = null;
         try {
             writer.close();
             writer = null;
@@ -74,5 +84,17 @@ public class Terminal implements LogSender, Module {
             warning(e);
         }
         terminal = null;
+    }
+
+    public BufferedWriter getWriter() {
+        return writer;
+    }
+
+    public BufferedReader getReader() {
+        return reader;
+    }
+
+    public ConsoleReader getConsoleReader() {
+        return consoleReader;
     }
 }

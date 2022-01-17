@@ -9,7 +9,6 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Calendar;
-import java.util.logging.FileHandler;
 import java.util.logging.Handler;
 import java.util.logging.Level;
 
@@ -37,15 +36,9 @@ public class Logger extends java.util.logging.Logger implements LogSender, Modul
             Calendar calendar = Calendar.getInstance();
             StringBuffer logName = StringUtil.addYearToDate(new StringBuffer("log"), "-");
             File logFile = new File(logDirPath.toFile(), Extension.log.addExtension(logName.toString()));
-            int i = 0;
-            while (logFile.exists()) {
-                logFile = new File(logDirPath.toFile(), Extension.log.addExtension(logName + "-" + i));
-                i++;
-            }
 
             try {
-                logFile.createNewFile();
-                FileHandler handler = new FileHandler(logFile.getAbsolutePath());
+                FileHandler handler = new FileHandler(logFile.getAbsolutePath(), 1024 * 1024, 1, false);
                 handler.setLevel(logLevel);
                 addHandler(handler);
                 handler.setFormatter(new Formatter());
@@ -123,7 +116,6 @@ public class Logger extends java.util.logging.Logger implements LogSender, Modul
 
     public synchronized void disable() {
         stocker.end();
-        logger.disable();
     }
 
     public interface Log {
