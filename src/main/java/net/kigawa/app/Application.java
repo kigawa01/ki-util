@@ -39,8 +39,12 @@ public interface Application extends Module, LogSender {
     }
 
     default void disable() {
+        try {
+            onDisable();
+        } catch (Exception e) {
+            warning(e);
+        }
         moduleList.forEach(this::disableModule);
-        onDisable();
     }
 
     void onEnable();
