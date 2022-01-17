@@ -1,6 +1,7 @@
 package net.kigawa.log;
 
 import net.kigawa.file.Extension;
+import net.kigawa.interfaces.Module;
 import net.kigawa.string.StringUtil;
 import net.kigawa.util.TaskStocker;
 
@@ -12,13 +13,20 @@ import java.util.logging.FileHandler;
 import java.util.logging.Handler;
 import java.util.logging.Level;
 
-public class Logger extends java.util.logging.Logger implements LogSender {
+public class Logger extends java.util.logging.Logger implements LogSender, Module {
     private static Logger logger;
     private final TaskStocker stocker = new TaskStocker();
     private FileHandler fileHandler;
 
-    protected Logger(String name, java.util.logging.Logger parentLogger, Level logLevel, Path logDirPath, Handler... handlers) {
-        super(name, null);
+    public Logger(String name, java.util.logging.Logger parentLogger, Level logLevel, File logDir, Handler... handlers) {
+        super(
+                getLoggerName(name, parentLogger),
+                null
+        );
+
+        Path logDirPath = null;
+        if (logDir != null) logDirPath = logDir.toPath();
+
         if (parentLogger == null) setParent(Logger.getLogger(""));
         else setParent(parentLogger);
 
@@ -53,12 +61,10 @@ public class Logger extends java.util.logging.Logger implements LogSender {
         }
     }
 
-    public static void enable(String name, java.util.logging.Logger parentLogger, Level logLevel, File logDir, Handler... handlers) {
+    private static String getLoggerName(String name, java.util.logging.Logger parentLogger) {
         String loggerName = name;
         if (parentLogger != null) loggerName = parentLogger.getName() + "." + name;
-        Path path = null;
-        if (logDir != null) path = logDir.toPath();
-        logger = new Logger(loggerName, parentLogger, logLevel, path, handlers);
+        return loggerName;
     }
 
     public static Logger getInstance() {
@@ -110,8 +116,14 @@ public class Logger extends java.util.logging.Logger implements LogSender {
         super.log(level, o.toString());
     }
 
+    @Override
+    public void enable() {
+        logger = this;
+    }
+
     public synchronized void disable() {
         stocker.end();
+        logger.disable();
     }
 
     public interface Log {

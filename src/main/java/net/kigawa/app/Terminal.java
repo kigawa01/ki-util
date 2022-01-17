@@ -11,26 +11,13 @@ import java.util.Collections;
 import java.util.function.Consumer;
 
 public class Terminal implements LogSender, Module {
-    public static final Terminal terminal;
+    public static Terminal terminal;
     public static String PREFIX = "]";
-
-    static {
-        terminal = new Terminal();
-    }
 
     private final ArrayList<Consumer<String>> consumerList = new ArrayList<>();
     private ConsoleReader reader;
     private BufferedWriter writer;
     private boolean run;
-
-    public Terminal() {
-        try {
-            reader = new ConsoleReader();
-            writer = new BufferedWriter(reader.getOutput());
-        } catch (IOException e) {
-            warning(e);
-        }
-    }
 
     private synchronized void read() {
         while (run) {
@@ -56,6 +43,19 @@ public class Terminal implements LogSender, Module {
 
     @Override
     public void enable() {
+        if (terminal != null) {
+            warning("terminal is already exit!");
+            return;
+        }
+
+        try {
+            reader = new ConsoleReader();
+            writer = new BufferedWriter(reader.getOutput());
+        } catch (IOException e) {
+            warning(e);
+        }
+        terminal = this;
+
         run = true;
         read();
     }
@@ -64,5 +64,15 @@ public class Terminal implements LogSender, Module {
     public void disable() {
         run = false;
         notifyAll();
+
+        try {
+            writer.close();
+            writer = null;
+            reader.close();
+            reader = null;
+        } catch (IOException e) {
+            warning(e);
+        }
+        terminal = null;
     }
 }

@@ -30,10 +30,10 @@ public class LoggerTest implements LogSender {
     public static void main(String[] args) {
 
         java.util.logging.Logger.getLogger("").getHandlers()[0].setFormatter(new Formatter());
-        Logger.enable("test", null, Level.ALL, new File(Paths.get("").toAbsolutePath().toFile(), "log"));
+        new Logger("test", null, Level.ALL, new File(Paths.get("").toAbsolutePath().toFile(), "log")).enable();
         Logger.getInstance().info("aaa");
         Logger logger = Logger.getInstance();
-        Logger.enable("test1", Logger.getInstance(), Level.ALL, new File(Paths.get("").toAbsolutePath().toFile(), "log1"));
+        new Logger("test1", Logger.getInstance(), Level.ALL, new File(Paths.get("").toAbsolutePath().toFile(), "log1")).enable();
         Logger.getInstance().info("iii");
         Logger.getInstance().info("uuu");
         Logger.getInstance().info((Object) new String[]{

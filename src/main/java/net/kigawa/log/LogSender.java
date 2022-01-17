@@ -3,11 +3,8 @@ package net.kigawa.log;
 import java.util.logging.Level;
 
 public interface LogSender {
-    Logger logger = Logger.getInstance();
-
-
     default void fine(Object... o) {
-        logger.anSyncLog(o, Level.FINE);
+        Logger.getInstance().anSyncLog(o, Level.FINE);
     }
 
     default String finePass(String str) {
@@ -16,7 +13,7 @@ public interface LogSender {
     }
 
     default void warning(Object... o) {
-        logger.anSyncLog(o, Level.WARNING);
+        Logger.getInstance().anSyncLog(o, Level.WARNING);
     }
 
     default String warningPass(String str) {
@@ -25,7 +22,7 @@ public interface LogSender {
     }
 
     default void severe(Object... o) {
-        logger.anSyncLog(o, Level.SEVERE);
+        Logger.getInstance().anSyncLog(o, Level.SEVERE);
     }
 
     default String severPass(String str) {
@@ -34,7 +31,7 @@ public interface LogSender {
     }
 
     default void info(Object... o) {
-        logger.anSyncLog(o, Level.INFO);
+        Logger.getInstance().anSyncLog(o, Level.INFO);
     }
 
     default String infoPass(String str) {
@@ -43,7 +40,7 @@ public interface LogSender {
     }
 
     default void all(Object... o) {
-        logger.anSyncLog(o, Level.ALL);
+        Logger.getInstance().anSyncLog(o, Level.ALL);
     }
 
     default String allPass(String str) {
@@ -52,7 +49,7 @@ public interface LogSender {
     }
 
     default void finer(Object... o) {
-        logger.anSyncLog(o, Level.FINER);
+        Logger.getInstance().anSyncLog(o, Level.FINER);
     }
 
     default String finerPass(String str) {
@@ -61,7 +58,7 @@ public interface LogSender {
     }
 
     default void finest(Object... o) {
-        logger.anSyncLog(o, Level.FINEST);
+        Logger.getInstance().anSyncLog(o, Level.FINEST);
     }
 
     default String finestPass(String str) {
