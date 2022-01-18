@@ -5,15 +5,16 @@ import net.kigawa.log.LogSender;
 
 import java.util.LinkedList;
 
-public interface Application extends Module, LogSender {
-    LinkedList<Module> moduleList = new LinkedList<>();
+public abstract class Application implements Module, LogSender {
+    private final LinkedList<Module> moduleList = new LinkedList<>();
+    private boolean run = false;
 
-    default void enableAddModule(Module module) {
+    public void enableAddModule(Module module) {
         addModule(module);
         enableModule(module);
     }
 
-    default void enableModule(Module module) {
+    public void enableModule(Module module) {
         try {
             module.enable();
         } catch (Exception e) {
@@ -21,7 +22,7 @@ public interface Application extends Module, LogSender {
         }
     }
 
-    default void disableModule(Module module) {
+    public void disableModule(Module module) {
         try {
             module.disable();
         } catch (Exception e) {
@@ -29,25 +30,31 @@ public interface Application extends Module, LogSender {
         }
     }
 
-    default void addModule(Module module) {
+    public void addModule(Module module) {
         moduleList.add(module);
     }
 
-    default void enable() {
+    public boolean isRun() {
+        return run;
+    }
+
+    public void enable() {
+        run = true;
         moduleList.forEach(this::enableModule);
         onEnable();
     }
 
-    default void disable() {
+    public void disable() {
         try {
             onDisable();
         } catch (Exception e) {
             warning(e);
         }
         moduleList.forEach(this::disableModule);
+        run = false;
     }
 
-    void onEnable();
+    protected abstract void onEnable();
 
-    void onDisable();
+    protected abstract void onDisable();
 }

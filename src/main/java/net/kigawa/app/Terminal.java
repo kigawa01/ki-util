@@ -20,6 +20,8 @@ public class Terminal implements LogSender, Module {
     private BufferedWriter writer;
     private boolean run;
     private Thread thread;
+    private String typed;
+    private boolean write = false;
 
     public Terminal(boolean jline) {
         this.jline = jline;
@@ -29,14 +31,46 @@ public class Terminal implements LogSender, Module {
         while (run) {
             try {
                 String line;
-                if (jline) line = consoleReader.readLine(PREFIX);
-                else line = reader.readLine();
+
+                if (jline) {
+                    if (write) {
+                        line = consoleReader.readLine(PREFIX, null, typed);
+                        typed = null;
+                        write = false;
+                    } else line = consoleReader.readLine(PREFIX);
+                } else line = reader.readLine();
+
+                if (write) {
+                    try {
+                        wait();
+                    } catch (InterruptedException e) {
+                        warning(e);
+                    }
+                    typed = line;
+                    return;
+                }
+
                 for (Consumer<String> consumer : consumerList) {
                     consumer.accept(line);
                 }
             } catch (IOException e) {
                 warning(e);
             }
+        }
+    }
+
+    public void write(String str) {
+        try {
+            if (!jline) {
+                writer.write(str);
+                return;
+            }
+            write = true;
+            consoleReader.accept();
+            writer.write(str);
+            notifyAll();
+        } catch (IOException e) {
+            warning(e);
         }
     }
 
