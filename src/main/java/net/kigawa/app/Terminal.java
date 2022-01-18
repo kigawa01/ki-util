@@ -68,6 +68,7 @@ public class Terminal implements LogSender, Module {
             write = true;
             consoleReader.accept();
             writer.write(str);
+            writer.flush();
             notifyAll();
         } catch (IOException e) {
             warning(e);

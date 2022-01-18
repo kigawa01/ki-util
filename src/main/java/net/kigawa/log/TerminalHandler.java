@@ -17,12 +17,7 @@ public class TerminalHandler extends Handler {
 
     @Override
     public void publish(LogRecord record) {
-        try {
-            terminal.getWriter().write(formatter.format(record));
-            flush();
-        } catch (IOException e) {
-            Logger.getInstance().warning(e);
-        }
+            terminal.write(formatter.format(record));
     }
 
     @Override
