@@ -20,7 +20,6 @@ public class Terminal implements LogSender, Module {
     private BufferedWriter writer;
     private boolean run;
     private Thread thread;
-    private boolean write = false;
 
     public Terminal(boolean jline) {
         this.jline = jline;
