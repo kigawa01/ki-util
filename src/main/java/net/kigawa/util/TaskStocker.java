@@ -5,7 +5,6 @@ import net.kigawa.log.Logger;
 
 public class TaskStocker extends Stocker<ThrowRunnable> {
     private boolean run = true;
-    private final Syncer syncer = new Syncer();
     private boolean wait;
 
     public TaskStocker() {

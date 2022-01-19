@@ -2,7 +2,7 @@ package net.kigawa.util;
 
 import java.util.Iterator;
 
-public class Stocker<T> extends Syncer implements Iterator<T> {
+public class Stocker<T> implements Iterator<T> {
     private Container<T> start;
     private Container<T> end;
 
