@@ -20,7 +20,6 @@ public class Terminal implements LogSender, Module {
     private BufferedWriter writer;
     private boolean run;
     private Thread thread;
-    private String typed;
     private boolean write = false;
 
     public Terminal(boolean jline) {
@@ -29,32 +28,18 @@ public class Terminal implements LogSender, Module {
 
     private void read() {
         while (run) {
+            System.out.println("read");
             try {
-                System.out.println("read");
                 String line;
-
-                if (jline) {
-                    if (write) {
-                        line = consoleReader.readLine(PREFIX, null, typed);
-                        typed = null;
-                        write = false;
-                    } else line = consoleReader.readLine(PREFIX);
-                } else line = reader.readLine();
-
-                if (write) {
-                    synchronized (this) {
-                        try {
-                            wait(1000);
-                        } catch (InterruptedException e) {
-                            warning(e);
-                        }
-                        typed = line;
-                        return;
-                    }
-                }
+                if (jline) line = consoleReader.readLine(PREFIX, null);
+                else line = reader.readLine();
 
                 for (Consumer<String> consumer : consumerList) {
-                    consumer.accept(line);
+                    try {
+                        consumer.accept(line);
+                    } catch (Exception e) {
+                        warning(e);
+                    }
                 }
             } catch (IOException e) {
                 warning(e);
@@ -63,21 +48,11 @@ public class Terminal implements LogSender, Module {
     }
 
     public void write(String str) {
-        System.out.println("write");
         try {
-            if (!jline) {
-                writer.write(str);
-                return;
-            }
-            write = true;
-            synchronized (this) {
-                notifyAll();
-            }
+            consoleReader.accept();
             writer.write(str);
             writer.flush();
-            synchronized (this) {
-                notifyAll();
-            }
+            consoleReader.drawLine();
         } catch (IOException e) {
             warning(e);
         }
@@ -114,7 +89,7 @@ public class Terminal implements LogSender, Module {
     }
 
     @Override
-    public void disable() {
+    public synchronized void disable() {
         run = false;
         notifyAll();
         thread = null;
