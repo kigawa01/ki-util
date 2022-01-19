@@ -27,9 +27,10 @@ public class Terminal implements LogSender, Module {
         this.jline = jline;
     }
 
-    private synchronized void read() {
+    private void read() {
         while (run) {
             try {
+                System.out.println("read");
                 String line;
 
                 if (jline) {
@@ -41,13 +42,15 @@ public class Terminal implements LogSender, Module {
                 } else line = reader.readLine();
 
                 if (write) {
-                    try {
-                        wait();
-                    } catch (InterruptedException e) {
-                        warning(e);
+                    synchronized (this) {
+                        try {
+                            wait(1000);
+                        } catch (InterruptedException e) {
+                            warning(e);
+                        }
+                        typed = line;
+                        return;
                     }
-                    typed = line;
-                    return;
                 }
 
                 for (Consumer<String> consumer : consumerList) {
@@ -60,16 +63,21 @@ public class Terminal implements LogSender, Module {
     }
 
     public void write(String str) {
+        System.out.println("write");
         try {
             if (!jline) {
                 writer.write(str);
                 return;
             }
             write = true;
-            consoleReader.accept();
+            synchronized (this) {
+                notifyAll();
+            }
             writer.write(str);
             writer.flush();
-            notifyAll();
+            synchronized (this) {
+                notifyAll();
+            }
         } catch (IOException e) {
             warning(e);
         }

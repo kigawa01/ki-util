@@ -6,6 +6,7 @@ import net.kigawa.string.StringUtil;
 import java.io.*;
 import java.net.URL;
 import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
 import java.util.function.BiPredicate;
 import java.util.function.Function;
