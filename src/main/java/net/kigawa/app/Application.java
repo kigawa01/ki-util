@@ -50,7 +50,9 @@ public abstract class Application implements Module, LogSender {
         } catch (Exception e) {
             warning(e);
         }
-        moduleList.forEach(this::disableModule);
+        for (int i = moduleList.size() - 1; i >= 0; i--) {
+            disableModule(moduleList.get(i));
+        }
         run = false;
     }
 
