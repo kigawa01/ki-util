@@ -2,13 +2,18 @@ package net.kigawa.app;
 
 import jline.console.ConsoleReader;
 import net.kigawa.interfaces.Module;
+import net.kigawa.log.Formatter;
 import net.kigawa.log.LogSender;
+import net.kigawa.log.Logger;
+import net.kigawa.log.TerminalHandler;
 import net.kigawa.thread.ThreadExecutors;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.function.Consumer;
+import java.util.logging.ConsoleHandler;
+import java.util.logging.Handler;
 
 public class Terminal implements LogSender, Module {
     public static Terminal terminal;
@@ -19,6 +24,7 @@ public class Terminal implements LogSender, Module {
     private ConsoleReader consoleReader;
     private BufferedReader reader;
     private BufferedWriter writer;
+    private TerminalHandler terminalHandler;
     private boolean run;
     private Thread thread;
 
@@ -51,7 +57,10 @@ public class Terminal implements LogSender, Module {
 
     public synchronized void write(String str) {
         try {
-            if (writer == null) return;
+            if (!run) {
+                System.out.println(str);
+                return;
+            }
             writer.write("\n" + str);
             writer.flush();
             consoleReader.drawLine();
@@ -86,6 +95,16 @@ public class Terminal implements LogSender, Module {
         }
         terminal = this;
 
+        terminalHandler = new TerminalHandler(Terminal.terminal, new Formatter());
+
+        Logger.getLogger("").addHandler(terminalHandler);
+        for (Handler handler : Logger.getLogger("").getHandlers()) {
+            if (handler instanceof ConsoleHandler) {
+                Logger.getLogger("").removeHandler(handler);
+            }
+        }
+
+
         run = true;
         ThreadExecutors.execute(this::read);
     }
@@ -101,6 +120,16 @@ public class Terminal implements LogSender, Module {
         reader = null;
 
         terminal = null;
+
+        java.util.logging.Logger logger = Logger.getLogger("");
+
+        ConsoleHandler consoleHandler = new ConsoleHandler();
+        consoleHandler.setFormatter(new Formatter());
+        logger.addHandler(consoleHandler);
+        logger.removeHandler(terminalHandler);
+
+
+        terminalHandler = null;
     }
 
     public BufferedWriter getWriter() {

@@ -31,7 +31,7 @@ public class ThreadExecutors implements Module, LogSender {
 
     @Override
     public void disable() {
-        System.out.println("disable thread executor");
+        info("disable thread executor");
         for (ExecutorService service : executorServiceMap.values()) {
             cachedPool.execute(() -> {
                 try {

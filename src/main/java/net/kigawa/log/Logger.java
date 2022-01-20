@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Calendar;
+import java.util.logging.ConsoleHandler;
 import java.util.logging.Handler;
 import java.util.logging.Level;
 
@@ -107,11 +108,17 @@ public class Logger extends java.util.logging.Logger implements LogSender, Modul
             return;
         }
         super.log(level, o.toString());
+
     }
 
     @Override
     public void enable() {
         logger = this;
+        for (Handler handler : getLogger("").getHandlers()) {
+            if (handler instanceof ConsoleHandler) {
+                handler.setFormatter(new Formatter());
+            }
+        }
     }
 
     public synchronized void disable() {
