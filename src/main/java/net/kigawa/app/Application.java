@@ -18,7 +18,7 @@ public abstract class Application implements Module, LogSender {
         try {
             module.enable();
         } catch (Exception e) {
-            warning(e);
+            e.printStackTrace();
         }
     }
 
@@ -26,7 +26,7 @@ public abstract class Application implements Module, LogSender {
         try {
             module.disable();
         } catch (Exception e) {
-            warning(e);
+            e.printStackTrace();
         }
     }
 
@@ -48,7 +48,7 @@ public abstract class Application implements Module, LogSender {
         try {
             onDisable();
         } catch (Exception e) {
-            warning(e);
+            e.printStackTrace();
         }
         for (int i = moduleList.size() - 1; i >= 0; i--) {
             disableModule(moduleList.get(i));
