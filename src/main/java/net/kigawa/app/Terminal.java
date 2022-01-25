@@ -61,7 +61,7 @@ public class Terminal implements LogSender, Module {
                 System.out.println(str);
                 return;
             }
-            writer.write("\n" + str);
+            writer.write( str);
             writer.flush();
             consoleReader.drawLine();
         } catch (IOException e) {
