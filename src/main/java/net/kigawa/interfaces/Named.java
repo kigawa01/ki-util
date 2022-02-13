@@ -1,4 +1,4 @@
-package net.kigawa.util;
+package net.kigawa.interfaces;
 
 public interface Named {
     String getName();

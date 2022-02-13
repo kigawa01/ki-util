@@ -1,11 +1,15 @@
 package net.kigawa.util;
 
+import net.kigawa.file.FileUtil;
+import net.kigawa.string.StringUtil;
+
 import java.io.*;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
 import java.util.function.BiPredicate;
+import java.util.function.Function;
 
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
@@ -37,7 +41,7 @@ public class KiUtil {
      * @deprecated
      */
     public static String createString(int[] ints) {
-        return connectArray(castIntArray(ints, new Integer[ints.length]), ", ");
+        return StringUtil.connectArray(castIntArray(ints, new Integer[ints.length]), ", ");
     }
 
     public static Integer[] castIntArray(int[] from, Integer[] to) throws ClassCastException {
@@ -47,20 +51,8 @@ public class KiUtil {
         return to;
     }
 
-    public static <T> String connectArray(T[] ts, String insert) {
-        StringBuilder str = new StringBuilder(ts[0].toString());
-        for (int i = 1; i < ts.length; i++) {
-            str.append(insert).append(ts[i]);
-        }
-        return str.toString();
-    }
-
     public static <T, F extends T> List<T> changeListType(List<F> list, Class<T> to) throws ClassCastException {
-        List<T> list1 = new ArrayList<>();
-        for (F f : list) {
-            list1.add((T) f);
-        }
-        return list1;
+        return new ArrayList<>(list);
     }
 
     public static int[] getIntegerArrangement(List<Integer> list) {
@@ -118,14 +110,13 @@ public class KiUtil {
         return list;
     }
 
-    public static void runCommand(String[] command, File dir) {
+    private static void runCommand(Function<Runtime, java.lang.Process> function) {
         try {
-            if (dir.mkdirs()) throw new FileNotFoundException();
             System.out.println("run jar...");
             String result;
             java.lang.Process process;
             Runtime runtime = Runtime.getRuntime();
-            process = runtime.exec(command, null, dir);
+            process = function.apply(runtime);
             System.out.println("out put log...");
             InputStream inputStream = process.getInputStream();
             InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
@@ -136,6 +127,27 @@ public class KiUtil {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    public static void runCommand(String[] command,File dir) {
+        runCommand(runtime-> {
+            try {
+                return runtime.exec(command, null, dir);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        });
+    }
+
+    public static void runCommand(String command,File dir) {
+        runCommand(runtime-> {
+            try {
+                return runtime.exec(command, null, dir);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        });
     }
 
     public static void download(URL url, File file, String name) {
@@ -152,8 +164,11 @@ public class KiUtil {
         }
     }
 
+    /**
+     * @deprecated
+     */
     public static File getAbsolutFile() {
-        return Paths.get("").toAbsolutePath().toFile();
+        return FileUtil.getAbsolutFile();
     }
 
     public static String getDate() {

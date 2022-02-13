@@ -1,5 +1,7 @@
 package net.kigawa.util;
 
+import net.kigawa.interfaces.Named;
+
 /**
  * @deprecated
  */
@@ -14,8 +16,9 @@ public class EqualsNamed {
     @Override
     public boolean equals(Object o) {
         if (o!=null) {
-
-            return ((Named) o).getName().equals(name);
+            if (o instanceof Named)
+                return ((Named) o).getName().equals(name);
+            return super.equals(o);
         }
         return false;
     }
