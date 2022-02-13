@@ -6,11 +6,10 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
 import java.util.function.BiPredicate;
-import java.util.function.Consumer;
 
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
-public class Util {
+public class KiUtil {
 
     public static StringBuffer addYearToDate(StringBuffer stringBuffer) {
         return addYearToDate(stringBuffer, "-");

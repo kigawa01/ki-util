@@ -25,7 +25,7 @@ public class Logger {
         if (logDirPath != null) {
             logDirPath.toFile().mkdirs();
             Calendar calendar = Calendar.getInstance();
-            StringBuffer logName = Util.addYearToDate(new StringBuffer(Name));
+            StringBuffer logName = KiUtil.addYearToDate(new StringBuffer(Name));
             File logFile = new File(logDirPath.toFile(), Extension.log.addExtension(logName.toString()));
             int i = 0;
             while (logFile.exists()) {

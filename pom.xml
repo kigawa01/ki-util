@@ -5,8 +5,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>net.kigawa</groupId>
-    <artifactId>util</artifactId>
-    <version>3.9b</version>
+    <artifactId>ki-util</artifactId>
+    <version>1.0b</version>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
