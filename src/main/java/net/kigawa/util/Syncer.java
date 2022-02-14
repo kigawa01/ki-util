@@ -5,7 +5,7 @@ import net.kigawa.log.Logger;
 
 import java.util.LinkedList;
 
-public class Syncer implements Module {
+public class Syncer  {
     private final LinkedList<Runnable> runnableList = new LinkedList<>();
     private int size;
     private Thread thread;
@@ -109,13 +109,11 @@ public class Syncer implements Module {
         this.size = size;
     }
 
-    @Override
     public void enable() {
         thread = new Thread(this::run);
         thread.start();
     }
 
-    @Override
     public synchronized void disable() {
         run = false;
         notify0();

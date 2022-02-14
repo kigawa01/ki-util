@@ -15,7 +15,7 @@ import java.util.function.Consumer;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.Handler;
 
-public class Terminal implements LogSender, Module {
+public class Terminal implements LogSender {
     public static Terminal terminal;
     public static String PREFIX = "]";
 
@@ -74,7 +74,6 @@ public class Terminal implements LogSender, Module {
         Collections.addAll(consumerList, consumer);
     }
 
-    @Override
     public void onEnable() {
         info("enable terminal");
         if (terminal != null) {
@@ -109,7 +108,6 @@ public class Terminal implements LogSender, Module {
         ThreadExecutors.execute(this::read);
     }
 
-    @Override
     public synchronized void onDisable() {
         System.out.println("disable terminal");
         run = false;

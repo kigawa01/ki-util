@@ -1,7 +1,6 @@
 package net.kigawa.log;
 
 import net.kigawa.file.Extension;
-import net.kigawa.module.Module;
 import net.kigawa.string.StringUtil;
 import net.kigawa.util.TaskStocker;
 
@@ -13,7 +12,7 @@ import java.util.logging.ConsoleHandler;
 import java.util.logging.Handler;
 import java.util.logging.Level;
 
-public class Logger extends java.util.logging.Logger implements LogSender, Module {
+public class Logger extends java.util.logging.Logger implements LogSender {
     private static Logger logger;
     private final TaskStocker stocker = new TaskStocker();
     private FileHandler fileHandler;
@@ -84,7 +83,7 @@ public class Logger extends java.util.logging.Logger implements LogSender, Modul
         anSyncLog(str, level);
     }
 
-    public  void anSyncLog(Object o, Level level) {
+    public void anSyncLog(Object o, Level level) {
         stocker.add(() -> log(o, level));
     }
 
@@ -111,7 +110,6 @@ public class Logger extends java.util.logging.Logger implements LogSender, Modul
 
     }
 
-    @Override
     public void enable() {
         logger = this;
         for (Handler handler : getLogger("").getHandlers()) {

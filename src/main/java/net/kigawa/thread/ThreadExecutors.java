@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class ThreadExecutors implements Module, LogSender {
+public class ThreadExecutors implements  LogSender {
     public static ThreadExecutors THREAD_EXECUTORS;
     private ExecutorService cachedPool;
     private Map<String, ExecutorService> executorServiceMap;
@@ -22,14 +22,12 @@ public class ThreadExecutors implements Module, LogSender {
         THREAD_EXECUTORS.getCachedPool().execute(runnable);
     }
 
-    @Override
     public void enable() {
         Logger.getInstance().info("enable thread executor");
         this.cachedPool = Executors.newCachedThreadPool();
         executorServiceMap = new LinkedHashMap<>();
     }
 
-    @Override
     public void disable() {
         info("disable thread executor");
         for (ExecutorService service : executorServiceMap.values()) {

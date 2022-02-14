@@ -6,7 +6,7 @@ import java.util.Set;
 public class ModuleController extends Module {
     private final Set<Module> moduleSet = new HashSet<>();
 
-    protected ModuleController(String name) {
+    public ModuleController(String name) {
         super(name);
     }
 
@@ -34,12 +34,12 @@ public class ModuleController extends Module {
     //--------------------------------------------------------------------------------------------
 
     @Override
-    void onEnable() {
+    protected void onEnable() {
         moduleSet.forEach(m -> m.enable(this));
     }
 
     @Override
-    void onDisable() {
+    protected void onDisable() {
         moduleSet.forEach(m -> m.disable(this));
     }
 }
