@@ -1,6 +1,6 @@
 package net.kigawa.util;
 
-import net.kigawa.interfaces.Module;
+import net.kigawa.module.Module;
 import net.kigawa.log.Logger;
 
 import java.util.LinkedList;

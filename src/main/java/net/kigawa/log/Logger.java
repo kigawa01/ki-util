@@ -1,7 +1,7 @@
 package net.kigawa.log;
 
 import net.kigawa.file.Extension;
-import net.kigawa.interfaces.Module;
+import net.kigawa.module.Module;
 import net.kigawa.string.StringUtil;
 import net.kigawa.util.TaskStocker;
 
