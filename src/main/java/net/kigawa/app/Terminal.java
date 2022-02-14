@@ -1,7 +1,7 @@
 package net.kigawa.app;
 
 import jline.console.ConsoleReader;
-import net.kigawa.interfaces.Module;
+import net.kigawa.module.Module;
 import net.kigawa.log.Formatter;
 import net.kigawa.log.LogSender;
 import net.kigawa.log.Logger;
@@ -75,7 +75,7 @@ public class Terminal implements LogSender, Module {
     }
 
     @Override
-    public void enable() {
+    public void onEnable() {
         info("enable terminal");
         if (terminal != null) {
             warning("terminal is already exit!");
@@ -110,7 +110,7 @@ public class Terminal implements LogSender, Module {
     }
 
     @Override
-    public synchronized void disable() {
+    public synchronized void onDisable() {
         System.out.println("disable terminal");
         run = false;
         notifyAll();

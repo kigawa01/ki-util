@@ -1,6 +1,6 @@
 package net.kigawa.app;
 
-import net.kigawa.interfaces.Module;
+import net.kigawa.module.Module;
 import net.kigawa.log.LogSender;
 
 import java.util.LinkedList;
@@ -55,8 +55,4 @@ public abstract class Application implements Module, LogSender {
         }
         run = false;
     }
-
-    protected abstract void onEnable();
-
-    protected abstract void onDisable();
 }

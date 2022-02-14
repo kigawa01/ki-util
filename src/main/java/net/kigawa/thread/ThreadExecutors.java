@@ -1,6 +1,6 @@
 package net.kigawa.thread;
 
-import net.kigawa.interfaces.Module;
+import net.kigawa.module.Module;
 import net.kigawa.log.LogSender;
 import net.kigawa.log.Logger;
 
