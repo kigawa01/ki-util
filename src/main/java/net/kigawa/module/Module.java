@@ -23,18 +23,32 @@ public abstract class Module implements Named {
         return name;
     }
 
+    public Map<ModuleController, Boolean> getControllerMap() {
+        return controllerMap;
+    }
+
+    //-----------------------------------------------------------------------------------
+
     synchronized void enable(ModuleController controller) {
         controllerMap.put(controller, true);
         if (enable) return;
         enable = true;
-        onEnable();
+        try {
+            onEnable();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    void disable(ModuleController controller) {
+    synchronized void disable(ModuleController controller) {
         if (!enable) return;
         controllerMap.put(controller, false);
         if (controllerMap.containsValue(true)) return;
-        onDisable();
+        try {
+            onDisable();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         enable = false;
     }
 
