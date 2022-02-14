@@ -14,9 +14,9 @@ public abstract class Module implements Named {
         this.name = name;
     }
 
-    abstract void onEnable();
+    protected abstract void onEnable();
 
-    abstract void onDisable();
+    protected abstract void onDisable();
 
     @Override
     public String getName() {
