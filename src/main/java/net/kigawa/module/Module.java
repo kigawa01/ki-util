@@ -24,7 +24,7 @@ public abstract class Module implements Named {
     }
 
     public Map<ModuleController, Boolean> getControllerMap() {
-        return controllerMap;
+        return new LinkedHashMap<>(controllerMap);
     }
 
     //-----------------------------------------------------------------------------------
