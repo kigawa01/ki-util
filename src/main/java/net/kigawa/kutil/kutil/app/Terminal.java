@@ -1,12 +1,12 @@
-package net.kigawa.app;
+package net.kigawa.kutil.kutil.app;
 
 import jline.console.ConsoleReader;
-import net.kigawa.interfaces.Module;
+import net.kigawa.kutil.kutil.interfaces.Module;
 import net.kigawa.log.Formatter;
 import net.kigawa.log.LogSender;
 import net.kigawa.log.Logger;
 import net.kigawa.log.TerminalHandler;
-import net.kigawa.thread.ThreadExecutors;
+import net.kigawa.kutil.kutil.thread.ThreadExecutors;
 
 import java.io.*;
 import java.util.ArrayList;

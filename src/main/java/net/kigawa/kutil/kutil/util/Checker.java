@@ -1,6 +1,6 @@
-package net.kigawa.util;
+package net.kigawa.kutil.kutil.util;
 
-import net.kigawa.interfaces.HasContain;
+import net.kigawa.kutil.kutil.interfaces.HasContain;
 
 /**
  * @deprecated

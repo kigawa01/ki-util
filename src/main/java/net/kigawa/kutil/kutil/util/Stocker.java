@@ -1,4 +1,4 @@
-package net.kigawa.util;
+package net.kigawa.kutil.kutil.util;
 
 import java.util.Iterator;
 

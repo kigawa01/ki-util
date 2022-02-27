@@ -1,6 +1,6 @@
-package net.kigawa.thread;
+package net.kigawa.kutil.kutil.thread;
 
-import net.kigawa.interfaces.Module;
+import net.kigawa.kutil.kutil.interfaces.Module;
 import net.kigawa.log.LogSender;
 import net.kigawa.log.Logger;
 

@@ -1,6 +1,6 @@
-package net.kigawa.util;
+package net.kigawa.kutil.kutil.util;
 
-import net.kigawa.interfaces.Named;
+import net.kigawa.kutil.kutil.interfaces.Named;
 
 /**
  * @deprecated

@@ -1,4 +1,4 @@
-import net.kigawa.util.Syncer;
+import net.kigawa.kutil.kutil.util.Syncer;
 
 public class SyncerTest {
     private Syncer syncer = new Syncer(3);

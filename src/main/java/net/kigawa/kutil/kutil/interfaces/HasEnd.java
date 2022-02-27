@@ -1,4 +1,4 @@
-package net.kigawa.interfaces;
+package net.kigawa.kutil.kutil.interfaces;
 
 public interface HasEnd {
     void end();

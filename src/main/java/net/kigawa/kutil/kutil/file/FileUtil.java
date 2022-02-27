@@ -1,4 +1,4 @@
-package net.kigawa.file;
+package net.kigawa.kutil.kutil.file;
 
 import java.io.File;
 import java.nio.file.Paths;

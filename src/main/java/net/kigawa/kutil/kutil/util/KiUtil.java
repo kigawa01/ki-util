@@ -1,12 +1,11 @@
-package net.kigawa.util;
+package net.kigawa.kutil.kutil.util;
 
-import net.kigawa.file.FileUtil;
-import net.kigawa.string.StringUtil;
+import net.kigawa.kutil.kutil.file.FileUtil;
+import net.kigawa.kutil.kutil.string.StringUtil;
 
 import java.io.*;
 import java.net.URL;
 import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.*;
 import java.util.function.BiPredicate;
 import java.util.function.Function;

@@ -1,7 +1,7 @@
-package net.kigawa.interfaces;
+package net.kigawa.kutil.kutil.interfaces;
 
 
-import net.kigawa.util.Checker;
+import net.kigawa.kutil.kutil.util.Checker;
 
 /**
  * @deprecated

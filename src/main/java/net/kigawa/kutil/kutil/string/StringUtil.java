@@ -1,4 +1,4 @@
-package net.kigawa.string;
+package net.kigawa.kutil.kutil.string;
 
 import java.util.Arrays;
 import java.util.Calendar;

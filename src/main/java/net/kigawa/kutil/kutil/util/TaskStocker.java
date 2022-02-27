@@ -1,6 +1,6 @@
-package net.kigawa.util;
+package net.kigawa.kutil.kutil.util;
 
-import net.kigawa.function.ThrowRunnable;
+import net.kigawa.kutil.kutil.function.ThrowRunnable;
 import net.kigawa.log.Logger;
 
 public class TaskStocker extends Stocker<ThrowRunnable> {
