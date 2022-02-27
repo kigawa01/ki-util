@@ -1,11 +1,10 @@
 package net.kigawa.kutil.kutil.app;
 
 import net.kigawa.kutil.kutil.interfaces.Module;
-import net.kigawa.log.LogSender;
 
 import java.util.LinkedList;
 
-public abstract class Application implements Module, LogSender {
+public abstract class Application implements Module {
     private final LinkedList<Module> moduleList = new LinkedList<>();
     private boolean run = false;
 
@@ -17,14 +16,6 @@ public abstract class Application implements Module, LogSender {
     public void enableModule(Module module) {
         try {
             module.enable();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void disableModule(Module module) {
-        try {
-            module.disable();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -56,7 +47,15 @@ public abstract class Application implements Module, LogSender {
         run = false;
     }
 
-    protected abstract void onEnable();
+    public void disableModule(Module module) {
+        try {
+            module.disable();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     protected abstract void onDisable();
+
+    protected abstract void onEnable();
 }

@@ -1,22 +1,24 @@
 package net.kigawa.kutil.kutil.util;
 
+import net.kigawa.kutil.kutil.interfaces.Logger;
 import net.kigawa.kutil.kutil.interfaces.Module;
-import net.kigawa.log.Logger;
 
 import java.util.LinkedList;
 
 public class Syncer implements Module {
     private final LinkedList<Runnable> runnableList = new LinkedList<>();
+    private final Logger logger;
     private int size;
     private Thread thread;
     private boolean run = true;
     private boolean clear = false;
 
-    public Syncer() {
-        this(-1);
+    public Syncer(Logger logger) {
+        this(logger, -1);
     }
 
-    public Syncer(int size) {
+    public Syncer(Logger logger, int size) {
+        this.logger = logger;
         this.size = size;
         thread = new Thread(this::run);
         thread.start();
@@ -30,7 +32,7 @@ public class Syncer implements Module {
                 synchronized (runnableList) {
                     runnableList.clear();
                 }
-                clear=false;
+                clear = false;
                 continue;
             }
             if (index >= size && size >= 0) {
@@ -61,7 +63,7 @@ public class Syncer implements Module {
                 try {
                     runnable.wait();
                 } catch (InterruptedException e) {
-                    Logger.getInstance().warning(e);
+                    logger.warning(e);
                 }
             }
             index++;
@@ -72,17 +74,17 @@ public class Syncer implements Module {
         try {
             wait();
         } catch (InterruptedException e) {
-            Logger.getInstance().warning(e);
+            logger.warning(e);
         }
-    }
-
-    private synchronized void notify0() {
-        notify();
     }
 
     public synchronized void clear() {
         clear = true;
         notify0();
+    }
+
+    private synchronized void notify0() {
+        notify();
     }
 
     public void setTask(Runnable runnable, int order) {
@@ -100,7 +102,7 @@ public class Syncer implements Module {
                 runnable.run();
                 runnable.notify();
             } catch (InterruptedException e) {
-                Logger.getInstance().warning(e);
+                logger.warning(e);
             }
         }
     }

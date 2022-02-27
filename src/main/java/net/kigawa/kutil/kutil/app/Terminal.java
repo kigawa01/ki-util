@@ -1,11 +1,8 @@
 package net.kigawa.kutil.kutil.app;
 
 import jline.console.ConsoleReader;
+import net.kigawa.kutil.kutil.interfaces.Logger;
 import net.kigawa.kutil.kutil.interfaces.Module;
-import net.kigawa.log.Formatter;
-import net.kigawa.log.LogSender;
-import net.kigawa.log.Logger;
-import net.kigawa.log.TerminalHandler;
 import net.kigawa.kutil.kutil.thread.ThreadExecutors;
 
 import java.io.*;
@@ -15,12 +12,13 @@ import java.util.function.Consumer;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.Handler;
 
-public class Terminal implements LogSender, Module {
+public class Terminal implements Module {
     public static Terminal terminal;
     public static String PREFIX = "]";
 
     private final ArrayList<Consumer<String>> consumerList = new ArrayList<>();
     private final boolean jline;
+    private Logger logger;
     private ConsoleReader consoleReader;
     private BufferedReader reader;
     private BufferedWriter writer;
@@ -28,31 +26,9 @@ public class Terminal implements LogSender, Module {
     private boolean run;
     private Thread thread;
 
-    public Terminal(boolean jline) {
+    public Terminal(boolean jline, Logger logger) {
+        this.logger = logger;
         this.jline = jline;
-    }
-
-    private void read() {
-        while (true) {
-            synchronized (this) {
-                if (!run) return;
-            }
-            try {
-                String line;
-                if (jline) line = consoleReader.readLine(PREFIX, null);
-                else line = reader.readLine();
-
-                for (Consumer<String> consumer : consumerList) {
-                    try {
-                        consumer.accept(line);
-                    } catch (Exception e) {
-                        warning(e);
-                    }
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
     }
 
     public synchronized void write(String str) {
@@ -61,7 +37,7 @@ public class Terminal implements LogSender, Module {
                 System.out.println(str);
                 return;
             }
-            writer.write( str);
+            writer.write(str);
             writer.flush();
             consoleReader.drawLine();
         } catch (IOException e) {
@@ -76,9 +52,9 @@ public class Terminal implements LogSender, Module {
 
     @Override
     public void enable() {
-        info("enable terminal");
+        logger.info("enable terminal");
         if (terminal != null) {
-            warning("terminal is already exit!");
+            logger.warning("terminal is already exit!");
             return;
         }
 
@@ -95,18 +71,41 @@ public class Terminal implements LogSender, Module {
         }
         terminal = this;
 
-        terminalHandler = new TerminalHandler(Terminal.terminal, new Formatter());
+        terminalHandler = new TerminalHandler(Terminal.terminal, new Formatter(), logger);
 
-        Logger.getLogger("").addHandler(terminalHandler);
-        for (Handler handler : Logger.getLogger("").getHandlers()) {
+        java.util.logging.Logger.getLogger("").addHandler(terminalHandler);
+        for (Handler handler : java.util.logging.Logger.getLogger("").getHandlers()) {
             if (handler instanceof ConsoleHandler) {
-                Logger.getLogger("").removeHandler(handler);
+                java.util.logging.Logger.getLogger("").removeHandler(handler);
             }
         }
 
 
         run = true;
         ThreadExecutors.execute(this::read);
+    }
+
+    private void read() {
+        while (true) {
+            synchronized (this) {
+                if (!run) return;
+            }
+            try {
+                String line;
+                if (jline) line = consoleReader.readLine(PREFIX, null);
+                else line = reader.readLine();
+
+                for (Consumer<String> consumer : consumerList) {
+                    try {
+                        consumer.accept(line);
+                    } catch (Exception e) {
+                        logger.warning(e);
+                    }
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override
@@ -121,7 +120,7 @@ public class Terminal implements LogSender, Module {
 
         terminal = null;
 
-        java.util.logging.Logger logger = Logger.getLogger("");
+        java.util.logging.Logger logger = java.util.logging.Logger.getLogger("");
 
         ConsoleHandler consoleHandler = new ConsoleHandler();
         consoleHandler.setFormatter(new Formatter());

@@ -1,20 +1,21 @@
 package net.kigawa.kutil.kutil.thread;
 
+import net.kigawa.kutil.kutil.interfaces.Logger;
 import net.kigawa.kutil.kutil.interfaces.Module;
-import net.kigawa.log.LogSender;
-import net.kigawa.log.Logger;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class ThreadExecutors implements Module, LogSender {
+public class ThreadExecutors implements Module {
     public static ThreadExecutors THREAD_EXECUTORS;
+    private final Logger logger;
     private ExecutorService cachedPool;
     private Map<String, ExecutorService> executorServiceMap;
 
-    public ThreadExecutors() {
+    public ThreadExecutors(Logger logger) {
+        this.logger = logger;
         THREAD_EXECUTORS = this;
     }
 
@@ -22,16 +23,20 @@ public class ThreadExecutors implements Module, LogSender {
         THREAD_EXECUTORS.getCachedPool().execute(runnable);
     }
 
+    public ExecutorService getCachedPool() {
+        return cachedPool;
+    }
+
     @Override
     public void enable() {
-        Logger.getInstance().info("enable thread executor");
+        logger.info("enable thread executor");
         this.cachedPool = Executors.newCachedThreadPool();
         executorServiceMap = new LinkedHashMap<>();
     }
 
     @Override
     public void disable() {
-        info("disable thread executor");
+        logger.info("disable thread executor");
         for (ExecutorService service : executorServiceMap.values()) {
             cachedPool.execute(() -> {
                 try {
@@ -43,10 +48,6 @@ public class ThreadExecutors implements Module, LogSender {
         }
         cachedPool.shutdown();
         cachedPool = null;
-    }
-
-    public ExecutorService getCachedPool() {
-        return cachedPool;
     }
 
     public Map<String, ExecutorService> getExecutorServiceMap() {

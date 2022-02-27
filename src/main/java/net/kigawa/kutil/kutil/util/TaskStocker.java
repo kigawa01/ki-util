@@ -1,12 +1,15 @@
 package net.kigawa.kutil.kutil.util;
 
 import net.kigawa.kutil.kutil.function.ThrowRunnable;
+import net.kigawa.kutil.kutil.interfaces.Logger;
 
 public class TaskStocker extends Stocker<ThrowRunnable> {
+    private Logger logger;
     private boolean run = true;
     private boolean wait;
 
-    public TaskStocker() {
+    public TaskStocker(Logger logger) {
+        this.logger = logger;
         Thread thread = new Thread(this::loop);
         thread.start();
     }
@@ -18,7 +21,7 @@ public class TaskStocker extends Stocker<ThrowRunnable> {
                 try {
                     next().run();
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    logger.warning(e);
                 }
             }
         } catch (InterruptedException e) {
