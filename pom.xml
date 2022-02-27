@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>net.kigawa</groupId>
-    <artifactId>kutil</artifactId>
+    <artifactId>kutil-java</artifactId>
     <version>1.0log</version>
 
     <properties>
