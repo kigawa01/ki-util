@@ -1,10 +1,10 @@
-import net.kigawa.kutil.kutil.interfaces.Logger;
+import net.kigawa.kutil.kutil.interfaces.LoggerInterface;
 import net.kigawa.kutil.kutil.util.Syncer;
 
 public class SyncerTest {
     private Syncer syncer;
 
-    private SyncerTest(Logger logger) {
+    private SyncerTest(LoggerInterface logger) {
         syncer = new Syncer(logger, -1);
         new Thread(this::task).start();
         new Thread(this::task0).start();
@@ -29,7 +29,7 @@ public class SyncerTest {
     }
 
     public static void main(String[] args) {
-        new SyncerTest(new Logger() {
+        new SyncerTest(new LoggerInterface() {
             @Override
             public void fine(Object... o) {
 

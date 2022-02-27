@@ -1,7 +1,7 @@
 package net.kigawa.kutil.kutil.app;
 
 import jline.console.ConsoleReader;
-import net.kigawa.kutil.kutil.interfaces.Logger;
+import net.kigawa.kutil.kutil.interfaces.LoggerInterface;
 import net.kigawa.kutil.kutil.interfaces.Module;
 import net.kigawa.kutil.kutil.thread.ThreadExecutors;
 
@@ -18,7 +18,7 @@ public class Terminal implements Module {
 
     private final ArrayList<Consumer<String>> consumerList = new ArrayList<>();
     private final boolean jline;
-    private Logger logger;
+    private LoggerInterface logger;
     private ConsoleReader consoleReader;
     private BufferedReader reader;
     private BufferedWriter writer;
@@ -26,7 +26,7 @@ public class Terminal implements Module {
     private boolean run;
     private Thread thread;
 
-    public Terminal(boolean jline, Logger logger) {
+    public Terminal(boolean jline, LoggerInterface logger) {
         this.logger = logger;
         this.jline = jline;
     }

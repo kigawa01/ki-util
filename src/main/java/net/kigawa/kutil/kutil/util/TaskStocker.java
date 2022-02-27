@@ -1,14 +1,14 @@
 package net.kigawa.kutil.kutil.util;
 
 import net.kigawa.kutil.kutil.function.ThrowRunnable;
-import net.kigawa.kutil.kutil.interfaces.Logger;
+import net.kigawa.kutil.kutil.interfaces.LoggerInterface;
 
 public class TaskStocker extends Stocker<ThrowRunnable> {
-    private Logger logger;
+    private LoggerInterface logger;
     private boolean run = true;
     private boolean wait;
 
-    public TaskStocker(Logger logger) {
+    public TaskStocker(LoggerInterface logger) {
         this.logger = logger;
         Thread thread = new Thread(this::loop);
         thread.start();

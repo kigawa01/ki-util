@@ -1,23 +1,23 @@
 package net.kigawa.kutil.kutil.util;
 
-import net.kigawa.kutil.kutil.interfaces.Logger;
+import net.kigawa.kutil.kutil.interfaces.LoggerInterface;
 import net.kigawa.kutil.kutil.interfaces.Module;
 
 import java.util.LinkedList;
 
 public class Syncer implements Module {
     private final LinkedList<Runnable> runnableList = new LinkedList<>();
-    private final Logger logger;
+    private final LoggerInterface logger;
     private int size;
     private Thread thread;
     private boolean run = true;
     private boolean clear = false;
 
-    public Syncer(Logger logger) {
+    public Syncer(LoggerInterface logger) {
         this(logger, -1);
     }
 
-    public Syncer(Logger logger, int size) {
+    public Syncer(LoggerInterface logger, int size) {
         this.logger = logger;
         this.size = size;
         thread = new Thread(this::run);

@@ -1,6 +1,6 @@
 package net.kigawa.kutil.kutil.thread;
 
-import net.kigawa.kutil.kutil.interfaces.Logger;
+import net.kigawa.kutil.kutil.interfaces.LoggerInterface;
 import net.kigawa.kutil.kutil.interfaces.Module;
 
 import java.util.LinkedHashMap;
@@ -10,11 +10,11 @@ import java.util.concurrent.Executors;
 
 public class ThreadExecutors implements Module {
     public static ThreadExecutors THREAD_EXECUTORS;
-    private final Logger logger;
+    private final LoggerInterface logger;
     private ExecutorService cachedPool;
     private Map<String, ExecutorService> executorServiceMap;
 
-    public ThreadExecutors(Logger logger) {
+    public ThreadExecutors(LoggerInterface logger) {
         this.logger = logger;
         THREAD_EXECUTORS = this;
     }

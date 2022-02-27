@@ -1,6 +1,6 @@
 package net.kigawa.kutil.kutil.interfaces;
 
-public interface Logger {
+public interface LoggerInterface {
     default String finePass(String str) {
         fine(str);
         return str;

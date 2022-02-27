@@ -1,6 +1,6 @@
 package net.kigawa.kutil.kutil.app;
 
-import net.kigawa.kutil.kutil.interfaces.Logger;
+import net.kigawa.kutil.kutil.interfaces.LoggerInterface;
 
 import java.io.IOException;
 import java.util.logging.Handler;
@@ -9,9 +9,9 @@ import java.util.logging.LogRecord;
 public class TerminalHandler extends Handler {
     private final Terminal terminal;
     private final Formatter formatter;
-    private final Logger logger;
+    private final LoggerInterface logger;
 
-    public TerminalHandler(Terminal terminal, Formatter formatter, Logger logger) {
+    public TerminalHandler(Terminal terminal, Formatter formatter, LoggerInterface logger) {
         this.logger = logger;
         this.terminal = terminal;
         this.formatter = formatter;
