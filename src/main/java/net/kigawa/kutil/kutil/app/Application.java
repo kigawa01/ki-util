@@ -31,8 +31,14 @@ public abstract class Application implements Module {
 
     public void enable() {
         run = true;
-        moduleList.forEach(this::enableModule);
-        onEnable();
+        for (Module module : moduleList) {
+            enableModule(module);
+        }
+        try {
+            onEnable();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     public void disable() {
