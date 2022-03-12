@@ -3,6 +3,7 @@ package net.kigawa.kutil.kutil.util;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Iterator;
+import java.util.function.Function;
 
 public class StringUtil {
 
@@ -32,10 +33,14 @@ public class StringUtil {
         return insertSymbol(sb, symbol, stringList.iterator());
     }
 
-    public static StringBuffer insertSymbol(StringBuffer sb, String symbol, Iterator<String> stringIterator) {
-        while (stringIterator.hasNext()) {
-            sb.append(stringIterator.next());
-            if (stringIterator.hasNext()) sb.append(symbol);
+    public static StringBuffer insertSymbol(StringBuffer sb, String symbol, Iterator<String> iterator) {
+        return insertSymbol(sb, symbol, iterator, s -> s);
+    }
+
+    public static <T> StringBuffer insertSymbol(StringBuffer sb, String symbol, Iterator<T> iterator, Function<T, String> function) {
+        while (iterator.hasNext()) {
+            sb.append(function.apply(iterator.next()));
+            if (iterator.hasNext()) sb.append(symbol);
         }
         return sb;
     }
