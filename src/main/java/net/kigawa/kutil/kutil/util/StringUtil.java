@@ -37,8 +37,8 @@ public class StringUtil {
         return insertSymbol(sb, symbol, iterator, s -> s);
     }
 
-    public static <T> StringBuffer insertSymbol(StringBuffer sb, String symbol, Iterable<T> iterable, Function<T, String> function) {
-        return insertSymbol(sb, symbol, iterable.iterator(), function);
+    public static <T> StringBuffer insertSymbol(StringBuffer sb, String symbol, T[] array, Function<T, String> function) {
+        return insertSymbol(sb, symbol, Arrays.stream(array).iterator(), function);
     }
 
     public static <T> StringBuffer insertSymbol(StringBuffer sb, String symbol, Iterator<T> iterator, Function<T, String> function) {
