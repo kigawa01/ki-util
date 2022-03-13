@@ -5,9 +5,6 @@ import java.util.Calendar;
 import java.util.Iterator;
 import java.util.function.Function;
 
-/**
- * @deprecated
- */
 public class StringUtil {
 
     public static boolean isInt(String str) {
@@ -38,6 +35,10 @@ public class StringUtil {
 
     public static StringBuffer insertSymbol(StringBuffer sb, String symbol, Iterator<String> iterator) {
         return insertSymbol(sb, symbol, iterator, s -> s);
+    }
+
+    public static <T> StringBuffer insertSymbol(StringBuffer sb, String symbol, T[] array, Function<T, String> function) {
+        return insertSymbol(sb, symbol, Arrays.stream(array).iterator(), function);
     }
 
     public static <T> StringBuffer insertSymbol(StringBuffer sb, String symbol, Iterator<T> iterator, Function<T, String> function) {

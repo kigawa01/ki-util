@@ -1,13 +1,10 @@
-package net.kigawa.kutil.kutil.util;
+package net.kigawa.kutil.kutil;
 
 import net.kigawa.kutil.kutil.interfaces.LoggerInterface;
 import net.kigawa.kutil.kutil.interfaces.Module;
 
 import java.util.LinkedList;
 
-/**
- * @deprecated
- */
 public class Syncer implements Module {
     private final LinkedList<Runnable> runnableList = new LinkedList<>();
     private final LoggerInterface logger;

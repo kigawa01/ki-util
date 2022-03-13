@@ -1,11 +1,7 @@
-package net.kigawa.kutil.kutil.util;
+package net.kigawa.kutil.kutil.list;
 
 import java.util.Iterator;
 
-/**
- * @param <T>
- * @deprecated
- */
 public class Stocker<T> implements Iterator<T> {
     private Container<T> start;
     private Container<T> end;
@@ -29,10 +25,6 @@ public class Stocker<T> implements Iterator<T> {
     }
 }
 
-/**
- * @param <T>
- * @deprecated
- */
 class Container<T> {
     private final T obj;
     private Container<T> container;

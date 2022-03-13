@@ -1,11 +1,9 @@
-package net.kigawa.kutil.kutil.util;
+package net.kigawa.kutil.kutil.list;
 
 import net.kigawa.kutil.kutil.function.ThrowRunnable;
 import net.kigawa.kutil.kutil.interfaces.LoggerInterface;
+import net.kigawa.kutil.kutil.list.Stocker;
 
-/**
- * @deprecated
- */
 public class TaskStocker extends Stocker<ThrowRunnable> {
     private LoggerInterface logger;
     private boolean run = true;

@@ -1,6 +1,7 @@
-package net.kigawa.kutil.kutil.util;
+package net.kigawa.kutil.kutil;
 
 import net.kigawa.kutil.kutil.file.FileUtil;
+import net.kigawa.kutil.kutil.string.StringUtil;
 
 import java.io.*;
 import java.net.URL;

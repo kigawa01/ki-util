@@ -8,6 +8,9 @@ import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+/**
+ * @deprecated
+ */
 public class ThreadExecutors implements Module {
     public static ThreadExecutors THREAD_EXECUTORS;
     private final LoggerInterface logger;

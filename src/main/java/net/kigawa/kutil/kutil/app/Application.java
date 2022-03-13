@@ -4,6 +4,9 @@ import net.kigawa.kutil.kutil.interfaces.Module;
 
 import java.util.LinkedList;
 
+/**
+ * @deprecated
+ */
 public abstract class Application implements Module {
     private final LinkedList<Module> moduleList = new LinkedList<>();
     private boolean run = false;
@@ -36,7 +39,7 @@ public abstract class Application implements Module {
         }
         try {
             onEnable();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
