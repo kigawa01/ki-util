@@ -1,4 +1,4 @@
-package net.kigawa.kutil.kutil.util;
+package net.kigawa.kutil.kutil;
 
 import net.kigawa.kutil.kutil.file.FileUtil;
 import net.kigawa.kutil.kutil.string.StringUtil;
@@ -12,10 +12,7 @@ import java.util.function.Function;
 
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
-/**
- * @deprecated
- */
-public class KiUtil {
+public class Kutil {
 
     public static StringBuffer addYearToDate(StringBuffer stringBuffer) {
         return addYearToDate(stringBuffer, "-");

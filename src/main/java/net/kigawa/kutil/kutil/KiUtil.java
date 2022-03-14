@@ -12,6 +12,9 @@ import java.util.function.Function;
 
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
+/**
+ * @deprecated
+ */
 public class KiUtil {
 
     public static StringBuffer addYearToDate(StringBuffer stringBuffer) {
@@ -127,8 +130,9 @@ public class KiUtil {
             e.printStackTrace();
         }
     }
-    public static void runCommand(String[] command,File dir) {
-        runCommand(runtime-> {
+
+    public static void runCommand(String[] command, File dir) {
+        runCommand(runtime -> {
             try {
                 return runtime.exec(command, null, dir);
             } catch (IOException e) {
@@ -138,8 +142,8 @@ public class KiUtil {
         });
     }
 
-    public static void runCommand(String command,File dir) {
-        runCommand(runtime-> {
+    public static void runCommand(String command, File dir) {
+        runCommand(runtime -> {
             try {
                 return runtime.exec(command, null, dir);
             } catch (IOException e) {

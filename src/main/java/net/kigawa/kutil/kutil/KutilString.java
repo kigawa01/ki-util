@@ -1,14 +1,11 @@
-package net.kigawa.kutil.kutil.string;
+package net.kigawa.kutil.kutil;
 
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Iterator;
 import java.util.function.Function;
 
-/**
- * @deprecated
- */
-public class StringUtil {
+public class KutilString {
 
     public static boolean isInt(String str) {
         return str.matches("[+-]?\\d*(\\.\\d+)?");

@@ -1,12 +1,9 @@
-package net.kigawa.kutil.kutil.file;
+package net.kigawa.kutil.kutil;
 
 import java.io.File;
 import java.nio.file.Paths;
 
-/**
- * @deprecated
- */
-public class FileUtil {
+public class KutilFile {
 
     public static File getRelativeFile(String... path) {
         return getFile(Paths.get("").toAbsolutePath().toFile(), path);
