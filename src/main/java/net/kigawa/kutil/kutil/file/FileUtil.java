@@ -4,6 +4,8 @@ import java.io.File;
 import java.nio.file.Paths;
 
 /**
+ * move to KutilFile
+ *
  * @deprecated
  */
 public class FileUtil {
