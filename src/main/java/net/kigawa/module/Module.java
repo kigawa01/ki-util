@@ -1,6 +1,6 @@
 package net.kigawa.module;
 
-import net.kigawa.interfaces.Named;
+import net.kigawa.kutil.kutil.interfaces.Named;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
