@@ -4,7 +4,7 @@ import net.kigawa.kutil.kutil.function.ThrowRunnable;
 import net.kigawa.kutil.kutil.interfaces.LoggerInterface;
 
 /**
- * @deprecated
+ * @deprecated use ./list.Stocker
  */
 public class TaskStocker extends Stocker<ThrowRunnable> {
     private LoggerInterface logger;

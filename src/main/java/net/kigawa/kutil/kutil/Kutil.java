@@ -12,17 +12,46 @@ import java.util.function.Function;
 
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
+/**
+ * utilities for java
+ */
 public class Kutil {
-
-    public static StringBuffer addYearToDate(StringBuffer stringBuffer) {
-        return addYearToDate(stringBuffer, "-");
+    /**
+     * add year, month and day to string buffer
+     *
+     * @param stringBuffer string buffer to add
+     * @return added string buffer
+     */
+    public static StringBuffer addYearToDay(StringBuffer stringBuffer) {
+        return addYearToDay(stringBuffer, "-");
     }
 
-    public static StringBuffer addYearToDate(StringBuffer stringBuffer, String interval) {
+    /**
+     * add year, month and day to string buffer
+     *
+     * @param stringBuffer string buffer to add
+     * @param interval     string that insert between dates
+     * @return added string buffer
+     */
+    public static StringBuffer addYearToDay(StringBuffer stringBuffer, String interval) {
         Calendar calendar = Calendar.getInstance();
         return stringBuffer.append(interval).append(calendar.get(Calendar.YEAR)).append(interval)
                 .append(calendar.get(Calendar.MONTH)).append(interval).append(calendar.get(Calendar.DAY_OF_MONTH))
                 .append(interval).append(calendar.get(Calendar.HOUR_OF_DAY));
+    }
+
+    /**
+     * @deprecated use addYearToDay()
+     */
+    public static StringBuffer addYearToDate(StringBuffer stringBuffer) {
+        return addYearToDay(stringBuffer);
+    }
+
+    /**
+     * @deprecated use addYearToDay()
+     */
+    public static StringBuffer addYearToDate(StringBuffer stringBuffer, String interval) {
+        return addYearToDay(stringBuffer, interval);
     }
 
     public static <L, T> void removeFromArray(List<L> list, T object, BiPredicate<L, T> biPredicate) {
@@ -127,8 +156,9 @@ public class Kutil {
             e.printStackTrace();
         }
     }
-    public static void runCommand(String[] command,File dir) {
-        runCommand(runtime-> {
+
+    public static void runCommand(String[] command, File dir) {
+        runCommand(runtime -> {
             try {
                 return runtime.exec(command, null, dir);
             } catch (IOException e) {
@@ -138,8 +168,8 @@ public class Kutil {
         });
     }
 
-    public static void runCommand(String command,File dir) {
-        runCommand(runtime-> {
+    public static void runCommand(String command, File dir) {
+        runCommand(runtime -> {
             try {
                 return runtime.exec(command, null, dir);
             } catch (IOException e) {

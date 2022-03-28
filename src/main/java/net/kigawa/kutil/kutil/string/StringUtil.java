@@ -6,7 +6,7 @@ import java.util.Iterator;
 import java.util.function.Function;
 
 /**
- * @deprecated
+ * @deprecated use KutilString
  */
 public class StringUtil {
 

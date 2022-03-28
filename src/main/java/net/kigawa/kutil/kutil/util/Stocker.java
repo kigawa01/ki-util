@@ -4,7 +4,7 @@ import java.util.Iterator;
 
 /**
  * @param <T>
- * @deprecated
+ * @deprecated use ./list.Stocker
  */
 public class Stocker<T> implements Iterator<T> {
     private Container<T> start;

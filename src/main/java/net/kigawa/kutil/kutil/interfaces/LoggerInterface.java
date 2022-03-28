@@ -1,5 +1,8 @@
 package net.kigawa.kutil.kutil.interfaces;
 
+/**
+ * create custom logger
+ */
 public interface LoggerInterface {
     default String finePass(String str) {
         fine(str);

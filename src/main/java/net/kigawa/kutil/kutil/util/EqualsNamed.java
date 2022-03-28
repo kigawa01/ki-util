@@ -3,7 +3,7 @@ package net.kigawa.kutil.kutil.util;
 import net.kigawa.kutil.kutil.interfaces.Named;
 
 /**
- * @deprecated
+ * @deprecated do not need
  */
 public class EqualsNamed {
     String name;

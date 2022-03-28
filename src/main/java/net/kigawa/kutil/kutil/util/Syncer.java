@@ -6,7 +6,7 @@ import net.kigawa.kutil.kutil.interfaces.Module;
 import java.util.LinkedList;
 
 /**
- * @deprecated
+ * @deprecated do not need
  */
 public class Syncer implements Module {
     private final LinkedList<Runnable> runnableList = new LinkedList<>();

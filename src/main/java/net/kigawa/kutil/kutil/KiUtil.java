@@ -13,7 +13,7 @@ import java.util.function.Function;
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
 /**
- * @deprecated
+ * @deprecated use Kutil
  */
 public class KiUtil {
 
