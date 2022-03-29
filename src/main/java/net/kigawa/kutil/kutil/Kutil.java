@@ -54,11 +54,22 @@ public class Kutil {
         return addYearToDay(stringBuffer, interval);
     }
 
+    /**
+     * @param list        source list
+     * @param object      object for testing
+     * @param biPredicate remove L object when return true
+     * @param <L>         List type
+     * @param <T>         object type for test
+     */
     public static <L, T> void removeFromArray(List<L> list, T object, BiPredicate<L, T> biPredicate) {
         list.removeIf(l -> biPredicate.test(l, object));
     }
 
-
+    /**
+     * @param collection collection for execute
+     * @param process    to execute process
+     * @param <T>        arg to process
+     */
     public static <T> void executeIterable(Iterable<T> collection, Process<T> process) {
         for (T t : collection) {
             process.execute(t);
@@ -66,23 +77,45 @@ public class Kutil {
     }
 
     /**
-     * @deprecated
+     * @deprecated use StringUtil.connectArray(castIntArray(ints, new Integer[ints.length]), ", ")
      */
     public static String createString(int[] ints) {
         return StringUtil.connectArray(castIntArray(ints, new Integer[ints.length]), ", ");
     }
 
-    public static Integer[] castIntArray(int[] from, Integer[] to) throws ClassCastException {
+    /**
+     * change array type from int to Integer
+     *
+     * @param from int array
+     * @param to   Integer array base
+     * @return created Integer array
+     */
+    public static Integer[] castIntArray(int[] from, Integer[] to) {
         for (int i = 0; i < from.length; i++) {
             to[i] = from[i];
         }
         return to;
     }
 
-    public static <T, F extends T> List<T> changeListType(List<F> list, Class<T> to) throws ClassCastException {
+    /**
+     * change list to super class
+     *
+     * @param list from list
+     * @param to   changed class
+     * @param <T>  changed class type
+     * @param <F>  from class type
+     * @return changed list
+     */
+    public static <T, F extends T> List<T> changeListType(List<F> list, Class<T> to) {
         return new ArrayList<>(list);
     }
 
+    /**
+     * get int aaray from Integer list
+     *
+     * @param list from list
+     * @return in array
+     */
     public static int[] getIntegerArrangement(List<Integer> list) {
         int[] ints = new int[list.size()];
         for (int i = 0; i < list.size(); i++) {
@@ -91,31 +124,57 @@ public class Kutil {
         return ints;
     }
 
+    /**
+     * @deprecated need refactoring
+     */
     public static String[] removeStrSet(String[] strings, String s) {
         return addSet(strings, s, new NewStrArrangement());
     }
 
+    /**
+     * @deprecated need refactoring
+     */
     public static String[] addStrSet(String[] strings, String s) {
         return addSet(strings, s, new NewStrArrangement());
     }
 
+    /**
+     * @deprecated need refactoring
+     */
     public static <T> T[] removeSet(T[] ar, T t, NewArrangement<T> newArrangement) {
         Set<T> set = getSet(ar);
         set.remove(t);
         return getArrangement(set, newArrangement);
     }
 
+    /**
+     * @deprecated need refactoring
+     */
     public static <T> T[] addSet(T[] ar, T t, NewArrangement<T> newArrangement) {
         Set<T> set = getSet(ar);
         set.add(t);
         return getArrangement(set, newArrangement);
     }
 
+    /**
+     * get String array from list
+     *
+     * @param list base list
+     * @return created array
+     */
     public static String[] getStringArrangement(List<String> list) {
         return getArrangement(list, String[]::new);
 
     }
 
+    /**
+     * create array from collection
+     *
+     * @param collection     base collection
+     * @param newArrangement create array function
+     * @param <T>            class type
+     * @return created array
+     */
     public static <T> T[] getArrangement(Collection<T> collection, NewArrangement<T> newArrangement) {
         T[] ts = newArrangement.getArrangement(collection.size());
         int i = 0;
@@ -126,18 +185,37 @@ public class Kutil {
         return ts;
     }
 
+    /**
+     * creat set from array
+     *
+     * @param ts  base array
+     * @param <T> class type
+     * @return created set
+     */
     public static <T> Set<T> getSet(T[] ts) {
         Set<T> set = new HashSet<>();
         Collections.addAll(set, ts);
         return set;
     }
 
+    /**
+     * create list from array
+     *
+     * @param o   base array
+     * @param <T> class type
+     * @return created list
+     */
     public static <T> List<T> getList(T[] o) {
         List<T> list = new ArrayList<>();
         Collections.addAll(list, o);
         return list;
     }
 
+    /**
+     * execute command
+     *
+     * @param function execute function
+     */
     private static void runCommand(Function<Runtime, java.lang.Process> function) {
         try {
             System.out.println("run jar...");
@@ -157,6 +235,12 @@ public class Kutil {
         }
     }
 
+    /**
+     * execute command
+     *
+     * @param command command args
+     * @param dir     current dir
+     */
     public static void runCommand(String[] command, File dir) {
         runCommand(runtime -> {
             try {
@@ -168,6 +252,12 @@ public class Kutil {
         });
     }
 
+    /**
+     * execute command
+     *
+     * @param command command
+     * @param dir     current dir
+     */
     public static void runCommand(String command, File dir) {
         runCommand(runtime -> {
             try {
@@ -179,6 +269,13 @@ public class Kutil {
         });
     }
 
+    /**
+     * download file
+     *
+     * @param url  url
+     * @param file download dir
+     * @param name file name
+     */
     public static void download(URL url, File file, String name) {
         try {
             File file1 = new File(file, name);
@@ -194,7 +291,7 @@ public class Kutil {
     }
 
     /**
-     * @deprecated
+     * @deprecated use FileUtil.getAbsolutFile()
      */
     public static File getAbsolutFile() {
         return FileUtil.getAbsolutFile();
