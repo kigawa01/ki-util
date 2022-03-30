@@ -5,7 +5,11 @@ import net.kigawa.kutil.kutil.interfaces.Module;
 
 import java.util.LinkedList;
 
-public class Syncer implements Module {
+/**
+ * @deprecated
+ */
+public class Syncer implements Module
+{
     private final LinkedList<Runnable> runnableList = new LinkedList<>();
     private final LoggerInterface logger;
     private int size;
@@ -13,18 +17,21 @@ public class Syncer implements Module {
     private boolean run = true;
     private boolean clear = false;
 
-    public Syncer(LoggerInterface logger) {
+    public Syncer(LoggerInterface logger)
+    {
         this(logger, -1);
     }
 
-    public Syncer(LoggerInterface logger, int size) {
+    public Syncer(LoggerInterface logger, int size)
+    {
         this.logger = logger;
         this.size = size;
         thread = new Thread(this::run);
         thread.start();
     }
 
-    private void run() {
+    private void run()
+    {
         int index = 0;
         while (run) {
             if (clear) {
@@ -70,7 +77,8 @@ public class Syncer implements Module {
         }
     }
 
-    private synchronized void wait0() {
+    private synchronized void wait0()
+    {
         try {
             wait();
         } catch (InterruptedException e) {
@@ -78,16 +86,19 @@ public class Syncer implements Module {
         }
     }
 
-    public synchronized void clear() {
+    public synchronized void clear()
+    {
         clear = true;
         notify0();
     }
 
-    private synchronized void notify0() {
+    private synchronized void notify0()
+    {
         notify();
     }
 
-    public void setTask(Runnable runnable, int order) {
+    public void setTask(Runnable runnable, int order)
+    {
         synchronized (runnableList) {
             while (runnableList.size() <= order) {
                 runnableList.add(null);
@@ -107,18 +118,21 @@ public class Syncer implements Module {
         }
     }
 
-    public void setSize(int size) {
+    public void setSize(int size)
+    {
         this.size = size;
     }
 
     @Override
-    public void enable() {
+    public void enable()
+    {
         thread = new Thread(this::run);
         thread.start();
     }
 
     @Override
-    public synchronized void disable() {
+    public synchronized void disable()
+    {
         run = false;
         notify0();
     }

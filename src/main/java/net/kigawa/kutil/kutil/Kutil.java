@@ -128,14 +128,14 @@ public class Kutil {
      * @deprecated need refactoring
      */
     public static String[] removeStrSet(String[] strings, String s) {
-        return addSet(strings, s, new NewStrArrangement());
+        return addSet(strings, s, String[]::new);
     }
 
     /**
      * @deprecated need refactoring
      */
     public static String[] addStrSet(String[] strings, String s) {
-        return addSet(strings, s, new NewStrArrangement());
+        return addSet(strings, s, String[]::new);
     }
 
     /**
@@ -297,6 +297,18 @@ public class Kutil {
         return FileUtil.getAbsolutFile();
     }
 
+    /**
+     * get date string
+     *
+     * @return string
+     */
+    public static String getYearToDay() {
+        return addYearToDay(new StringBuffer()).toString();
+    }
+
+    /**
+     * @deprecated use getYearToDay()
+     */
     public static String getDate() {
         Calendar calendar = Calendar.getInstance();
         StringBuffer sb = new StringBuffer().append(calendar.get(Calendar.YEAR));
@@ -305,6 +317,43 @@ public class Kutil {
         return sb.toString();
     }
 
+    /**
+     * add time of hour, min and sec to string buffer
+     *
+     * @param stringBuffer string buffer to add
+     * @param symbol       symbol to append
+     * @return added string buffer
+     */
+    public static StringBuffer addHourToSec(StringBuffer stringBuffer, String symbol) {
+        Calendar calendar = Calendar.getInstance();
+        stringBuffer = new StringBuffer().append(calendar.get(Calendar.HOUR_OF_DAY));
+        stringBuffer.append(symbol).append(calendar.get(Calendar.MINUTE));
+        stringBuffer.append(symbol).append(calendar.get(Calendar.SECOND));
+        return stringBuffer;
+    }
+
+    /**
+     * add time of hour, min and sec to string buffer
+     *
+     * @param sb string buffer to add
+     * @return added string buffer
+     */
+    public static StringBuffer addHourToSec(StringBuffer sb) {
+        return addHourToSec(sb, "-");
+    }
+
+    /**
+     * get time of hour, min and sec to string buffer
+     *
+     * @return string
+     */
+    public static String getHourToSec() {
+        return addHourToSec(new StringBuffer()).toString();
+    }
+
+    /**
+     * @deprecated use getHourToSec()
+     */
     public static String getTime() {
         Calendar calendar = Calendar.getInstance();
         StringBuffer sb = new StringBuffer().append(calendar.get(Calendar.HOUR_OF_DAY));
@@ -313,18 +362,20 @@ public class Kutil {
         return sb.toString();
     }
 
+    /**
+     * @param <T>
+     * @deprecated use Runnable
+     */
     public interface Process<T> {
         void execute(T t);
     }
 
+    /**
+     * create array function
+     *
+     * @param <T> class type
+     */
     public interface NewArrangement<T> {
         T[] getArrangement(int size);
-    }
-
-    public static class NewStrArrangement implements NewArrangement<String> {
-        @Override
-        public String[] getArrangement(int size) {
-            return new String[size];
-        }
     }
 }
