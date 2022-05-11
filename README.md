@@ -5,15 +5,6 @@
 * javaのutility
 
 ```pom.xml
-    <repositories>
-        <repository>
-            <id>net.kigawa</id>
-            <url>http://nexus.admin.kigawa.net/nexus/content/groups/public</url>
-        </repository>
-        ......
-    </repositories>
-```
-```pom.xml
     <dependencies>
         <dependency>
             <groupId>net.kigawa.kutil</groupId>
