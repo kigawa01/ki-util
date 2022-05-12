@@ -31,9 +31,9 @@
 ### Example: 9.1dev
 
 * **9.1dev**
-    * バージョン
-    * **9**: メジャー
-    * **1**: マイナー
-    * **dev**: ブランチ/mainのときはなし
+    * version
+    * **9**: major
+    * **1**: miner
+    * **dev**: branch, when it is main, without
 
 ## ToDo
