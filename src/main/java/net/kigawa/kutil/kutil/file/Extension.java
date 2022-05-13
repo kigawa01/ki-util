@@ -46,6 +46,6 @@ public enum Extension {
      * @return added string buffer
      */
     public StringBuffer addExtension(StringBuffer stringBuffer) {
-        return stringBuffer.append(".").append(this);
+        return stringBuffer.append(".").append(extension);
     }
 }

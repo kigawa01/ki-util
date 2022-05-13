@@ -111,7 +111,7 @@ public class Kutil {
     }
 
     /**
-     * get int aaray from Integer list
+     * get int array from Integer list
      *
      * @param list from list
      * @return in array
