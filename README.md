@@ -4,6 +4,8 @@
 
 * javaのutility
 
+## Use
+
 ```pom.xml
     <dependencies>
         <dependency>
