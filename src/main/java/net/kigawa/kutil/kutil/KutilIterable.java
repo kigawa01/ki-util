@@ -6,7 +6,7 @@ import java.util.stream.*;
 /**
  * utilities about array
  */
-public class KutilArray
+public class KutilIterable
 {
 
     /**
@@ -18,11 +18,14 @@ public class KutilArray
      * @param <T>   test class type
      * @return return true when contain
      */
-    public static <S, T extends S> boolean contain(S[] array, T obj)
+    public static <S, T extends S> boolean contain(Iterable<S> array, T obj)
     {
-        return Arrays.asList(array).contains(obj);
+        return array.contains(obj);
     }
-
+    public static < T > List<T> toList(Iterable<T> iterable)
+    {
+        return ;
+    }
     /**
      * creat set from array
      *

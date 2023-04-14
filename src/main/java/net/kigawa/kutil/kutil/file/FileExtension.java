@@ -3,9 +3,9 @@ package net.kigawa.kutil.kutil.file;
 /**
  * 拡張子の管理のためのクラス
  * to manage file extension
- * @deprecated use FileExtension
  */
-public enum Extension {
+public enum FileExtension
+{
     LOG("log"),
     /**
      * @deprecated
@@ -14,7 +14,7 @@ public enum Extension {
 
     private final String extension;
 
-    Extension(String extension) {
+    FileExtension(String extension) {
         this.extension = extension;
     }
 

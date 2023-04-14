@@ -1,14 +1,13 @@
 package net.kigawa.kutil.kutil;
 
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Iterator;
-import java.util.function.Function;
+import java.util.*;
+import java.util.function.*;
 
 /**
  * utilities about string
  */
-public class KutilString {
+public class KutilString
+{
 
     /**
      * check is int
@@ -16,22 +15,20 @@ public class KutilString {
      * @param str to test
      * @return return true when str is int
      */
-    public static boolean isInt(String str) {
+    public static boolean isInt(String str)
+    {
         return str.matches("[+-]?\\d*(\\.\\d+)?");
     }
 
-    public static StringBuffer addYearToDate(StringBuffer stringBuffer, String interval) {
+    /**
+     * @deprecated use default api
+     */
+    public static StringBuffer addYearToDate(StringBuffer stringBuffer, String interval)
+    {
         Calendar calendar = Calendar.getInstance();
         return stringBuffer.append(interval).append(calendar.get(Calendar.YEAR)).append(interval)
                 .append(calendar.get(Calendar.MONTH)).append(interval).append(calendar.get(Calendar.DAY_OF_MONTH))
                 .append(interval).append(calendar.get(Calendar.HOUR_OF_DAY));
-    }
-
-    /**
-     * @deprecated use insertSymbol()
-     */
-    public static <T> String connectArray(T[] ts, String insert) {
-        return insertSymbol(insert, Arrays.asList((String[]) ts));
     }
 
     /**
@@ -42,7 +39,8 @@ public class KutilString {
      * @param strings base string array
      * @return append string buffer
      */
-    public static StringBuffer insertSymbol(StringBuffer sb, String symbol, String[] strings) {
+    public static StringBuffer insertSymbol(StringBuffer sb, String symbol, String[] strings)
+    {
         return insertSymbol(sb, symbol, Arrays.stream(strings).iterator());
     }
 
@@ -54,7 +52,8 @@ public class KutilString {
      * @param stringIterable base string iterable
      * @return append string buffer
      */
-    public static StringBuffer insertSymbol(StringBuffer sb, String symbol, Iterable<String> stringIterable) {
+    public static StringBuffer insertSymbol(StringBuffer sb, String symbol, Iterable<String> stringIterable)
+    {
         return insertSymbol(sb, symbol, stringIterable.iterator());
     }
 
@@ -66,7 +65,8 @@ public class KutilString {
      * @param iterator base string iterator
      * @return append string buffer
      */
-    public static StringBuffer insertSymbol(StringBuffer sb, String symbol, Iterator<String> iterator) {
+    public static StringBuffer insertSymbol(StringBuffer sb, String symbol, Iterator<String> iterator)
+    {
         return insertSymbol(sb, symbol, iterator, s -> s);
     }
 
@@ -79,7 +79,8 @@ public class KutilString {
      * @param function to create function
      * @return append string buffer
      */
-    public static <T> StringBuffer insertSymbol(StringBuffer sb, String symbol, T[] array, Function<T, String> function) {
+    public static <T> StringBuffer insertSymbol(StringBuffer sb, String symbol, T[] array, Function<T, String> function)
+    {
         return insertSymbol(sb, symbol, Arrays.stream(array).iterator(), function);
     }
 
@@ -92,7 +93,8 @@ public class KutilString {
      * @param function to create function
      * @return append string buffer
      */
-    public static <T> StringBuffer insertSymbol(StringBuffer sb, String symbol, Iterable<T> iterable, Function<T, String> function) {
+    public static <T> StringBuffer insertSymbol(StringBuffer sb, String symbol, Iterable<T> iterable, Function<T, String> function)
+    {
         return insertSymbol(sb, symbol, iterable.iterator(), function);
     }
 
@@ -105,8 +107,10 @@ public class KutilString {
      * @param function to create function
      * @return append string buffer
      */
-    public static <T> StringBuffer insertSymbol(StringBuffer sb, String symbol, Iterator<T> iterator, Function<T, String> function) {
-        while (iterator.hasNext()) {
+    public static <T> StringBuffer insertSymbol(StringBuffer sb, String symbol, Iterator<T> iterator, Function<T, String> function)
+    {
+        while (iterator.hasNext())
+        {
             sb.append(function.apply(iterator.next()));
             if (iterator.hasNext()) sb.append(symbol);
         }
@@ -120,7 +124,17 @@ public class KutilString {
      * @param stringIterable base string iterable
      * @return created string
      */
-    public static String insertSymbol(String symbol, Iterable<String> stringIterable) {
+    public static String insertSymbol(String symbol, Iterable<String> stringIterable)
+    {
         return insertSymbol(new StringBuffer(), symbol, stringIterable.iterator()).toString();
     }
+
+    /**
+     * @deprecated use insertSymbol()
+     */
+    public static <T> String connectArray(T[] ts, String insert)
+    {
+        return insertSymbol(insert, Arrays.asList((String[]) ts));
+    }
+
 }
