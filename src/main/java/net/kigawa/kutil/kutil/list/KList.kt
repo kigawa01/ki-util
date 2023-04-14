@@ -5,7 +5,7 @@ import java.util.*
 interface KList<T>: MutableList<T>, KListStream<T> {
   companion object {
     @JvmStatic
-    fun <T: Any?> create() = KListImpl<T>(LinkedList())
+    fun <T> create() = KListImpl<T>(LinkedList())
     
     @JvmStatic
     fun <T> create(iterable: Iterable<T>) = KListImpl(LinkedList(iterable.toList()))

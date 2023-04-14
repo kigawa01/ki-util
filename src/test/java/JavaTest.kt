@@ -1,8 +1,7 @@
-import net.kigawa.kutil.kutil.list.*;
+import net.kigawa.kutil.kutil.list.KList.Companion.create
 
-public class JavaTest
-{
-    public void test(){
-        var list = new KList<>();
-    }
+class JavaTest {
+  fun test() {
+    val list = create<Any>()
+  }
 }
