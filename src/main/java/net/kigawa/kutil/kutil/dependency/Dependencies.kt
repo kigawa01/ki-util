@@ -2,6 +2,7 @@ package net.kigawa.kutil.kutil.dependency
 
 import java.util.*
 
+@Suppress("unused")
 class DependencyStack<T>(
   private val stack: List<T>,
 ) {
