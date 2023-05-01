@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package net.kigawa.kutil.kutil.list
 
 import net.kigawa.kmccore.concurrent.ConcurrentBox
@@ -10,7 +12,7 @@ class KListImpl<T>(list: MutableList<T>): KList<T> {
   private val listBox = ConcurrentBox(list) {ArrayList(it)}
   
   @Synchronized
-  fun <R> modifyList(task: (MutableList<T>)->R): R {
+  override fun <R> modifyList(task: (MutableList<T>)->R): R {
     return listBox.modify(task)
   }
   

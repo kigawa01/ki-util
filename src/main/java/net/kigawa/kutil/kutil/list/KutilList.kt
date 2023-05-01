@@ -2,7 +2,12 @@
 
 package net.kigawa.kutil.kutil.list
 
-object KutilList
+object KutilList {
+  @JvmStatic
+  fun <T> connectList(vararg list: List<T>): List<T> {
+    return list.flatMap {it}
+  }
+}
 
 fun <E> Collection<E>.contains(filter: (E)->Boolean): Boolean {
   forEach {

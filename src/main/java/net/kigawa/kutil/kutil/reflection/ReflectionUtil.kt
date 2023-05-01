@@ -6,20 +6,29 @@ import java.lang.reflect.*
 
 object ReflectionUtil {
   fun getAllExitFields(clazz: Class<*>): List<Field> {
-    return getAllClasses(clazz)
+    return getAllParentClasses(clazz)
       .flatMap {it.declaredFields.asList()}
   }
   
   fun getAllExitMethod(clazz: Class<*>): List<Method> {
-    return getAllClasses(clazz)
+    return getAllParentClasses(clazz)
       .flatMap {it.declaredMethods.asList()}
   }
   
-  fun <T: Annotation> getInstanceAnnotation(clazz: Class<*>, annotationClass: Class<T>): MutableList<T> {
+  fun <T: Annotation> getAllExitAnnotation(clazz: Class<*>, annotationClass: Class<T>): MutableList<T> {
     val list = mutableListOf<T>()
-    getAllClasses(clazz).forEach {
+    getAllParentClasses(clazz).forEach {
       val annotation = it.getAnnotation(annotationClass) ?: return@forEach
       list.add(annotation)
+    }
+    return list
+  }
+  
+  fun getAllParentClasses(clazz: Class<*>): MutableList<Class<*>> {
+    val list = mutableListOf(clazz)
+    clazz.superclass?.let {list.addAll(getAllParentClasses(clazz.superclass))}
+    clazz.interfaces.forEach {
+      list.addAll(getAllParentClasses(it))
     }
     return list
   }
@@ -34,15 +43,6 @@ object ReflectionUtil {
   }
   
   fun instanceOf(clazz: Class<*>, superClass: Class<*>): Boolean {
-    return getAllClasses(clazz).contains(superClass)
-  }
-  
-  fun getAllClasses(clazz: Class<*>): MutableList<Class<*>> {
-    val list = mutableListOf(clazz)
-    clazz.superclass?.let {list.addAll(getAllClasses(clazz.superclass))}
-    clazz.interfaces.forEach {
-      list.addAll(getAllClasses(it))
-    }
-    return list
+    return getAllParentClasses(clazz).contains(superClass)
   }
 }
