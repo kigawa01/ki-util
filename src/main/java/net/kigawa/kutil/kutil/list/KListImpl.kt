@@ -10,7 +10,7 @@ class KListImpl<T>(list: MutableList<T>): KList<T> {
   private val listBox = ConcurrentBox(list) {ArrayList(it)}
   
   @Synchronized
-  private fun <R> modifyList(task: (MutableList<T>)->R): R {
+  fun <R> modifyList(task: (MutableList<T>)->R): R {
     return listBox.modify(task)
   }
   

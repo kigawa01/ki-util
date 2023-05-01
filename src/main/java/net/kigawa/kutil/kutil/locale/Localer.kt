@@ -4,27 +4,19 @@ package net.kigawa.kutil.kutil.locale
 
 import java.util.*
 
-class Localer(private var defaultLocale: Locale) {
-  private val locales = mutableSetOf<LocaleData>()
-  fun getLocaleData(key: String, locale: Locale): LocaleData? {
-    return locales
-      .filter {it.key == key}
-      .firstOrNull {it.locale == locale}
-  }
-  
-  fun getLocaleData(key: String) = getLocaleData(key, Locale.getDefault())
-  
-  fun getDefaultLocaleData(key: String) = getLocaleData(key, defaultLocale)
+class Localer(private var defaultLanguage: String, private var localerResource: LocalerResources) {
+  fun getLocaleData(key: String, locale: String) = localerResource.getLocaleData(key, locale)
+  fun getLocaleData(key: String) = getLocaleData(key, Locale.getDefault().language)
+  fun getDefaultLocaleData(key: String) = getLocaleData(key, defaultLanguage)
   
   fun use(key: String) = use(key, null)
-  
   fun use(key: String, defaultMessage: String?): String {
-    defaultMessage?.let {on(defaultLocale, key, it)}
+    defaultMessage?.let {on(defaultLanguage, key, it)}
     return getLocaleData(key)?.message ?: getDefaultLocaleData(key)?.message ?: defaultMessage ?: "message not found"
   }
   
-  fun on(locale: Locale, key: String, message: String): Localer {
-    locales.add(LocaleData(locale, key, message))
+  fun on(language: String, key: String, message: String): Localer {
+    localerResource.setData(LocaleData(language, key, message))
     return this
   }
 }
