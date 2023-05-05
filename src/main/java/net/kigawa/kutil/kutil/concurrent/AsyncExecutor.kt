@@ -12,7 +12,7 @@ import java.util.concurrent.*
 class AsyncExecutor(
   var executor: ExecutorService = Executors.newCachedThreadPool(),
   var timeOutMilli: Long = 1000,
-  var errorHandler: ErrorHandler<Throwable> = StreamErrorHandler(),
+  var errorHandler: ErrorHandler<Throwable> = StreamErrorHandler(Throwable::class.java),
 ): AutoCloseable, RemoveAble(null) {
   private val tasks = KList.create<ExecuteTask<*>>()
   private val queues = mutableMapOf<Any, Queue<ExecuteTask<*>>>()
