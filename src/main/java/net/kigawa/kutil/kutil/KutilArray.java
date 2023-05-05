@@ -1,20 +1,38 @@
 package net.kigawa.kutil.kutil;
 
+import java.util.*;
+import java.util.stream.*;
+
 /**
  * utilities about array
  */
-public class KutilArray {
+public class KutilArray
+{
 
     /**
      * test obj contain in array
      *
      * @param array array to test
      * @param obj   obj to test
-     * @param <T>   class type
+     * @param <S>   source class type
+     * @param <T>   test class type
      * @return return true when contain
      */
-    public static <T> boolean contain(T[] array, T obj) {
-        for (var obj1 : array) if (obj.equals(obj1)) return true;
-        return false;
+    public static <S, T extends S> boolean contain(S[] array, T obj)
+    {
+        return Arrays.asList(array).contains(obj);
     }
+
+    /**
+     * creat set from array
+     *
+     * @param ts  base array
+     * @param <T> class type
+     * @return created set
+     */
+    public static <T> Set<T> toSet(T[] ts)
+    {
+        return Arrays.stream(ts).collect(Collectors.toSet());
+    }
+
 }

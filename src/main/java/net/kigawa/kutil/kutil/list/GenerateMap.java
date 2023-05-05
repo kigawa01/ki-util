@@ -12,22 +12,25 @@ import java.util.function.Function;
  * @param <K> key
  * @param <V> value
  */
-public class GenerateMap<K, V> implements Map<K, V> {
+public class GenerateMap<K, V> implements Map<K, V>
+{
     private final Map<K, V> map;
     private final Function<K, V> newInstance;
 
     /**
      * @param newInstance new instance function
      */
-    public GenerateMap(Function<K, V> newInstance) {
+    public GenerateMap(Function<K, V> newInstance)
+    {
         this(newInstance, null);
     }
 
     /**
      * @param newInstance new instance function
-     * @param map default values or non values when null
+     * @param map         default values or non values when null
      */
-    public GenerateMap(Function<K, V> newInstance, Map<K, V> map) {
+    public GenerateMap(Function<K, V> newInstance, Map<K, V> map)
+    {
         this.newInstance = newInstance;
         if (map == null)
             this.map = new HashMap<>();
@@ -39,7 +42,8 @@ public class GenerateMap<K, V> implements Map<K, V> {
      * @return size
      */
     @Override
-    public int size() {
+    public int size()
+    {
         return map.size();
     }
 
@@ -47,7 +51,8 @@ public class GenerateMap<K, V> implements Map<K, V> {
      * @return return true when empty
      */
     @Override
-    public boolean isEmpty() {
+    public boolean isEmpty()
+    {
         return map.isEmpty();
     }
 
@@ -56,7 +61,8 @@ public class GenerateMap<K, V> implements Map<K, V> {
      * @return return true when key is contained in keys
      */
     @Override
-    public boolean containsKey(Object key) {
+    public boolean containsKey(Object key)
+    {
         return map.containsKey(key);
     }
 
@@ -65,7 +71,8 @@ public class GenerateMap<K, V> implements Map<K, V> {
      * @return return true when value is contained in values
      */
     @Override
-    public boolean containsValue(Object value) {
+    public boolean containsValue(Object value)
+    {
         return map.containsValue(value);
     }
 
@@ -74,12 +81,20 @@ public class GenerateMap<K, V> implements Map<K, V> {
      * @return return value that linked by key
      */
     @Override
-    public V get(Object key) {
+    public V get(Object key)
+    {
+        K safeKey;
+        try {
+            safeKey = (K) key;
+        } catch (ClassCastException e) {
+            return null;
+        }
+
         var obj = map.get(key);
         if (obj == null) {
             try {
-                obj = newInstance.apply((K) key);
-                map.put((K) key, obj);
+                obj = newInstance.apply(safeKey);
+                map.put(safeKey, obj);
             } catch (ClassCastException e) {
                 return null;
             }
@@ -88,12 +103,13 @@ public class GenerateMap<K, V> implements Map<K, V> {
     }
 
     /**
-     * @param key key
+     * @param key   key
      * @param value value
      * @return put in the value and link key
      */
     @Override
-    public V put(K key, V value) {
+    public V put(K key, V value)
+    {
         return map.put(key, value);
     }
 
@@ -102,7 +118,8 @@ public class GenerateMap<K, V> implements Map<K, V> {
      * @return remove by key
      */
     @Override
-    public V remove(Object key) {
+    public V remove(Object key)
+    {
         return map.remove(key);
     }
 
@@ -110,7 +127,8 @@ public class GenerateMap<K, V> implements Map<K, V> {
      * @param m map that to add
      */
     @Override
-    public void putAll(Map<? extends K, ? extends V> m) {
+    public void putAll(Map<? extends K, ? extends V> m)
+    {
         map.putAll(m);
     }
 
@@ -118,7 +136,8 @@ public class GenerateMap<K, V> implements Map<K, V> {
      * clear all
      */
     @Override
-    public void clear() {
+    public void clear()
+    {
         map.clear();
     }
 
@@ -126,7 +145,8 @@ public class GenerateMap<K, V> implements Map<K, V> {
      * @return set that from keys
      */
     @Override
-    public Set<K> keySet() {
+    public Set<K> keySet()
+    {
         return map.keySet();
     }
 
@@ -134,7 +154,8 @@ public class GenerateMap<K, V> implements Map<K, V> {
      * @return collection from values
      */
     @Override
-    public Collection<V> values() {
+    public Collection<V> values()
+    {
         return map.values();
     }
 
@@ -142,7 +163,8 @@ public class GenerateMap<K, V> implements Map<K, V> {
      * @return entry set from own
      */
     @Override
-    public Set<Entry<K, V>> entrySet() {
+    public Set<Entry<K, V>> entrySet()
+    {
         return map.entrySet();
     }
 }

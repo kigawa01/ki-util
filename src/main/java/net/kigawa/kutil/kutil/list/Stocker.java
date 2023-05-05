@@ -1,20 +1,22 @@
 package net.kigawa.kutil.kutil.list;
 
-import java.util.Iterator;
+import java.util.*;
 
 /**
- * list that can get first and remove it
- *
  * @param <T> class
+ * @deprecated use BlockingQueue
+ * list that can get first and remove it
  */
-public class Stocker<T> implements Iterator<T> {
+public class Stocker<T> implements Iterator<T>
+{
     private Container<T> start;
     private Container<T> end;
 
     /**
      * @param obj add obj to list
      */
-    public synchronized void add(T obj) {
+    public synchronized void add(T obj)
+    {
         Container<T> container = new Container<>(obj);
         if (end != null) end.setContainer(container);
         else start = container;
@@ -25,7 +27,8 @@ public class Stocker<T> implements Iterator<T> {
      * @return return true when has next
      */
     @Override
-    public boolean hasNext() {
+    public boolean hasNext()
+    {
         return start != null;
     }
 
@@ -33,7 +36,8 @@ public class Stocker<T> implements Iterator<T> {
      * @return get first and remove it
      */
     @Override
-    public synchronized T next() {
+    public synchronized T next()
+    {
         Container<T> container = start;
         start = start.getContainer();
         if (start == null) end = null;
@@ -41,23 +45,28 @@ public class Stocker<T> implements Iterator<T> {
     }
 }
 
-class Container<T> {
+class Container<T>
+{
     private final T obj;
     private Container<T> container;
 
-    protected Container(T obj) {
+    protected Container(T obj)
+    {
         this.obj = obj;
     }
 
-    public Container<T> getContainer() {
+    public Container<T> getContainer()
+    {
         return container;
     }
 
-    public void setContainer(Container<T> container) {
+    public void setContainer(Container<T> container)
+    {
         this.container = container;
     }
 
-    public T getTask() {
+    public T getTask()
+    {
         return obj;
     }
 }

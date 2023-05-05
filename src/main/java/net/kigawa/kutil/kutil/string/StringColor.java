@@ -1,11 +1,10 @@
-package net.kigawa.kutil.kutil;
+package net.kigawa.kutil.kutil.string;
 
 /**
  * to use colors
- * @deprecated use string.StringColor
  */
-public enum StringColor
-{
+@SuppressWarnings("ALL")
+public enum StringColor {
     //Color end string, color reset
     RESET("\033[0m"),
 
@@ -80,8 +79,7 @@ public enum StringColor
     WHITE_BACKGROUND_BRIGHT("\033[0;107m");
     private final String color;
 
-    StringColor(String color)
-    {
+    StringColor(String color) {
         this.color = color;
     }
 
@@ -91,8 +89,7 @@ public enum StringColor
      * @return str
      */
     @Override
-    public String toString()
-    {
+    public String toString() {
         return color;
     }
 
@@ -102,8 +99,7 @@ public enum StringColor
      * @param str string
      * @return colored str
      */
-    public String use(String str)
-    {
+    public String use(String str) {
         return color + str + RESET;
     }
 }

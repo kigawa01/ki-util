@@ -1,6 +1,7 @@
-import net.kigawa.kutil.kutil.interfaces.LoggerInterface;
-import net.kigawa.kutil.kutil.util.Syncer;
+import net.kigawa.kutil.kutil.interfaces.*;
+import net.kigawa.kutil.kutil.util.*;
 
+@SuppressWarnings("deprecation")
 public class SyncerTest {
     private Syncer syncer;
 
@@ -9,23 +10,6 @@ public class SyncerTest {
         new Thread(this::task).start();
         new Thread(this::task0).start();
         new Thread(this::task1).start();
-    }
-
-    private void task() {
-        int order = 2;
-        syncer.setTask(() -> System.out.println("task " + order), order);
-    }
-
-    private void task0() {
-        int order = 1;
-        syncer.setTask(() -> System.out.println("task " + order), order);
-
-    }
-
-    private void task1() {
-        int order = 0;
-        syncer.setTask(() -> System.out.println("task " + order), order);
-
     }
 
     public static void main(String[] args) {
@@ -65,5 +49,22 @@ public class SyncerTest {
 
             }
         });
+    }
+
+    private void task() {
+        int order = 2;
+        syncer.setTask(() -> System.out.println("task " + order), order);
+    }
+
+    private void task0() {
+        int order = 1;
+        syncer.setTask(() -> System.out.println("task " + order), order);
+
+    }
+
+    private void task1() {
+        int order = 0;
+        syncer.setTask(() -> System.out.println("task " + order), order);
+
     }
 }
