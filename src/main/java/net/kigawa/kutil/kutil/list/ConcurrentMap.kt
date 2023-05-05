@@ -1,13 +1,17 @@
-package net.kigawa.kmccore.concurrent
+@file:Suppress("unused")
+
+package net.kigawa.kutil.kutil.list
+
+import net.kigawa.kutil.kutil.concurrent.Box
 
 open class ConcurrentMap<K, V>(map: Map<K, V>): MutableMap<K, V> {
   constructor(): this(mutableMapOf())
   
-  private val listBox = ConcurrentBox(map.toMutableMap()) {HashMap(it)}
+  private val listBox = Box(map.toMutableMap()) {HashMap(it)}
   
   @Synchronized
   private fun <R> modify(task: (MutableMap<K, V>)->R): R {
-    return listBox.modify(task)
+    return listBox.useValue(task)
   }
   
   fun toMutableMap(): MutableMap<K, V> {

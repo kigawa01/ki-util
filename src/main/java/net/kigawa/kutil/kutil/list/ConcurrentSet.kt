@@ -1,13 +1,15 @@
 package net.kigawa.kmccore.concurrent
 
+import net.kigawa.kutil.kutil.concurrent.Box
+
 open class ConcurrentSet<T: Any>(collection: Collection<T>): MutableSet<T> {
   constructor(): this(mutableListOf<T>())
   
-  private val listBox = ConcurrentBox(collection.toMutableSet()) {HashSet(it)}
+  private val listBox = Box(collection.toMutableSet()) {HashSet(it)}
   
   @Synchronized
   private fun <R> modifyList(task: (MutableSet<T>)->R): R {
-    return listBox.modify(task)
+    return listBox.useValue(task)
   }
   
   fun toMutableSet(): MutableSet<T> {

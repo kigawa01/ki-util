@@ -1,6 +1,7 @@
 package net.kigawa.kutil.kutil.list
 
 interface KListStream<T>: List<T>, KCollectionStream<T> {
+  fun toKList(): KList<T>
   
   /**
    * Returns 1st *element* from the list.
@@ -47,6 +48,26 @@ interface KListStream<T>: List<T>, KCollectionStream<T> {
     return get(4)
   }
   
-  fun <R> map(transform: (T)->R): KList<R>
-  fun <R, C: MutableCollection<in R>> mapTo(destination: C, transform: (T)->R): C
+  fun forEach(action: (T)->Unit) {
+    toKList().forEach(action)
+  }
+  
+  /**
+   * Returns a list with elements in reversed order.
+   */
+  fun reversed(): KList<T> {
+    val list = toKList()
+    list.reverse()
+    return list
+  }
+  
+  fun <R> map(transform: (T)->R): KList<R> {
+    return mapTo(KListImpl(this.size), transform)
+  }
+  
+  fun <R, C: MutableCollection<in R>> mapTo(destination: C, transform: (T)->R): C {
+    for (item in this)
+      destination.add(transform(item))
+    return destination
+  }
 }

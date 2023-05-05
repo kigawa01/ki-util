@@ -1,5 +1,8 @@
+@file:Suppress("unused")
+
 package net.kigawa.kutil.kutil.manager
 
+import net.kigawa.kutil.kutil.concurrent.Var
 import net.kigawa.kutil.kutil.list.KList
 
 @Suppress("MemberVisibilityCanBePrivate")
@@ -8,18 +11,35 @@ abstract class RemoveAble(
 ) {
   private val removeTask = KList.create<Runnable>()
   open val parentField = parent
-  private val registeredTask = parent?.addRemoveTask(::remove)
-  fun addRemoveTask(runnable: Runnable): Runnable {
-    removeTask.add(runnable)
+  private val registeredTask = parent?.registerRemoveTask(::remove)
+  protected val removed = Var(false)
+  fun isRemoved(): Boolean {
+    return removed.get()
+  }
+  
+  fun registerRemoveTask(runnable: Runnable): Runnable {
+    removed.useValue {
+      if (it) throw RemovedObjectException("this object is already removed")
+      removeTask.add(runnable)
+    }
     return runnable
   }
   
-  fun removeRemoveTask(runnable: Runnable) {
-    removeTask.remove(runnable)
+  fun unregisterRemoveTask(runnable: Runnable) {
+    removed.useValue {
+      if (it) throw RemovedObjectException("this object is already removed")
+      removeTask.remove(runnable)
+    }
   }
   
   open fun remove() {
-    registeredTask?.let {parentField?.removeRemoveTask(it)}
+    if (removed.useSelf {
+        if (it) return@useSelf true
+        set(true)
+        false
+      }) return
+    
+    registeredTask?.let {parentField?.unregisterRemoveTask(it)}
     removeTask.forEach {
       it.run()
     }

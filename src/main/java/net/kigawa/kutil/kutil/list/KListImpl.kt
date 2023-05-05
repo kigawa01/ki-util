@@ -2,18 +2,18 @@
 
 package net.kigawa.kutil.kutil.list
 
-import net.kigawa.kmccore.concurrent.ConcurrentBox
+import net.kigawa.kutil.kutil.concurrent.Box
 
 class KListImpl<T>(list: MutableList<T>): KList<T> {
   constructor(): this(mutableListOf<T>())
   constructor(initialCapacity: Int): this(ArrayList(initialCapacity))
   constructor(iterable: Iterable<T>): this(iterable.toMutableList())
   
-  private val listBox = ConcurrentBox(list) {ArrayList(it)}
+  private val listBox = Box(list) {ArrayList(it)}
   
   @Synchronized
   override fun <R> modifyList(task: (MutableList<T>)->R): R {
-    return listBox.modify(task)
+    return listBox.useValue(task)
   }
   
   override fun toMutableList(): MutableList<T> {
@@ -76,13 +76,7 @@ class KListImpl<T>(list: MutableList<T>): KList<T> {
     return "ConcurrentList(${toMutableList()})"
   }
   
-  override fun <R> map(transform: (T)->R): KList<R> {
-    return mapTo(KListImpl<R>(this.size), transform)
-  }
-  
-  override fun <R, C: MutableCollection<in R>> mapTo(destination: C, transform: (T)->R): C {
-    for (item in this)
-      destination.add(transform(item))
-    return destination
+  override fun toKList(): KList<T> {
+    return KList.create(this)
   }
 }
