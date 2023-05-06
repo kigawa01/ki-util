@@ -12,7 +12,7 @@ class ExecuteTask<T>(
   
   constructor(executor: AsyncExecutor, callable: Callable<T>): this(executor, FutureTask(callable))
   
-  override fun wait(timeoutMilli: Long) {
+  override fun waitTask(timeoutMilli: Long) {
     if (isDone) return
     try {
       get(timeoutMilli)
@@ -21,8 +21,8 @@ class ExecuteTask<T>(
     }
   }
   
-  override fun wait() {
-    wait(executor.timeOutMilli)
+  override fun waitTask() {
+    waitTask(executor.timeOutMilli)
   }
   
   override fun cancel(mayInterruptIfRunning: Boolean): Boolean {

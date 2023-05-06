@@ -1,9 +1,7 @@
 package net.kigawa.kutil.kutil.string;
 
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Iterator;
-import java.util.function.Function;
+import java.util.*;
+import java.util.function.*;
 
 /**
  * @deprecated use KutilString
@@ -22,8 +20,13 @@ public class StringUtil {
     }
 
     /**
+     * @param <T>    array type
+     * @param insert insert str
+     * @param ts     array
+     * @return str
      * @deprecated
      */
+    @Deprecated
     public static <T> String connectArray(T[] ts, String insert) {
         return insertSymbol(insert, Arrays.asList((String[]) ts));
     }

@@ -42,7 +42,7 @@ class AsyncExecutor(
   }
   
   fun waitTask() {
-    tasks.forEach(ExecuteTask<*>::wait)
+    tasks.forEach(ExecuteTask<*>::waitTask)
   }
   
   fun execute(runnable: Runnable): Task {

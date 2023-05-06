@@ -54,8 +54,10 @@ public interface LoggerInterface {
     }
 
     /**
+     * @param message log
      * @deprecated
      */
+    @Deprecated
     default void logger(String message) {
         fine(message);
     }

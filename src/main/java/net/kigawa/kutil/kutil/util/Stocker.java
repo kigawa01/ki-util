@@ -3,7 +3,6 @@ package net.kigawa.kutil.kutil.util;
 import java.util.Iterator;
 
 /**
- * @param <T>
  * @deprecated use ./list.Stocker
  */
 public class Stocker<T> implements Iterator<T> {

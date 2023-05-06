@@ -5,9 +5,8 @@ import net.kigawa.kutil.kutil.interfaces.Module;
 
 import java.util.LinkedList;
 
-/**
- * @deprecated do not need
- */
+@SuppressWarnings("DeprecatedIsStillUsed")
+@Deprecated
 public class Syncer implements Module {
     private final LinkedList<Runnable> runnableList = new LinkedList<>();
     private final LoggerInterface logger;

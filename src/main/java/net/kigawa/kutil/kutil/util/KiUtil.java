@@ -1,16 +1,15 @@
 package net.kigawa.kutil.kutil.util;
 
-import net.kigawa.kutil.kutil.file.FileUtil;
-import net.kigawa.kutil.kutil.string.StringUtil;
+import net.kigawa.kutil.kutil.file.*;
+import net.kigawa.kutil.kutil.string.*;
 
 import java.io.*;
-import java.net.URL;
-import java.nio.file.Files;
+import java.net.*;
+import java.nio.file.*;
 import java.util.*;
-import java.util.function.BiPredicate;
-import java.util.function.Function;
+import java.util.function.*;
 
-import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
+import static java.nio.file.StandardCopyOption.*;
 
 /**
  * @deprecated use Kutil
@@ -32,7 +31,6 @@ public class KiUtil {
         list.removeIf(l -> biPredicate.test(l, object));
     }
 
-
     public static <T> void executeIterable(Iterable<T> collection, Process<T> process) {
         for (T t : collection) {
             process.execute(t);
@@ -40,8 +38,11 @@ public class KiUtil {
     }
 
     /**
+     * @param ints numbers
+     * @return joined numbers
      * @deprecated
      */
+    @Deprecated
     public static String createString(int[] ints) {
         return StringUtil.connectArray(castIntArray(ints, new Integer[ints.length]), ", ");
     }
@@ -126,26 +127,30 @@ public class KiUtil {
             while ((result = bufferedReader.readLine()) != null) {
                 System.out.println(result);
             }
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             e.printStackTrace();
         }
     }
-    public static void runCommand(String[] command,File dir) {
-        runCommand(runtime-> {
+
+    public static void runCommand(String[] command, File dir) {
+        runCommand(runtime -> {
             try {
                 return runtime.exec(command, null, dir);
-            } catch (IOException e) {
+            }
+            catch (IOException e) {
                 e.printStackTrace();
             }
             return null;
         });
     }
 
-    public static void runCommand(String command,File dir) {
-        runCommand(runtime-> {
+    public static void runCommand(String command, File dir) {
+        runCommand(runtime -> {
             try {
                 return runtime.exec(command, null, dir);
-            } catch (IOException e) {
+            }
+            catch (IOException e) {
                 e.printStackTrace();
             }
             return null;
@@ -161,14 +166,17 @@ public class KiUtil {
             }
 
             Files.copy(url.openStream(), file1.toPath(), REPLACE_EXISTING);
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     /**
+     * @return absolute file
      * @deprecated
      */
+    @Deprecated
     public static File getAbsolutFile() {
         return FileUtil.getAbsolutFile();
     }

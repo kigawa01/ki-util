@@ -4,6 +4,7 @@ package net.kigawa.kutil.kutil.interfaces;
  * @deprecated use kunit
  * class that need disable process
  */
+@Deprecated
 public interface Module {
     /**
      * to start process

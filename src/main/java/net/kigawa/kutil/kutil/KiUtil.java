@@ -40,8 +40,11 @@ public class KiUtil {
     }
 
     /**
+     * @param ints numbers
+     * @return joined numbers
      * @deprecated
      */
+    @Deprecated
     public static String createString(int[] ints) {
         return StringUtil.connectArray(castIntArray(ints, new Integer[ints.length]), ", ");
     }
@@ -168,8 +171,10 @@ public class KiUtil {
     }
 
     /**
-     * @deprecated
+     * @return getAbsoluteFile
+     * @deprecated FileUtil.getAbsolutFile()
      */
+    @Deprecated
     public static File getAbsolutFile() {
         return FileUtil.getAbsolutFile();
     }
