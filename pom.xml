@@ -29,7 +29,8 @@
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
-        <kotlin.version>1.8.0</kotlin.version>
+        <kotlin.version>1.8.10</kotlin.version>
+        <dokka.version>${kotlin.version}</dokka.version>
     </properties>
 
     <dependencies>
@@ -103,18 +104,35 @@
             </plugin>
 
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.3.2</version>
+                <groupId>org.jetbrains.dokka</groupId>
+                <artifactId>dokka-maven-plugin</artifactId>
+                <version>${dokka.version}</version>
                 <executions>
                     <execution>
-                        <id>attach-javadocs</id>
+                        <phase>pre-site</phase>
                         <goals>
-                            <goal>jar</goal>
+                            <goal>javadocJar</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>javadocJar</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>javadocJar</goal>
                         </goals>
                     </execution>
                 </executions>
+                <configuration>
+                    <dokkaPlugins>
+                        <plugin>
+                            <groupId>org.jetbrains.dokka</groupId>
+                            <artifactId>kotlin-as-java-plugin</artifactId>
+                            <version>${dokka.version}</version>
+                        </plugin>
+                    </dokkaPlugins>
+                </configuration>
             </plugin>
+
             <plugin>
                 <groupId>org.jetbrains.kotlin</groupId>
                 <artifactId>kotlin-maven-plugin</artifactId>
