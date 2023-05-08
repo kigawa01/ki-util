@@ -4,21 +4,20 @@ package net.kigawa.kutil.kutil.reflection
 
 import java.lang.reflect.*
 
-/**
- *
- */
-@Deprecated("use kutil reflect")
-object ReflectionUtil {
+object KutilReflect {
+  @JvmStatic
   fun getAllExitFields(clazz: Class<*>): List<Field> {
     return getAllParentClasses(clazz)
       .flatMap {it.declaredFields.asList()}
   }
   
+  @JvmStatic
   fun getAllExitMethod(clazz: Class<*>): List<Method> {
     return getAllParentClasses(clazz)
       .flatMap {it.declaredMethods.asList()}
   }
   
+  @JvmStatic
   fun <T: Annotation> getAllExitAnnotation(clazz: Class<*>, annotationClass: Class<T>): MutableList<T> {
     val list = mutableListOf<T>()
     getAllParentClasses(clazz).forEach {
@@ -28,6 +27,7 @@ object ReflectionUtil {
     return list
   }
   
+  @JvmStatic
   fun getAllParentClasses(clazz: Class<*>): MutableList<Class<*>> {
     val list = mutableListOf(clazz)
     clazz.superclass?.let {list.addAll(getAllParentClasses(clazz.superclass))}
@@ -37,15 +37,18 @@ object ReflectionUtil {
     return list
   }
   
+  @JvmStatic
   @Suppress("unused")
   fun isStatic(member: Member): Boolean {
     return Modifier.isStatic(member.modifiers)
   }
   
+  @JvmStatic
   fun isFinal(member: Member): Boolean {
     return Modifier.isFinal(member.modifiers)
   }
   
+  @JvmStatic
   fun instanceOf(clazz: Class<*>, superClass: Class<*>): Boolean {
     return getAllParentClasses(clazz).contains(superClass)
   }
