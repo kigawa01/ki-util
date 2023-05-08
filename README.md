@@ -11,7 +11,7 @@
         <dependency>
             <groupId>net.kigawa.kutil</groupId>
             <artifactId>kutil</artifactId>
-            <version>2.2</version>
+            <version>2.2.1</version>
         </dependency>
         ......
     </dependencies>
@@ -30,12 +30,10 @@
 
 ## Version
 
-### Example: 9.1dev
+### Example: 9.1.2
 
-* **9.1dev**
-    * version
-    * **9**: major
-    * **1**: miner
-    * **dev**: branch, when it is main, without
+* **9**: major, destructive
+* **1**: miner, new function
+* **2**: miner, bug fix
 
 ## ToDo
