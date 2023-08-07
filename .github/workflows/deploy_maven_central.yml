@@ -53,7 +53,7 @@ jobs:
           </properties>
           </profile>
           </profiles>
-          </settings>' > "${HOME}/.m2/"
+          </settings>' > "${HOME}/.m2/settings.xml"
 
       - name: deploy with Maven
         run:  mvn clean deploy
