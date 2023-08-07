@@ -22,7 +22,7 @@ jobs:
           java-version: '17'
 
       - name: decode secret
-        run: echo  ${{ secrets.SEC }} | base64 --decode > sec.pem
+        run: echo "${{ secrets.SEC }}" | base64 --decode > sec.pem
 
       - name: import gpg key
         run: gpg --batch --import sec.pem
