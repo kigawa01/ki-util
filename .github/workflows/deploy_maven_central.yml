@@ -1,0 +1,59 @@
+# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
+# More GitHub Actions for Azure: https://github.com/Azure/actions
+
+name: deploy maven central
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Java version
+        uses: actions/setup-java@v1
+        with:
+          java-version: '17'
+
+      - name: decode secret
+        run: echo  ${{ secrets.SEC }} | base64 --decode > sec.pem
+
+      - name: import gpg key
+        run: gpg --batch --import sec.pem
+
+      - name: import gpg key
+        run: |
+          mkdir ./.m2/ -p 
+          echo "<?xml version="1.0" encoding="UTF-8"?>
+          <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
+          <servers>
+          <server>
+          <id>ossrh</id>
+          <username>kigawa</username>
+          <password>${secret.OSSRH_PASSWORD}</password>
+          </server>
+          </servers>
+          <profiles>
+          <profile>
+          <id>ossrh</id>
+          <activation>
+          <activeByDefault>true</activeByDefault>
+          </activation>
+          <properties>
+          <gpg.executable>gpg</gpg.executable>
+          <gpg.passphrase>${secret.GPG_PASSPHRASE}</gpg.passphrase>
+          </properties>
+          </profile>
+          </profiles>
+          </settings>" > "${HOME}/.m2/"
+
+      - name: deploy with Maven
+        run:  mvn clean deploy

@@ -4,12 +4,14 @@ package net.kigawa.kutil.kutil.file;
  * 拡張子の管理のためのクラス
  * to manage file extension
  */
+@SuppressWarnings("unused")
 public enum FileExtension
 {
     LOG("log"),
     /**
      * @deprecated
      */
+    @Deprecated
     log("log");
 
     private final String extension;
