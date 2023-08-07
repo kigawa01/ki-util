@@ -22,12 +22,17 @@ jobs:
           java-version: '17'
 
       - name: decode secret
-        run: echo "${{ secrets.SEC }}" | base64 --decode > sec.pem
+        env:
+          SEC: ${{ secrets.SEC }}
+        run: echo "${{ SEC }}" | base64 --decode > sec.pem
 
       - name: import gpg key
         run: gpg --batch --import sec.pem
 
       - name: create maven setting
+        env:
+          OSSRH_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
+          GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
         run: |
           mkdir ./.m2/ -p 
           echo '<?xml version="1.0" encoding="UTF-8"?>
@@ -38,7 +43,7 @@ jobs:
           <server>
           <id>ossrh</id>
           <username>kigawa</username>
-          <password>${secret.OSSRH_PASSWORD}</password>
+          <password>${OSSRH_PASSWORD}</password>
           </server>
           </servers>
           <profiles>
@@ -49,7 +54,7 @@ jobs:
           </activation>
           <properties>
           <gpg.executable>gpg</gpg.executable>
-          <gpg.passphrase>${secret.GPG_PASSPHRASE}</gpg.passphrase>
+          <gpg.passphrase>${GPG_PASSPHRASE}</gpg.passphrase>
           </properties>
           </profile>
           </profiles>
