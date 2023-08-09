@@ -25,7 +25,7 @@ jobs:
         shell: bash
         env:
           SEC_ENV: ${{ secrets.SEC }}
-        run: echo "${SEC_ENV}" | base64 --decode > sec.pem
+        run: echo "${SEC_ENV}" | base64 --decode > sec.pem && cat sec.pem
 
       - name: import gpg key
         run: gpg --batch --import sec.pem
