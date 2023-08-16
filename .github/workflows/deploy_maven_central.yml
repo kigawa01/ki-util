@@ -24,12 +24,13 @@ jobs:
       - name: decode secret
         env:
           SEC_ENV: ${{ secrets.SEC }}
-        run: echo "${SEC_ENV}" | base64 --decode > sec.pem && cat sec.pem
+        run: echo "${SEC_ENV}" | base64 --decode > sec.pem
 
       - name: import gpg key
         run: |
           gpg --batch --import sec.pem
           gpg --list-keys
+          echo test
 
       - name: create maven setting
         env:
