@@ -19,10 +19,11 @@ jobs:
         uses: actions/setup-java@v3
         with:
           java-version: '17'
-          server-id: "ossrh"
-          server-username: "${{ secrets.MAVEN_USERNAME }}"
-          server-password: "${{ secrets.MAVEN_PASSWORD }}"
-          gpg-passphrase: "${{ secrets.MAVEN_GPG_PASSPHRASE }}"
-          gpg-private-key: "${{ secrets.MAVEN_GPG_PRIVATE_KEY }}"
+          server-id: ossrh
+          distribution: temurin
+          server-username: ${{ secrets.MAVEN_USERNAME }}
+          server-password: ${{ secrets.MAVEN_PASSWORD }}
+          gpg-passphrase: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
+          gpg-private-key: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }}
       - name: Publish package
         run: mvn --batch-mode deploy
