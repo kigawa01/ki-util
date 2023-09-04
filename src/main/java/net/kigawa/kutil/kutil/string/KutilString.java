@@ -1,15 +1,12 @@
-package net.kigawa.kutil.kutil;
+package net.kigawa.kutil.kutil.string;
 
 import java.util.*;
 import java.util.function.*;
 
 /**
  * utilities about string
- *
- * @deprecated use string.KutilString
  */
 @SuppressWarnings("unused")
-@Deprecated
 public class KutilString {
 
     /**
