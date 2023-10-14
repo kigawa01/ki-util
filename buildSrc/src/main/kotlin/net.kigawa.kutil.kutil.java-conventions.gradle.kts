@@ -38,6 +38,7 @@ publishing {
   publications {
     create<MavenPublication>("mavenJava") {
       pom {
+        name.set("kutil")
         description.set("utilities for java")
         url.set("https://github.com/kigawa01/kutil-java/")
         properties.set(
