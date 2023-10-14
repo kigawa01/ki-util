@@ -37,6 +37,7 @@ kotlin {
 publishing {
   publications {
     create<MavenPublication>("mavenJava") {
+      from(findProject(":api")?.components?.get("java"))
       pom {
         name.set("kutil")
         description.set("utilities for java")
