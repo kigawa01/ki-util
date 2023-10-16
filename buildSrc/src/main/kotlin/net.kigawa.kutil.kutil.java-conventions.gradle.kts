@@ -5,8 +5,8 @@ import dependencies.ProjectConfig
 import java.net.URI
 
 plugins {
-  kotlin("multiplatform")
   `maven-publish`
+  kotlin("multiplatform")
 }
 
 repositories {
@@ -49,7 +49,7 @@ publishing{
 
 publishing {
   publications {
-    withType<MavenPublication> {
+    create<MavenPublication>("maven") {
       from(findProject(":api")?.components?.get("kotlin"))
       pom {
         name.set("kutil")
