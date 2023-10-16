@@ -49,7 +49,7 @@ publishing{
 
 publishing {
   publications {
-    create<MavenPublication>("maven") {
+    withType<MavenPublication> {
       from(findProject(":api")?.components?.get("kotlin"))
       pom {
         name.set("kutil")
