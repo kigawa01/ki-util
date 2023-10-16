@@ -30,9 +30,9 @@ group = ProjectConfig.GROUP
 kotlin {
   jvm {
   }
-
-  val publicationsFromMainHost =
-    listOf(jvm()).map { it.name } + "kotlinMultiplatform"
+//
+//  val publicationsFromMainHost =
+//    listOf(jvm()).map { it.name } + "kotlinMultiplatform"
 publishing{
   publications {
 //
