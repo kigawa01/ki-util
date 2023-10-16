@@ -50,7 +50,6 @@ publishing{
 publishing {
   publications {
     create<MavenPublication>("maven") {
-      from(findProject(":api")?.components?.get("kotlin"))
       pom {
         name.set("kutil")
         description.set("utilities for java")
