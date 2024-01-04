@@ -11,10 +11,15 @@ dependencies {
 
 publishing {
   publications {
-    create<MavenPublication>("maven") {
+    withType<MavenPublication> {
+      artifactId = if (name == "kotlinMultiplatform") {
+        artifactId
+      } else {
+        "$artifactId-$name"
+      }
       pom {
         name.set("kutil")
-        description.set("utilities for java")
+        description.set("utilities for kotlin")
         url.set("https://github.com/kigawa01/kutil-java/")
         properties.set(
           mapOf(
