@@ -27,7 +27,7 @@ jobs:
           GPG_PRIVATE_KEY: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }}
           GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
         run: |
-          echo "$GPG_PRIVATE_KEY" > kutil/secret.key
+          echo "$GPG_PRIVATE_KEY" | base64 -d > kutil/secret.key
           echo "signing.keyId=1F9BC20BED76201E" >> ./gradle.properties
           echo "signing.password=$MAVEN_GPG_PASSPHRASE" >> ./gradle.properties
           echo "signing.secretKeyRingFile=secret.key" >> ./gradle.properties
