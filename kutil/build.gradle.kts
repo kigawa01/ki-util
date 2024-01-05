@@ -2,7 +2,7 @@ import java.net.URI
 
 plugins {
   `maven-publish`
-  `signing`
+  signing
   id("net.kigawa.kutil.kutil.java-conventions")
   id("org.jetbrains.dokka") version "1.9.10"
 }
@@ -59,10 +59,5 @@ publishing {
   }
 }
 signing {
-  val signingKeyId = "1F9BC20BED76201E"
-  val signingPassword = System.getenv("GPG_PASSPHRASE")
-  val signingKey = System.getenv("GPG_PRIVATE_KEY")
-
-  useInMemoryPgpKeys(signingKeyId, signingKey, signingPassword)
   sign(publishing.publications)
 }
