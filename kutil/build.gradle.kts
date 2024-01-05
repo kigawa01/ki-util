@@ -2,6 +2,7 @@ import java.net.URI
 
 plugins {
   `maven-publish`
+  `signing`
   id("net.kigawa.kutil.kutil.java-conventions")
 }
 
@@ -57,4 +58,11 @@ publishing {
       }
     }
   }
+}
+java {
+  withSourcesJar()
+  withJavadocJar()
+}
+signing {
+  sign(publishing.publications)
 }
