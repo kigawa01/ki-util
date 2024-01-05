@@ -59,5 +59,10 @@ publishing {
   }
 }
 signing {
+  val signingKeyId = "1F9BC20BED76201E"
+  val signingPassword = System.getenv("GPG_PASSPHRASE")
+  val signingKey = System.getenv("GPG_PRIVATE_KEY")
+
+  useInMemoryPgpKeys(signingKeyId, signingKey, signingPassword)
   sign(publishing.publications)
 }
