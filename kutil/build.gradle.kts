@@ -4,6 +4,7 @@ plugins {
   `maven-publish`
   `signing`
   id("net.kigawa.kutil.kutil.java-conventions")
+  id("org.jetbrains.dokka") version "1.9.10"
 }
 
 dependencies {
@@ -13,11 +14,9 @@ dependencies {
 publishing {
   publications {
     withType<MavenPublication> {
-      artifactId = if (name == "kotlinMultiplatform") {
-        artifactId
-      } else {
-        "$artifactId-$name"
-      }
+      artifactId = if (name == "kotlinMultiplatform") artifactId
+      else "$artifactId-$name"
+
       pom {
         name.set("kutil")
         description.set("utilities for kotlin")
@@ -58,10 +57,6 @@ publishing {
       }
     }
   }
-}
-java {
-  withSourcesJar()
-  withJavadocJar()
 }
 signing {
   sign(publishing.publications)
