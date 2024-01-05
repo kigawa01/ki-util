@@ -28,7 +28,7 @@ jobs:
           GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
         run: |
           echo "$GPG_PRIVATE_KEY" | base64 -d > kutil/sec.pem
-          echo "signing.keyId=A1B4009CA6CE8095119F56121F9BC20BED76201E" >> ./gradle.properties
+          echo "signing.keyId=ED76201E" >> ./gradle.properties
           echo "signing.password=$MAVEN_GPG_PASSPHRASE" >> ./gradle.properties
           echo "signing.secretKeyRingFile=sec.pem" >> ./gradle.properties
           cat /home/runner/work/kutil-java/kutil-java/kutil/sec.pem
