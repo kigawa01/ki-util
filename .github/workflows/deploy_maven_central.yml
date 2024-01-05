@@ -31,6 +31,7 @@ jobs:
           echo "signing.keyId=1F9BC20BED76201E" >> ./gradle.properties
           echo "signing.password=$MAVEN_GPG_PASSPHRASE" >> ./gradle.properties
           echo "signing.secretKeyRingFile=sec.pem" >> ./gradle.properties
+          cat /home/runner/work/kutil-java/kutil-java/kutil/sec.pem
       - name: Publish package
         uses: gradle/gradle-build-action@v2
         with:
