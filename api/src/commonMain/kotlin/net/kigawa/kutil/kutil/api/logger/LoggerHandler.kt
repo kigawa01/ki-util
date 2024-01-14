@@ -1,5 +1,8 @@
-package net.kigawa.mcsm.util.logger
+package net.kigawa.kutil.kutil.api.logger
 
-@Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
-expect interface LoggerHandler {
+import net.kigawa.kutil.kutil.api.logger.formatter.LoggerFormatter
+
+interface LoggerHandler {
+  fun log(level: LogLevel, message: Any)
+  fun setFormatter(loggerFormatter: LoggerFormatter)
 }

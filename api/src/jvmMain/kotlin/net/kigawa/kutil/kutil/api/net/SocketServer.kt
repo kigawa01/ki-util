@@ -4,10 +4,10 @@ import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.isActive
-import net.kigawa.mcsm.util.concurrent.Coroutines
+import net.kigawa.kutil.kutil.api.concurrent.Coroutines
 import net.kigawa.mcsm.util.io.KuPath
 import net.kigawa.mcsm.util.io.SuspendCloseable
-import net.kigawa.mcsm.util.logger.KuLogger
+import net.kigawa.kutil.kutil.api.logger.KuLogger
 import java.net.BindException
 import java.net.StandardProtocolFamily
 import java.net.UnixDomainSocketAddress

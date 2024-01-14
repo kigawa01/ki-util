@@ -1,15 +1,15 @@
-package net.kigawa.mcsm.util.logger
+package net.kigawa.kutil.kutil.api.logger
 
-import kotlin.reflect.KClass
-
-@Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
-expect class KuLogger(
-  context: KClass<*>,
-  handlers: List<LoggerHandler> = listOf(),
-  level: LogLevel? = null,
+@Suppress("MemberVisibilityCanBePrivate", "unused")
+class KuLogger(
+  private val loggerHandler: LoggerHandler,
 ) {
-  val level: LogLevel?
-  fun info(message: String)
-  fun fine(message: String)
-  fun warning(message: String)
+  companion object {
+    var defaultHandler = PKuLogger.defaultHandler
+    var defaultLogger: KuLogger = KuLogger(defaultHandler)
+  }
+
+  fun info(message: Any) = loggerHandler.log(LogLevel.INFO, message)
+  fun fine(message: Any) = loggerHandler.log(LogLevel.FINE, message)
+  fun warning(message: Any) = loggerHandler.log(LogLevel.WARNING, message)
 }

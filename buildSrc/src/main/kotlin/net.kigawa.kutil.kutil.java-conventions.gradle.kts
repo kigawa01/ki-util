@@ -29,6 +29,8 @@ group = ProjectConfig.GROUP
 kotlin {
   jvm {
   }
+  js {
+  }
 }
 
 

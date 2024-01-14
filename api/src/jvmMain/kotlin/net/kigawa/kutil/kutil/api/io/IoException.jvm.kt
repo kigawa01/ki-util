@@ -1,5 +1,6 @@
 package net.kigawa.mcsm.util.io
 
+import net.kigawa.kutil.kutil.api.io.IoException
 import java.io.IOException
 
 class JvmIoException(message: String?) : IoException(message) {

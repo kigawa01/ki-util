@@ -1,27 +1,39 @@
-package net.kigawa.mcsm.util.concurrent
+@file:Suppress("unused", "MemberVisibilityCanBePrivate")
+
+package net.kigawa.kutil.kutil.api.concurrent
 
 import kotlinx.coroutines.*
-import net.kigawa.mcsm.util.logger.KuLogger
+import net.kigawa.kutil.kutil.api.logger.KuLogger
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
 
 class Coroutines(
-  private val logger: KuLogger,
+  private val logger: KuLogger = KuLogger.defaultLogger,
+  val mainContext: CoroutineDispatcher = defaultMainContext,
+  val ioContext: CoroutineDispatcher = defaultIoContext,
 ) {
-  private val defaultContext = DefaultCoroutines.defaultContext
-  private val defaultScope
-    get() = CoroutineScope(defaultContext)
-  val ioContext = DefaultCoroutines.ioContext
-  private val ioScope
+  companion object {
+    var defaultCoroutines = Coroutines()
+    val defaultMainContext: CoroutineDispatcher = Dispatchers.Main
+    val defaultIoContext: CoroutineDispatcher = PCoroutines.defaultIoContext
+    val defaultDefaultScope: CoroutineScope
+      get() = CoroutineScope(defaultMainContext)
+    val defaultIoScope: CoroutineScope
+      get() = CoroutineScope(defaultIoContext)
+  }
+
+  val defaultScope
+    get() = CoroutineScope(mainContext)
+  val ioScope
     get() = CoroutineScope(ioContext)
 
-  fun launchDefault(
+  fun launchMain(
     context: CoroutineContext = EmptyCoroutineContext,
     start: CoroutineStart = CoroutineStart.DEFAULT,
     block: suspend CoroutineScope.() -> Unit,
-  ) = launch(defaultScope, context, start, block)
+  ) = launchDef(defaultScope, context, start, block)
 
-  fun <T> async(
+  fun <T> asyncMain(
     context: CoroutineContext = EmptyCoroutineContext,
     start: CoroutineStart = CoroutineStart.DEFAULT,
     block: suspend CoroutineScope.() -> T,
@@ -29,13 +41,13 @@ class Coroutines(
 
   suspend fun <T> withContext(
     block: suspend CoroutineScope.() -> T,
-  ) = withContext(defaultContext, block)
+  ) = withContext(mainContext, block)
 
   fun launchIo(
     context: CoroutineContext = EmptyCoroutineContext,
     start: CoroutineStart = CoroutineStart.DEFAULT,
     block: suspend CoroutineScope.() -> Unit,
-  ) = launch(ioScope, context, start, block)
+  ) = launchDef(ioScope, context, start, block)
 
   fun <T> asyncIo(
     context: CoroutineContext = EmptyCoroutineContext,
@@ -47,7 +59,7 @@ class Coroutines(
     block: suspend CoroutineScope.() -> T,
   ) = withContext(ioContext, block)
 
-  private fun launch(
+  private fun launchDef(
     scope: CoroutineScope,
     context: CoroutineContext,
     start: CoroutineStart,

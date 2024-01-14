@@ -1,7 +1,7 @@
 package net.kigawa.mcsm.util.net
 
 import kotlinx.coroutines.withContext
-import net.kigawa.mcsm.util.concurrent.Coroutines
+import net.kigawa.kutil.kutil.api.concurrent.Coroutines
 import net.kigawa.mcsm.util.io.KuPath
 import java.io.FileOutputStream
 import java.net.URI

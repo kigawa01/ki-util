@@ -1,5 +1,5 @@
-package net.kigawa.mcsm.util.logger
+package net.kigawa.kutil.kutil.api.logger
 
 enum class LogLevel {
-  WARN, INFO, FINE
+  WARNING, INFO, FINE
 }

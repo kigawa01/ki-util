@@ -1,9 +1,9 @@
 package net.kigawa.mcsm.util.net
 
-import net.kigawa.mcsm.util.concurrent.Coroutines
+import net.kigawa.kutil.kutil.api.concurrent.Coroutines
 import net.kigawa.mcsm.util.io.KuPath
 import net.kigawa.mcsm.util.io.SuspendCloseable
-import net.kigawa.mcsm.util.logger.KuLogger
+import net.kigawa.kutil.kutil.api.logger.KuLogger
 import java.net.UnixDomainSocketAddress
 import java.nio.channels.SocketChannel
 

@@ -1,7 +1,6 @@
 package net.kigawa.mcsm.util.io
 
 import kotlinx.coroutines.withContext
-import net.kigawa.mcsm.util.concurrent.DefaultCoroutines
 import java.io.BufferedReader
 import kotlin.coroutines.CoroutineContext
 

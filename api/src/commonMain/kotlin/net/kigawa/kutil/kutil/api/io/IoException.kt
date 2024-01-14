@@ -1,4 +1,4 @@
-package net.kigawa.mcsm.util.io
+package net.kigawa.kutil.kutil.api.io
 
 open class IoException(message: String?) : Exception(message) {
 }

@@ -2,7 +2,7 @@ package net.kigawa.mcsm.util.process
 
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.withContext
-import net.kigawa.mcsm.util.concurrent.Coroutines
+import net.kigawa.kutil.kutil.api.concurrent.Coroutines
 import net.kigawa.mcsm.util.io.ReaderIo
 import net.kigawa.mcsm.util.io.ReaderStreamIo
 import net.kigawa.mcsm.util.io.WriterIo

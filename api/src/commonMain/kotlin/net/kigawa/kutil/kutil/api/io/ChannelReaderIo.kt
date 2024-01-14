@@ -1,6 +1,7 @@
-package net.kigawa.mcsm.util.io
+package net.kigawa.kutil.kutil.api.io
 
 import kotlinx.coroutines.channels.Channel
+import net.kigawa.mcsm.util.io.ReaderIo
 
 open class ChannelReaderIo<T>(
   protected val channel: Channel<T>,

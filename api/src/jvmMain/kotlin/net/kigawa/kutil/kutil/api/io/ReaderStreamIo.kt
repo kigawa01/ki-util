@@ -1,7 +1,8 @@
 package net.kigawa.mcsm.util.io
 
 import kotlinx.coroutines.channels.Channel
-import net.kigawa.mcsm.util.concurrent.Coroutines
+import net.kigawa.kutil.kutil.api.concurrent.Coroutines
+import net.kigawa.kutil.kutil.api.io.ChannelReaderIo
 import java.io.BufferedReader
 
 class ReaderStreamIo(

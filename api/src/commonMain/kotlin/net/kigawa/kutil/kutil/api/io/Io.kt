@@ -1,4 +1,4 @@
-package net.kigawa.mcsm.util.io
+package net.kigawa.kutil.kutil.api.io
 
 interface Io {
 }

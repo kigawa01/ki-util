@@ -3,7 +3,7 @@ package net.kigawa.mcsm.util.os
 import kotlinx.coroutines.*
 import net.kigawa.mcsm.util.KutilPlatform
 import net.kigawa.mcsm.util.Version
-import net.kigawa.mcsm.util.io.DefaultIo
+import net.kigawa.kutil.kutil.api.io.DefaultIo
 import net.kigawa.mcsm.util.process.KuProcessBuilder
 
 object KutilOS {

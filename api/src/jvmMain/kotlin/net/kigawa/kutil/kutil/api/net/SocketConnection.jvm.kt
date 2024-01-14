@@ -4,9 +4,9 @@ import kotlinx.coroutines.cancelAndJoin
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
-import net.kigawa.mcsm.util.concurrent.Coroutines
+import net.kigawa.kutil.kutil.api.concurrent.Coroutines
 import net.kigawa.mcsm.util.io.SuspendCloseable
-import net.kigawa.mcsm.util.logger.KuLogger
+import net.kigawa.kutil.kutil.api.logger.KuLogger
 import java.nio.ByteBuffer
 import java.nio.channels.ClosedChannelException
 import java.nio.channels.SocketChannel
