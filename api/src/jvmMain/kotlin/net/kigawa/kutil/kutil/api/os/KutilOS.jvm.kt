@@ -10,7 +10,7 @@ import net.kigawa.kutil.kutil.api.Version
 import net.kigawa.kutil.kutil.api.process.KuProcessBuilder
 
 @Suppress("MemberVisibilityCanBePrivate")
-object KutilOS {
+actual object KutilOS {
   private val OS_NAME = KutilPlatform.getSystemProperty("os.name")
   val OS_TYPE = getOsType()
   val OS_VERSION = getVersion()

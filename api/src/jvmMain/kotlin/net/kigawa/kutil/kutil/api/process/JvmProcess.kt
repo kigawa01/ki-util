@@ -5,7 +5,7 @@ import kotlinx.coroutines.withContext
 import net.kigawa.kutil.kutil.api.concurrent.Coroutines
 import net.kigawa.kutil.kutil.api.io.ReaderIo
 import net.kigawa.kutil.kutil.api.io.WriterIo
-import net.kigawa.mcsm.util.io.ReaderStreamIo
+import net.kigawa.kutil.kutil.api.io.ReaderStreamIo
 import net.kigawa.mcsm.util.io.WriterStreamIo
 
 class JvmProcess(

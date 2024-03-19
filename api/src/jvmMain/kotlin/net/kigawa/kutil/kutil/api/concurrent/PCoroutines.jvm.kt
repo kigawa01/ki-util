@@ -5,7 +5,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlin.coroutines.CoroutineContext
 
 @Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
-actual object PCoroutines {
+internal actual object PCoroutines {
   actual val defaultIoContext: CoroutineDispatcher
     get() = Dispatchers.IO
 }

@@ -3,8 +3,8 @@ package net.kigawa.kutil.kutil.api.str
 import java.util.*
 import java.util.function.Function
 
-@Suppress("unused")
-class KutilString {
+@Suppress("unused", "EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
+actual object KutilString {
 
   /**
    * insert symbol between string array
@@ -108,4 +108,9 @@ class KutilString {
   fun insertSymbol(symbol: String?, stringIterable: Iterable<String>): String {
     return insertSymbol(StringBuffer(), symbol, stringIterable.iterator()).toString()
   }
+
+  actual fun isInt(str: String): Boolean {
+    return str.matches("[+-]?\\d*(\\.\\d+)?".toRegex())
+  }
+
 }

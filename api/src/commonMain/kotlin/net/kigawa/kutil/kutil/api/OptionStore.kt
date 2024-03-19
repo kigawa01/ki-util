@@ -1,5 +1,6 @@
 package net.kigawa.kutil.kutil.api
 
+@Suppress("unused")
 class OptionStore {
   private val options = mutableMapOf<Option, String>()
 

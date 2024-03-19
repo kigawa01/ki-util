@@ -1,9 +1,7 @@
-package net.kigawa.mcsm.util.io
+package net.kigawa.kutil.kutil.api.io
 
 import kotlinx.coroutines.channels.Channel
 import net.kigawa.kutil.kutil.api.concurrent.Coroutines
-import net.kigawa.kutil.kutil.api.io.ChannelReaderIo
-import net.kigawa.kutil.kutil.api.io.SuspendCloseable
 import java.io.BufferedReader
 
 class ReaderStreamIo(

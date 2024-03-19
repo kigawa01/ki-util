@@ -1,8 +1,8 @@
 package net.kigawa.kutil.kutil.api.net
 
 import net.kigawa.kutil.kutil.api.concurrent.Coroutines
-import net.kigawa.kutil.kutil.api.io.fs.KuPath
 import net.kigawa.kutil.kutil.api.io.SuspendCloseable
+import net.kigawa.kutil.kutil.api.io.fs.KuPath
 import net.kigawa.kutil.kutil.api.logger.KuLogger
 import java.net.UnixDomainSocketAddress
 import java.nio.channels.SocketChannel
@@ -21,11 +21,7 @@ actual class SocketClient actual constructor(
 
   override suspend fun suspendClose() {
     coroutines.withContextIo {
-      close()
+      socketChannel.close()
     }
-  }
-
-  override fun close() {
-    socketChannel.close()
   }
 }

@@ -5,7 +5,8 @@ import java.lang.reflect.Member
 import java.lang.reflect.Method
 import java.lang.reflect.Modifier
 
-object KutilReflect {
+@Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
+actual object KutilReflect {
   @JvmStatic
   fun getAllExitFields(clazz: Class<*>): List<Field> {
     return getAllParentClasses(clazz)

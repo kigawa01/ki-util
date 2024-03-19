@@ -1,6 +1,7 @@
 package net.kigawa.kutil.kutil.api
 
-class KutilFile {
+@Suppress("unused", "EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
+actual object KutilFile {
   /**
    * get child file from current
    *

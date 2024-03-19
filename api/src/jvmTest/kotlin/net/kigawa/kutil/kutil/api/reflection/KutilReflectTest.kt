@@ -1,7 +1,9 @@
 package net.kigawa.kutil.kutil.api.reflection
 
-class KutilReflectTest {
+import kotlin.test.Test
 
+class KutilReflectTest {
+  @Test
   fun getAllParentClasses() {
     KutilReflect.getAllParentClasses(javaClass)
   }
