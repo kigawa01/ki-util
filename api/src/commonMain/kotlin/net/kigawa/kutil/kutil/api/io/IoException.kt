@@ -1,6 +1,4 @@
 package net.kigawa.kutil.kutil.api.io
 
-open class IoException(message: String?) : Exception(message) {
-}
-
-expect fun ioException(message: String?): IoException
+@Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
+expect open class IoException(message: String?) : Exception

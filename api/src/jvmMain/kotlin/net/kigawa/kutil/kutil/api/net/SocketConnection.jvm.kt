@@ -1,11 +1,11 @@
-package net.kigawa.mcsm.util.net
+package net.kigawa.kutil.kutil.api.net
 
 import kotlinx.coroutines.cancelAndJoin
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import net.kigawa.kutil.kutil.api.concurrent.Coroutines
-import net.kigawa.mcsm.util.io.SuspendCloseable
+import net.kigawa.kutil.kutil.api.io.SuspendCloseable
 import net.kigawa.kutil.kutil.api.logger.KuLogger
 import java.nio.ByteBuffer
 import java.nio.channels.ClosedChannelException

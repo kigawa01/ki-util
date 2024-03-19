@@ -1,7 +1,7 @@
 package net.kigawa.kutil.kutil.api
 
-import net.kigawa.mcsm.util.io.KuCloseable
-import net.kigawa.mcsm.util.io.SuspendCloseable
+import net.kigawa.kutil.kutil.api.io.KuCloseable
+import net.kigawa.kutil.kutil.api.io.SuspendCloseable
 import kotlin.contracts.ExperimentalContracts
 import kotlin.contracts.InvocationKind
 import kotlin.contracts.contract
@@ -9,7 +9,7 @@ import kotlin.contracts.contract
 object Kutil {
   fun fillStr(src: String, size: Int, fillChar: Char = ' '): String {
     val sb = StringBuilder(size)
-    for (i in 0..<size) {
+    for (i in 0 until size) {
       sb.append(src.getOrNull(i) ?: fillChar)
     }
     return sb.toString()

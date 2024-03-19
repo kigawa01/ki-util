@@ -3,6 +3,7 @@ package net.kigawa.mcsm.util.io
 import kotlinx.coroutines.channels.Channel
 import net.kigawa.kutil.kutil.api.concurrent.Coroutines
 import net.kigawa.kutil.kutil.api.io.ChannelWriterIo
+import net.kigawa.kutil.kutil.api.io.SuspendCloseable
 import java.io.BufferedWriter
 
 class WriterStreamIo(

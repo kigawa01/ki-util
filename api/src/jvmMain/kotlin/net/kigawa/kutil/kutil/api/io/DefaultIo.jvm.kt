@@ -2,7 +2,6 @@ package net.kigawa.kutil.kutil.api.io
 
 import kotlinx.coroutines.channels.Channel
 import net.kigawa.kutil.kutil.api.concurrent.Coroutines
-import net.kigawa.mcsm.util.io.WriterIo
 
 @Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
 actual object DefaultIo {

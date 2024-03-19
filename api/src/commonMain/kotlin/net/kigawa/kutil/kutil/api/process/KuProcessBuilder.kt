@@ -1,6 +1,6 @@
-package net.kigawa.mcsm.util.process
+package net.kigawa.kutil.kutil.api.process
 
-import net.kigawa.mcsm.util.io.KuDirectory
+import net.kigawa.kutil.kutil.api.io.fs.KuDirectory
 
 @Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
 expect class KuProcessBuilder(vararg args: String) {

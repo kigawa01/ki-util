@@ -4,7 +4,7 @@ package net.kigawa.kutil.kutil.api.diff
 
 object KutilDiff {
 
-  fun <T> getDiff(oldIterable: Iterable<T>, newIterable: Iterable<T>): Diff<List<T>> {
+  fun <T> getIterableDiff(oldIterable: Iterable<T>, newIterable: Iterable<T>): Diff<List<T>> {
     return Diff(
       newIterable.filter {
         !oldIterable.contains(it)

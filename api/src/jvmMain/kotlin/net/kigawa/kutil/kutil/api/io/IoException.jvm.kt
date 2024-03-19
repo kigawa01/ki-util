@@ -1,12 +1,8 @@
-package net.kigawa.mcsm.util.io
+package net.kigawa.kutil.kutil.api.io
 
-import net.kigawa.kutil.kutil.api.io.IoException
 import java.io.IOException
 
-class JvmIoException(message: String?) : IoException(message) {
+@Suppress("unused")
+class IoException(message: String?) : IOException(message) {
   constructor(exception: IOException) : this(exception.message)
-}
-
-actual fun ioException(message: String?): IoException {
-  return JvmIoException(message)
 }

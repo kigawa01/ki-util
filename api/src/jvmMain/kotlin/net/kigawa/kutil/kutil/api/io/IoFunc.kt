@@ -1,11 +1,12 @@
-package net.kigawa.mcsm.util.io
+package net.kigawa.kutil.kutil.api.io
 
 import kotlinx.coroutines.withContext
+import net.kigawa.kutil.kutil.api.concurrent.Coroutines
 import java.io.BufferedReader
 import kotlin.coroutines.CoroutineContext
 
 suspend inline fun BufferedReader.forEachLineSuspend(
-  context: CoroutineContext = DefaultCoroutines.ioContext,
+  context: CoroutineContext = Coroutines.defaultIoContext,
   block: (String) -> Unit,
 ) {
   while (true) {

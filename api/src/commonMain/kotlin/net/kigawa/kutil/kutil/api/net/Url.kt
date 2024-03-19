@@ -1,6 +1,6 @@
-package net.kigawa.mcsm.util.net
+package net.kigawa.kutil.kutil.api.net
 
-import net.kigawa.mcsm.util.io.KuPath
+import net.kigawa.kutil.kutil.api.io.fs.KuPath
 
 @Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
 expect class Url(

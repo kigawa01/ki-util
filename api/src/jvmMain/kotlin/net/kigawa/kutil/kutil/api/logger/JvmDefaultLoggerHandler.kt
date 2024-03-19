@@ -3,7 +3,7 @@ package net.kigawa.kutil.kutil.api.logger
 import net.kigawa.kutil.kutil.api.logger.formatter.DefaultLoggerFormatter
 import net.kigawa.kutil.kutil.api.logger.formatter.LoggerFormatter
 import net.kigawa.kutil.kutil.api.logger.formatter.LoggerFormatterBridge
-import net.kigawa.kutil.kutil.api.string.objectformatter.DefaultObjFormatter
+import net.kigawa.kutil.kutil.api.str.objectformatter.DefaultObjFormatter
 import java.util.logging.ConsoleHandler
 import java.util.logging.Logger
 

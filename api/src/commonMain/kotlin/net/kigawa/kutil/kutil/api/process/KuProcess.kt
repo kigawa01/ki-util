@@ -1,8 +1,8 @@
-package net.kigawa.mcsm.util.process
+package net.kigawa.kutil.kutil.api.process
 
-import net.kigawa.mcsm.util.io.ReaderIo
-import net.kigawa.mcsm.util.io.SuspendCloseable
-import net.kigawa.mcsm.util.io.WriterIo
+import net.kigawa.kutil.kutil.api.io.ReaderIo
+import net.kigawa.kutil.kutil.api.io.SuspendCloseable
+import net.kigawa.kutil.kutil.api.io.WriterIo
 
 interface KuProcess : SuspendCloseable {
   fun reader(): ReaderIo<String>

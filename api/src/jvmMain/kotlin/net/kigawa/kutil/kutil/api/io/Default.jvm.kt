@@ -2,6 +2,7 @@ package net.kigawa.mcsm.util.io
 
 import kotlinx.coroutines.channels.Channel
 import net.kigawa.kutil.kutil.api.io.ChannelWriterIo
+import net.kigawa.kutil.kutil.api.io.WriterIo
 import net.kigawa.kutil.kutil.api.io.dispatchForEach
 
 @Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")

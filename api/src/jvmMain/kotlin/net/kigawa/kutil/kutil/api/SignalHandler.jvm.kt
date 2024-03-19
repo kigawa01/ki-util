@@ -1,4 +1,4 @@
-package net.kigawa.mcsm.util
+package net.kigawa.kutil.kutil.api
 
 import kotlin.concurrent.thread
 

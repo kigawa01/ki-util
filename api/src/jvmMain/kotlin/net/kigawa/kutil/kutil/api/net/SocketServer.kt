@@ -1,13 +1,14 @@
-package net.kigawa.mcsm.util.net
+package net.kigawa.kutil.kutil.api.net
 
 import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.isActive
 import net.kigawa.kutil.kutil.api.concurrent.Coroutines
-import net.kigawa.mcsm.util.io.KuPath
-import net.kigawa.mcsm.util.io.SuspendCloseable
+import net.kigawa.kutil.kutil.api.io.fs.KuPath
+import net.kigawa.kutil.kutil.api.io.SuspendCloseable
 import net.kigawa.kutil.kutil.api.logger.KuLogger
+import net.kigawa.kutil.kutil.api.net.SocketConnection
 import java.net.BindException
 import java.net.StandardProtocolFamily
 import java.net.UnixDomainSocketAddress
@@ -36,7 +37,9 @@ actual class SocketServer actual constructor(
     bindTask = coroutines.launchIo(start = CoroutineStart.LAZY) {
       try {
         while (serverSocketChannel.isOpen && isActive) {
-          conChannel.send(SocketConnection(serverSocketChannel.accept(), logger, coroutines))
+          conChannel.send(
+            net.kigawa.kutil.kutil.api.net.SocketConnection(serverSocketChannel.accept(), logger, coroutines)
+          )
           logger?.fine("client connected")
         }
 

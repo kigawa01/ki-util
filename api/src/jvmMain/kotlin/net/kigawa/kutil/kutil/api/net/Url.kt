@@ -1,8 +1,8 @@
-package net.kigawa.mcsm.util.net
+package net.kigawa.kutil.kutil.api.net
 
 import kotlinx.coroutines.withContext
 import net.kigawa.kutil.kutil.api.concurrent.Coroutines
-import net.kigawa.mcsm.util.io.KuPath
+import net.kigawa.kutil.kutil.api.io.fs.KuPath
 import java.io.FileOutputStream
 import java.net.URI
 import java.nio.channels.Channels
@@ -13,7 +13,7 @@ actual class Url actual constructor(
 ) {
   private val nativeUri = URI(strUrl)
   actual suspend fun download(to: KuPath) {
-    withContext(Coroutines.ioContext) {
+    withContext(Coroutines.defaultIoContext) {
       nativeUri.toURL().openStream().let {
         Channels.newChannel(it)
       }.use { channel ->

@@ -1,4 +1,4 @@
-package net.kigawa.kutil.kutil.api.string.objectformatter
+package net.kigawa.kutil.kutil.api.str.objectformatter
 
 class DefaultObjFormatter : ObjectFormatter {
   override fun format(obj: Any?): String {

@@ -1,6 +1,6 @@
-package net.kigawa.mcsm.util.validator
+package net.kigawa.kutil.kutil.api.validator
 
-import net.kigawa.mcsm.util.validator.str.StrValidator
+import net.kigawa.kutil.kutil.api.validator.str.StrValidator
 
 abstract class AbstractValidator<ORIGINAL : Any?, FROM : Any?, TO : Any?>(
   private val parent: Validator<ORIGINAL, *, FROM>

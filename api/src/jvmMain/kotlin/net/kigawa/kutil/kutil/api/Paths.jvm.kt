@@ -1,6 +1,6 @@
-package net.kigawa.mcsm.util
+package net.kigawa.kutil.kutil.api
 
-import net.kigawa.mcsm.util.io.KuPath
+import net.kigawa.kutil.kutil.api.io.fs.KuPath
 
 @Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
 actual enum class Paths(

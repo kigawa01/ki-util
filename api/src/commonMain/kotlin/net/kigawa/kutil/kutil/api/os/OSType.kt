@@ -1,4 +1,4 @@
-package net.kigawa.mcsm.util.os
+package net.kigawa.kutil.kutil.api.os
 
 enum class OSType {
   WINDOWS,

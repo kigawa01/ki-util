@@ -1,4 +1,4 @@
-package net.kigawa.mcsm.util.io
+package net.kigawa.kutil.kutil.api.io.fs
 
 import java.io.File
 
@@ -6,7 +6,7 @@ import java.io.File
 actual class KuFile(
   val nativeFile: File,
 ) {
-  actual fun remove() {
+  fun remove() {
     nativeFile.delete()
   }
 }

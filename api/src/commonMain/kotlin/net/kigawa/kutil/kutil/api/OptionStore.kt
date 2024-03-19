@@ -1,6 +1,4 @@
-package net.kigawa.mcsm.util
-
-import net.kigawa.mcsm.Option
+package net.kigawa.kutil.kutil.api
 
 class OptionStore {
   private val options = mutableMapOf<Option, String>()

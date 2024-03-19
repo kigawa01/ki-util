@@ -1,7 +1,7 @@
 package net.kigawa.kutil.kutil.api.list
 
 
-fun <E> Collection<E>.contains(filter: (E) -> Boolean): Boolean {
+fun <E> Collection<E>.containsIf(filter: (E) -> Boolean): Boolean {
   forEach {
     if (filter(it)) return true
   }

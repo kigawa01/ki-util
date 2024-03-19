@@ -1,7 +1,8 @@
-package net.kigawa.mcsm.util.process
+package net.kigawa.kutil.kutil.api.process
 
-import net.kigawa.mcsm.util.io.JvmIoException
-import net.kigawa.mcsm.util.io.KuDirectory
+import net.kigawa.kutil.kutil.api.io.IoException
+import net.kigawa.kutil.kutil.api.io.fs.KuDirectory
+
 import java.io.IOException
 
 @Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
@@ -12,7 +13,7 @@ actual class KuProcessBuilder actual constructor(vararg args: String) {
     try {
       return JvmProcess(processBuilder.start())
     } catch (e: IOException) {
-      throw JvmIoException(e)
+      throw IoException(e)
     }
   }
 
