@@ -7,7 +7,7 @@ import net.kigawa.kutil.kutil.api.logger.KuLogger
 import java.net.UnixDomainSocketAddress
 import java.nio.channels.SocketChannel
 
-@Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
+@Suppress("unused")
 actual class SocketClient actual constructor(
   path: KuPath,
   private val logger: KuLogger,

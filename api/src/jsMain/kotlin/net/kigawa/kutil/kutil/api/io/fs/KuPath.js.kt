@@ -2,7 +2,7 @@ package net.kigawa.kutil.kutil.api.io.fs
 
 import net.kigawa.kutil.kutil.api.list.KutilList
 
-@Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
+@Suppress("unused")
 actual class KuPath actual constructor(strPath: String) {
   actual companion object {
     actual val separator: String = "/"

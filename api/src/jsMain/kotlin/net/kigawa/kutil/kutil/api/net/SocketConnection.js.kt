@@ -3,7 +3,7 @@ package net.kigawa.kutil.kutil.api.net
 import kotlinx.coroutines.channels.Channel
 import net.kigawa.kutil.kutil.api.io.SuspendCloseable
 
-@Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
+@Suppress("unused")
 actual class SocketConnection : SuspendCloseable {
   actual fun reader(): Channel<String> {
     TODO("Not yet implemented")

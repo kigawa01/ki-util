@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package net.kigawa.kutil.kutil.api
 
 import net.kigawa.kutil.kutil.api.io.KuCloseable
@@ -6,6 +8,7 @@ import kotlin.contracts.ExperimentalContracts
 import kotlin.contracts.InvocationKind
 import kotlin.contracts.contract
 
+@Suppress("unused")
 object Kutil {
   fun fillStr(src: String, size: Int, fillChar: Char = ' '): String {
     val sb = StringBuilder(size)

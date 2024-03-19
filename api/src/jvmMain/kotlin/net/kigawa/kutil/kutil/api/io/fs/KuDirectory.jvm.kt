@@ -3,7 +3,7 @@ package net.kigawa.kutil.kutil.api.io.fs
 import net.kigawa.kutil.kutil.api.io.NotDirectoryException
 import java.io.File
 
-@Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
+@Suppress("unused")
 actual class KuDirectory(
   val nativeDirectory: File,
 ) {

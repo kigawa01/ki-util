@@ -3,6 +3,7 @@ package net.kigawa.kutil.kutil.api.str
 /**
  * to use colors
  */
+@Suppress("unused")
 enum class StringColor(private val color: String) {
   //Color end string, color reset
   RESET("\u001b[0m"),

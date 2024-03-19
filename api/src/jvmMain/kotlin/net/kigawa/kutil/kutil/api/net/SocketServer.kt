@@ -5,17 +5,16 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.isActive
 import net.kigawa.kutil.kutil.api.concurrent.Coroutines
-import net.kigawa.kutil.kutil.api.io.fs.KuPath
 import net.kigawa.kutil.kutil.api.io.SuspendCloseable
+import net.kigawa.kutil.kutil.api.io.fs.KuPath
 import net.kigawa.kutil.kutil.api.logger.KuLogger
-import net.kigawa.kutil.kutil.api.net.SocketConnection
 import java.net.BindException
 import java.net.StandardProtocolFamily
 import java.net.UnixDomainSocketAddress
 import java.nio.channels.AsynchronousCloseException
 import java.nio.channels.ServerSocketChannel
 
-@Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
+@Suppress("unused")
 actual class SocketServer actual constructor(
   path: KuPath,
   private val logger: KuLogger?,
@@ -38,7 +37,7 @@ actual class SocketServer actual constructor(
       try {
         while (serverSocketChannel.isOpen && isActive) {
           conChannel.send(
-            net.kigawa.kutil.kutil.api.net.SocketConnection(serverSocketChannel.accept(), logger, coroutines)
+            SocketConnection(serverSocketChannel.accept(), logger, coroutines)
           )
           logger?.fine("client connected")
         }

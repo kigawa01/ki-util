@@ -2,7 +2,7 @@ package net.kigawa.kutil.kutil.api.io.fs
 
 import java.io.File
 
-@Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
+@Suppress("unused")
 actual class KuFile(
   val nativeFile: File,
 ) {

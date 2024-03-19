@@ -6,7 +6,7 @@ import net.kigawa.kutil.kutil.api.io.SuspendCloseable
 import net.kigawa.kutil.kutil.api.io.fs.KuPath
 import net.kigawa.kutil.kutil.api.logger.KuLogger
 
-@Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
+@Suppress("unused")
 actual class SocketServer actual constructor(
   path: KuPath, logger: KuLogger?,
   coroutines: Coroutines,

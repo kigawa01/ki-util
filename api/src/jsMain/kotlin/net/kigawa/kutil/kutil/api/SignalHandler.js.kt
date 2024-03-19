@@ -1,6 +1,6 @@
 package net.kigawa.kutil.kutil.api
 
-@Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
+@Suppress("unused")
 actual object SignalHandler {
   actual fun shutdownHook(hook: () -> Unit) {
   }

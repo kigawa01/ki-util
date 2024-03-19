@@ -1,5 +1,6 @@
 package net.kigawa.kutil.kutil.api
 
+@Suppress("unused")
 class Version(
   private val strVersion: String,
 ) {

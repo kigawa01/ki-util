@@ -1,5 +1,6 @@
 package net.kigawa.kutil.kutil.api
 
+  @Suppress("unused")
 interface Option {
   val name: String
   val optName: String

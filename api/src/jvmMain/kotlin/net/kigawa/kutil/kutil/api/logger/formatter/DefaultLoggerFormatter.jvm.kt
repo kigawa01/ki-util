@@ -6,7 +6,6 @@ import java.time.Instant
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 
-@Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
 actual class DefaultLoggerFormatter : LoggerFormatter {
   private val datetimeFormatter = DateTimeFormatter.ofPattern("yy-MM-dd|HH-ss")
   private val objectFormatter = DefaultObjFormatter()

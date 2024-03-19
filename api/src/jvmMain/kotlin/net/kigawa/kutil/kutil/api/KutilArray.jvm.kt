@@ -1,6 +1,6 @@
 package net.kigawa.kutil.kutil.api
 
-@Suppress("unused", "EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
+@Suppress("unused")
 actual object KutilArray {
   /**
    * test obj contain in array

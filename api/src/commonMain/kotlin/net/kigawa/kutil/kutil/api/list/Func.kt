@@ -1,6 +1,7 @@
 package net.kigawa.kutil.kutil.api.list
 
 
+@Suppress("unused")
 fun <E> Collection<E>.containsIf(filter: (E) -> Boolean): Boolean {
   forEach {
     if (filter(it)) return true
@@ -8,6 +9,7 @@ fun <E> Collection<E>.containsIf(filter: (E) -> Boolean): Boolean {
   return false
 }
 
+@Suppress("unused")
 fun <E, R : Any> Collection<E>.firstOrNullMap(filter: (E) -> R?): R? {
   forEach {
     return filter.invoke(it) ?: return@forEach

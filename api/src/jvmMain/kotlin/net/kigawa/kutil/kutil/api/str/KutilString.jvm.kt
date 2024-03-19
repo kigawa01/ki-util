@@ -3,7 +3,7 @@ package net.kigawa.kutil.kutil.api.str
 import java.util.*
 import java.util.function.Function
 
-@Suppress("unused", "EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
+@Suppress("unused")
 actual object KutilString {
 
   /**

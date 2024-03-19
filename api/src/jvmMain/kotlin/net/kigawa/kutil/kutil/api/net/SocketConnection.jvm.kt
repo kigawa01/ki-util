@@ -12,7 +12,7 @@ import java.nio.channels.ClosedChannelException
 import java.nio.channels.SocketChannel
 import java.nio.charset.StandardCharsets
 
-@Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
+@Suppress("unused")
 actual class SocketConnection(
   private val socketChannel: SocketChannel,
   private val logger: KuLogger?,

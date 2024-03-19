@@ -5,7 +5,7 @@ import net.kigawa.kutil.kutil.api.io.fs.KuDirectory
 
 import java.io.IOException
 
-@Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
+@Suppress("unused")
 actual class KuProcessBuilder actual constructor(vararg args: String) {
   private val processBuilder = ProcessBuilder(*args)
 

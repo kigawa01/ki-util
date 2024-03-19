@@ -7,7 +7,7 @@ import java.io.FileOutputStream
 import java.net.URI
 import java.nio.channels.Channels
 
-@Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
+@Suppress("unused")
 actual class Url actual constructor(
   strUrl: String,
 ) {

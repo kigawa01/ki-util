@@ -2,7 +2,7 @@ package net.kigawa.kutil.kutil.api
 
 import kotlin.concurrent.thread
 
-@Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
+@Suppress("unused")
 actual object SignalHandler {
   actual fun shutdownHook(hook: () -> Unit) {
     Runtime.getRuntime().addShutdownHook(thread(start = false) {
