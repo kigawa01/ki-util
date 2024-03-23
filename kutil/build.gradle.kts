@@ -4,7 +4,7 @@ plugins {
   `maven-publish`
   signing
   id("net.kigawa.kutil.kutil.java-conventions")
-  id("org.jetbrains.dokka") version "1.9.10"
+  id("org.jetbrains.dokka") version "1.9.20"
 }
 
 dependencies {
@@ -20,7 +20,7 @@ publishing {
       pom {
         name.set("kutil")
         description.set("utilities for kotlin")
-        url.set("https://github.com/kigawa01/kutil-java/")
+        url.set("https://github.com/kigawa01/kutil/")
         properties.set(
           mapOf(
           )
