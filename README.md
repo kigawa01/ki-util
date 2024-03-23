@@ -2,7 +2,7 @@
 
 ## About
 
-* javaのutility
+* kotlinのutility
 
 ## Use
 
@@ -11,7 +11,7 @@
         <dependency>
             <groupId>net.kigawa.kutil</groupId>
             <artifactId>kutil</artifactId>
-            <version>2.2.1</version>
+            <version>3.0.0</version>
         </dependency>
         ......
     </dependencies>
@@ -19,12 +19,12 @@
 
 ## Requirement
 
-* java
+* kotlin
 
 ## Author
 
 * kigawa
-    * kigawa.8390@gmail.com
+    * contact@kigawa.net
 
 # Making
 
