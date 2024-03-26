@@ -8,7 +8,6 @@ plugins {
 }
 
 dependencies {
-  commonMainImplementation(project(":api"))
 }
 
 publishing {

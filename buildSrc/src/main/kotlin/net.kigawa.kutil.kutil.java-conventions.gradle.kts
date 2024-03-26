@@ -20,6 +20,7 @@ repositories {
 dependencies {
   commonMainImplementation("org.jetbrains.kotlin:kotlin-stdlib")
   commonTestImplementation(kotlin("test-common"))
+  commonMainImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
 }
 
 version = ProjectConfig.VERSION
