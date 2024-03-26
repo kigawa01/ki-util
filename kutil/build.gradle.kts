@@ -9,7 +9,10 @@ plugins {
 
 dependencies {
 }
-
+val javadocJar by tasks.registering(Jar::class) {
+  archiveClassifier.set("javadoc")
+  from(tasks.dokkaHtml)
+}
 publishing {
   publications {
     withType<MavenPublication> {
@@ -44,6 +47,13 @@ publishing {
         }
       }
     }
+  }
+  publications.forEach {
+    if (it !is MavenPublication) {
+      return@forEach
+    }
+
+    it.artifact(javadocJar)
   }
 
   repositories {
