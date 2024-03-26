@@ -7,6 +7,6 @@ fun LogLevel.javaLevel(): Level? {
   return Level.parse(this.name)
 }
 
-fun Level.logLevel(): LogLevel = LogLevel.entries.first {
+fun Level.logLevel(): LogLevel = LogLevel.values().first {
   it.name.lowercase() == this.name.lowercase()
 }
