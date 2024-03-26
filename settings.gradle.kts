@@ -3,6 +3,4 @@
  */
 
 rootProject.name = "kutil"
-include("api")
 include("kutil")
-//include("impl")
