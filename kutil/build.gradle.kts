@@ -15,8 +15,8 @@ publishing {
 
   publications {
     withType<MavenPublication> {
-      artifactId = if (name == "kotlinMultiplatform") artifactId
-      else "$artifactId-$name"
+//      artifactId = if (name == "kotlinMultiplatform") artifactId
+//      else "$artifactId-$name"
 
       pom {
         name.set("kutil")
